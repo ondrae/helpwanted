@@ -1,24 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<div class="page-header">
+  <h1><%= @project.name %> <small><%= @project.description %></small></h1>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @project.url %>
-</p>
-
-<p>
-  <strong>Collection:</strong>
-  <%= @project.collection %>
-</p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %> |
+<%= link_to 'Back', projects_path, class: 'btn btn-default' %> |
+<%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %>

@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Collections</h1>
+<div class="page-header">
+  <h1>Collections</h1>
+</div>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -26,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Collection', new_collection_path %>
+<%= link_to 'New Collection', new_collection_path, class: 'btn btn-default' %>

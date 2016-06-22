@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    @projects = Project.where(collection: @collection)
   end
 
   # GET /collections/new
