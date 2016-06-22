@@ -4,8 +4,6 @@
   <h1><%= @collection.name %> <small><%= @collection.description %></small></h1>
 </div>
 
-<%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
-
 <table class="table">
   <caption><%= @collection.name %>'s Projects</caption>
   <thead>
@@ -29,5 +27,6 @@
   </tbody>
 </table>
 
-<%= link_to 'Back', collections_path, class: 'btn btn-default' %> |
-<%= link_to 'Edit', edit_collection_path(@collection), class: 'btn btn-default' %>
+<%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %> |
+<%= link_to 'Edit', edit_collection_path(@collection), class: 'btn btn-success' %> |
+<%= link_to 'Back', collections_path, class: 'btn btn-default' %>

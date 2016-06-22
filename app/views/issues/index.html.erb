@@ -1,11 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header">
-  <h1><%= @project.name %> <small><%= @project.description %></small></h1>
+  <h1>Issues</h1>
 </div>
 
 <table class="table">
-  <caption><%= @project.name %>'s Issues</caption>
   <thead>
     <tr>
       <th>Title</th>
@@ -33,10 +32,6 @@
   </tbody>
 </table>
 
+<br>
 
-
-
-
-<%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %> |
-<%= link_to 'Back', projects_path, class: 'btn btn-default' %> |
-<%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %>
+<%= link_to 'New Issue', new_issue_path, class: 'btn btn-default' %>

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+  <h1><%= @issue.title %></h1>
+</div>
+
+<p><%= @issue.body %></p>
+<p><%= @issue.url %></p>
+<p><%= @issue.labels %></p>
+
+<%= link_to 'New Issue', new_issue_path, class: 'btn btn-primary' %> |
+<%= link_to 'Edit', edit_issue_path(@issue), class: 'btn btn-success' %> |
+<%= link_to 'Back', issues_path, class: 'btn btn-default' %>
