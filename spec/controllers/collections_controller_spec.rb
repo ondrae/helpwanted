@@ -31,7 +31,7 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "" }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -52,6 +52,17 @@ RSpec.describe CollectionsController, type: :controller do
       collection = Collection.create! valid_attributes
       get :show, {:id => collection.to_param}, valid_session
       expect(assigns(:collection)).to eq(collection)
+    end
+
+    it "lists that collection's projects" do
+      collection = Collection.create! valid_attributes
+      other_collection = Collection.create! valid_attributes
+      project1 = Project.create!(name: "Project One", collection: collection)
+      project2 = Project.create!(name: "Project Two", collection: collection)
+      project3 = Project.create!(name: "Project Three", collection: other_collection)
+
+      get :show, {:id => collection.to_param}, valid_session
+      expect(assigns[:projects].count).to eq(2)
     end
   end
 
@@ -106,14 +117,18 @@ RSpec.describe CollectionsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: "UPDATED NAME",
+          description: "UPDATED DESCRIPTION"
+        }
       }
 
       it "updates the requested collection" do
         collection = Collection.create! valid_attributes
         put :update, {:id => collection.to_param, :collection => new_attributes}, valid_session
         collection.reload
-        skip("Add assertions for updated state")
+        expect(collection.name).to eq("UPDATED NAME")
+        expect(collection.description).to eq("UPDATED DESCRIPTION")
       end
 
       it "assigns the requested collection as @collection" do
