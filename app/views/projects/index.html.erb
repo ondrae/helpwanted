@@ -18,11 +18,10 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.name %></td>
+        <td><%= link_to project.name, project %></td>
         <td><%= project.description %></td>
         <td><%= project.url %></td>
         <td><%= link_to project.collection.name, project.collection %></td>
-        <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Update', update_from_github_project_path(project), method: :put %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
