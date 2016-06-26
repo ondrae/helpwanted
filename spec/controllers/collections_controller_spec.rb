@@ -55,11 +55,12 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it "lists that collection's projects" do
-      collection = Collection.create! valid_attributes
-      other_collection = Collection.create! valid_attributes
-      project1 = Project.create!(name: "Project One", collection: collection)
-      project2 = Project.create!(name: "Project Two", collection: collection)
-      project3 = Project.create!(name: "Project Three", collection: other_collection)
+      collection = create :collection
+      other_collection = create :collection
+
+      create :project, collection: collection
+      create :project, collection: collection
+      create :project, collection: other_collection
 
       get :show, {:id => collection.to_param}, valid_session
       expect(assigns[:projects].count).to eq(2)
