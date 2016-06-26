@@ -9,13 +9,13 @@ class GithubProject
 
   def initialize(url)
     @url = url
-    @github_api = Octokit::Client.new(:access_token => ENV["github_token"])
+    @github_api = Octokit::Client.new(:access_token => ENV["github_token"], :auto_paginate => true)
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+)\/?/ =~ @url
     @repo_path = repo_path
   end
 
-  def data
-    @data ||= @github_api.repo @repo_path
+  def project
+    @project ||= @github_api.repo @repo_path
   end
 
   def repo_path
@@ -23,11 +23,15 @@ class GithubProject
   end
 
   def name
-    self.data[:name]
+    self.project[:name]
   end
 
   def description
-    self.data[:description]
+    self.project[:description]
+  end
+
+  def issues
+    @issues ||= @github_api.issues @repo_path
   end
 
 end

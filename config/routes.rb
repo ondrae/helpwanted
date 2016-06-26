@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :issues
+  resources :issues, only: %i[index show]
   resources :projects do
     member do
       put "update_from_github"
