@@ -9,12 +9,14 @@ class ProjectsController < ApplicationController
   end
 
   def update_issues(gh)
-    gh.issues.map do |issue|
-      exisiting_issue = Issue.where(project_id: @project.id, url: issue.html_url).first
-      if exisiting_issue
-        exisiting_issue.update(title: issue.title)
-      else
-        Issue.create(title: issue.title, project: @project, url: issue.html_url)
+    unless gh.issues.blank?
+      gh.issues.map do |issue|
+        exisiting_issue = Issue.where(project_id: @project.id, url: issue.html_url).first
+        if exisiting_issue
+          exisiting_issue.update(title: issue.title)
+        else
+          Issue.create(title: issue.title, project: @project, url: issue.html_url)
+        end
       end
     end
   end

@@ -30,7 +30,7 @@ RSpec.describe GithubProject, type: :model do
 
     it "gets the projects issues" do
       expect(@gh.issues.count).to eq(2)
-      expect(@gh.issues[0].title).to eq("TITLE ONE")
+      expect(@gh.issues[0][:title]).to eq("TITLE ONE")
     end
   end
 

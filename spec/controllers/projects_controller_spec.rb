@@ -49,6 +49,7 @@ RSpec.describe ProjectsController, type: :controller do
       allow(GithubProject).to receive(:new).and_return(github_project)
       allow(github_project).to receive(:name).and_return("UPDATED NAME")
       allow(github_project).to receive(:description).and_return("UPDATED DESCRIPTION")
+      allow(github_project).to receive(:issues)
       project = create :project
       put :update_from_github, {:id => project.to_param}, valid_session
       project.reload
