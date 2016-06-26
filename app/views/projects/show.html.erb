@@ -39,4 +39,5 @@
 
 <%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %> |
 <%= link_to 'Back', projects_path, class: 'btn btn-default' %> |
-<%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %>
+<%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %> |
+<%= link_to 'Update', update_from_github_project_path(@project), method: :put, class: 'btn btn-success' %>

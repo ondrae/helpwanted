@@ -1,5 +1,11 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :update_from_github]
+
+  def update_from_github
+    gh = GithubProject.new(@project.url)
+    @project.update(name: gh.name, description: gh.description)
+    redirect_to @project
+  end
 
   # GET /projects
   # GET /projects.json
@@ -70,6 +76,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :url, :collection_id)
+      params.require(:project).permit(:url, :collection_id)
     end
 end

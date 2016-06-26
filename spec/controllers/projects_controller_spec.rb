@@ -40,6 +40,21 @@ RSpec.describe ProjectsController, type: :controller do
   # ProjectsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  describe "PUT #update_from_github" do
+    let(:github_project) { double(GithubProject) }
+
+    it "gets new attributes from Github" do
+      allow(GithubProject).to receive(:new).and_return(github_project)
+      allow(github_project).to receive(:name).and_return("UPDATED NAME")
+      allow(github_project).to receive(:description).and_return("UPDATED DESCRIPTION")
+      project = create :project
+      put :update_from_github, {:id => project.to_param}, valid_session
+      project.reload
+      expect(project.name).to eq("UPDATED NAME")
+      expect(project.description).to eq("UPDATED DESCRIPTION")
+    end
+  end
+
   describe "GET #index" do
     it "assigns all projects as @projects" do
       project = Project.create! valid_attributes
