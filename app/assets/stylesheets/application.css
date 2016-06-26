@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.page-header h1 {
+  display: inline;
+}

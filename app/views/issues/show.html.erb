@@ -2,9 +2,8 @@
 
 <div class="page-header">
   <h1><%= @issue.title %></h1>
+  <%= link_to 'Back', issue_path, class: 'btn btn-default' %>
 </div>
 
 <p><%= @issue.url %></p>
 <p><%= @issue.labels %></p>
-
-<%= link_to 'Back', issue_path, class: 'btn btn-default' %>
