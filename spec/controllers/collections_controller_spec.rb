@@ -67,6 +67,15 @@ RSpec.describe CollectionsController, type: :controller do
     end
   end
 
+  describe "GET #issues" do
+    it "lists all the collection's issues" do
+      create :issue, title: "TEST ISSUE"
+      get :issues, {:collection_id => Collection.first.id }, valid_session
+      expect(assigns[:issues].first.title).to eq("TEST ISSUE")
+      expect(assigns[:collection].id).to eq(Collection.first.id)
+    end
+  end
+
   describe "GET #new" do
     it "assigns a new collection as @collection" do
       get :new, {}, valid_session

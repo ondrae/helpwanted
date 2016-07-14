@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy, :issues]
 
   # GET /collections
   # GET /collections.json
@@ -10,7 +10,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
-    @projects = Project.where(collection: @collection)
+    @projects = @collection.projects
   end
 
   # GET /collections/new
@@ -62,10 +62,18 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def issues
+    @issues = @collection.issues
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collection
-      @collection = Collection.find(params[:id])
+      if params[:id]
+        @collection = Collection.find(params[:id])
+      elsif params[:collection_id]
+        @collection = Collection.find(params[:collection_id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

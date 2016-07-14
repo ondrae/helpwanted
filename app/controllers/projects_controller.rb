@@ -2,23 +2,9 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :update_from_github]
 
   def update_from_github
-    gh = GithubProject.new(@project.url)
-    @project.update(name: gh.name, description: gh.description)
-    update_issues(gh)
+    @project.update_project
+    @project.update_issues
     redirect_to @project
-  end
-
-  def update_issues(gh)
-    unless gh.issues.blank?
-      gh.issues.map do |issue|
-        exisiting_issue = Issue.where(project_id: @project.id, url: issue.html_url).first
-        if exisiting_issue
-          exisiting_issue.update(title: issue.title)
-        else
-          Issue.create(title: issue.title, project: @project, url: issue.html_url)
-        end
-      end
-    end
   end
 
   # GET /projects
