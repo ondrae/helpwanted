@@ -9,4 +9,9 @@ RSpec.describe Issue, type: :model do
     end
   end
 
+  it "has an issue number" do
+    issue = create :issue
+    expect(issue.number).to eq("1")
+  end
+
 end
