@@ -13,11 +13,11 @@ class Project < ActiveRecord::Base
     gh_project = GithubProject.new(self.url)
     unless gh_project.issues.blank?
       gh_project.issues.map do |issue|
-        exisiting_issue = Issue.where(project_id: self.id, url: issue.html_url).first
+        exisiting_issue = Issue.where(project_id: self.id, url: issue.url).first
         if exisiting_issue
           exisiting_issue.update(title: issue.title)
         else
-          Issue.create(title: issue.title, project: self, url: issue.html_url)
+          Issue.create(title: issue.title, project: self, url: issue.url)
         end
       end
     end

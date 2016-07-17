@@ -19,12 +19,12 @@ RSpec.describe Project, type: :model do
   end
 
   describe "#update_issues" do
-    let(:gh_project){ double(GithubProject, issues:[double(Issue, title: "UPDATED TITLE", html_url: "https://api.github.com/repos/TEST_GITHUB_ACCOUNT/TEST_PROJECT")] ) }
+    let(:gh_project){ double(GithubProject, issues:[double(Issue, title: "UPDATED TITLE", url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1")] ) }
     before do
       allow(GithubProject).to receive(:new).and_return( gh_project )
       create :issue, project: @project
     end
-    it "updates the project" do
+    it "updates the projects issues" do
       @project.update_issues
 
       expect(@project.issues.first.title).to eq "UPDATED TITLE"
