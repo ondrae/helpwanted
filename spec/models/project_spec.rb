@@ -21,7 +21,7 @@ RSpec.describe Project, type: :model do
   describe "#update_issues" do
     issue_params = {
       title: "UPDATED TITLE",
-      url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
+      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
       labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
     }
     let(:gh_project){ double(GithubProject, issues:[double(Issue, issue_params)] ) }
