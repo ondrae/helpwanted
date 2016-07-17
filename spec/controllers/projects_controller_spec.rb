@@ -90,6 +90,18 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe "POST #create" do
+
+    issue_params = {
+      title: "UPDATED TITLE",
+      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
+      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
+    }
+    let(:issues){ double(Issue, issue_params) }
+    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
+    before do
+      allow(GithubProject).to receive(:new).and_return( gh_project )
+    end
+
     context "with valid params" do
       it "creates a new Project" do
         expect {
@@ -106,6 +118,11 @@ RSpec.describe ProjectsController, type: :controller do
       it "redirects to the created project" do
         post :create, {:project => valid_attributes}, valid_session
         expect(response).to redirect_to(Project.last)
+      end
+
+      it "updates the project from Github" do
+        post :create, {:project => valid_attributes}, valid_session
+        expect(Project.last.name).to eq("UPDATED NAME")
       end
     end
 

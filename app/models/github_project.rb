@@ -5,11 +5,11 @@ class GithubProject
   validates_format_of :url, :with => URI.regexp
   validates_format_of :url, :with => /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+\/?/
 
-  attr_accessor :url
+  attr_accessor :url, :github_api
 
   def initialize(url)
     @url = url
-    @github_api = Octokit::Client.new(:access_token => ENV["github_token"], :auto_paginate => true)
+    @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: true)
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+)\/?/ =~ @url
     @repo_path = repo_path
   end
