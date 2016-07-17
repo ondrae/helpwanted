@@ -7,7 +7,6 @@ class Project < ActiveRecord::Base
   def update_project
     gh_project = GithubProject.new(self.url)
     self.update(name: gh_project.name, description: gh_project.description)
-    rate_limit_check(gh_project)
     update_issues
   end
 
@@ -25,14 +24,9 @@ class Project < ActiveRecord::Base
         end
       end
     end
-    rate_limit_check(gh_project)
   end
 
   def labels(labels)
     labels.map { |label| label[:name] }
-  end
-
-  def rate_limit_check(gh_project)
-    puts "GITHUB LIMIT REMAINING: " + gh_project.github_api.last_response.headers["x-ratelimit-remaining"]
   end
 end

@@ -5,7 +5,7 @@ class GithubProject
   validates_format_of :url, :with => URI.regexp
   validates_format_of :url, :with => /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+\/?/
 
-  attr_accessor :url, :github_api
+  attr_accessor :url
 
   def initialize(url)
     @url = url
