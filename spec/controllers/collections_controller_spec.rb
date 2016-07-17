@@ -23,10 +23,12 @@ RSpec.describe CollectionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Collection. As you add validations to Collection, be sure to
   # adjust the attributes here as well.
+  let(:user){ create :user }
   let(:valid_attributes) do
     {
       name: "TEST NAME",
-      description: "TEST DESCRIPTION"
+      description: "TEST DESCRIPTION",
+      user: user
     }
   end
 
