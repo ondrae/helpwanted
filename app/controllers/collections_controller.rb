@@ -1,5 +1,10 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy, :issues]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy, :issues, :update_from_github]
+
+  def update_from_github
+    @collection.update_projects
+    redirect_to @collection
+  end
 
   # GET /collections
   # GET /collections.json

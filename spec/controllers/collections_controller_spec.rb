@@ -39,6 +39,39 @@ RSpec.describe CollectionsController, type: :controller do
   # CollectionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  describe "PUT #update_from_github" do
+    issue_params = {
+      title: "UPDATED TITLE",
+      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
+      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
+    }
+    let(:issues){ double(Issue, issue_params) }
+    let(:github_project) { double(GithubProject) }
+
+    before do
+      allow(GithubProject).to receive(:new).and_return(github_project)
+      allow(github_project).to receive(:name).and_return("UPDATED NAME")
+      allow(github_project).to receive(:description).and_return("UPDATED DESCRIPTION")
+      allow(github_project).to receive(:issues).and_return([issues])
+      @collection = create :collection
+      @project = create :project, collection: @collection
+      @issue = create :issue, project: @project
+      put :update_from_github, {:id => @collection.to_param}, valid_session
+      @project.reload
+      @issue.reload
+    end
+
+    it "updates the project" do
+      expect(@project.name).to eq("UPDATED NAME")
+      expect(@project.description).to eq("UPDATED DESCRIPTION")
+    end
+
+    it "updates the labels" do
+      expect(@issue.title).to eq("UPDATED TITLE")
+      expect(@issue.labels).to eq(["UPDATED LABEL ONE","UPDATED LABEL TWO"])
+    end
+  end
+
   describe "GET #index" do
     it "assigns all collections as @collections" do
       collection = Collection.create! valid_attributes

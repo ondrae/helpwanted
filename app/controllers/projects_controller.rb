@@ -3,7 +3,6 @@ class ProjectsController < ApplicationController
 
   def update_from_github
     @project.update_project
-    @project.update_issues
     redirect_to @project
   end
 

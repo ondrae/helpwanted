@@ -10,4 +10,8 @@ class Collection < ActiveRecord::Base
   def issues
     @issues = self.projects.map { |project| Issue.where(project: project) }.flatten
   end
+
+  def update_projects
+    projects.map { |project| project.update_project }
+  end
 end
