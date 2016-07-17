@@ -6,6 +6,7 @@
     <%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
     <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-info' %>
     <%= link_to 'Update', update_from_github_project_path(@project), method: :put, class: 'btn btn-success' %>
+    <%= link_to 'Remove', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   </div>
 
 </div>
