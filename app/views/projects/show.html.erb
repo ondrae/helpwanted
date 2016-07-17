@@ -27,7 +27,7 @@
         <tr>
           <td><%= link_to issue.title , issue%></td>
           <td><%= issue.url %></td>
-          <td><%= issue.labels %></td>
+          <td><%= issue.label_string %></td>
           <td><%= link_to issue.project.name, issue.project %></td>
         </tr>
       <% end %>

@@ -19,15 +19,26 @@ RSpec.describe Project, type: :model do
   end
 
   describe "#update_issues" do
-    let(:gh_project){ double(GithubProject, issues:[double(Issue, title: "UPDATED TITLE", url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1")] ) }
+    issue_params = {
+      title: "UPDATED TITLE",
+      url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
+      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
+    }
+    let(:gh_project){ double(GithubProject, issues:[double(Issue, issue_params)] ) }
     before do
       allow(GithubProject).to receive(:new).and_return( gh_project )
       create :issue, project: @project
     end
-    it "updates the projects issues" do
+    it "updates the projects issue title" do
       @project.update_issues
 
       expect(@project.issues.first.title).to eq "UPDATED TITLE"
+    end
+
+    it "updates the projects issue labels" do
+      @project.update_issues
+
+      expect(@project.issues.first.labels).to eq ["UPDATED LABEL ONE", "UPDATED LABEL TWO"]
     end
   end
 
