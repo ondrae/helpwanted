@@ -17,4 +17,12 @@ class User < ActiveRecord::Base
      user.image = auth.info.image
     end
   end
+
+  def projects
+    @projects = self.collections.map { |collection| Project.where(collection: collection) }.flatten
+  end
+
+  def update_collections
+    collections.map { |collection| collection.update_projects }
+  end
 end
