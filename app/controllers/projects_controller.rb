@@ -26,11 +26,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    if params[:collection_id]
-      @collection = Collection.find(params[:collection_id])
-    else
-      @collections = current_user.collections
-    end
+    @collections = current_user.collections
   end
 
   # GET /projects/1/edit
@@ -40,18 +36,28 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
-    @project.update_project
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+    if create_single_project?
+      @project = Project.new(project_params)
+      @project.update_project
+      redirect_to @project
+
+    elsif create_all_orgs_projects?
+
+      @projects = GithubOrganization.new(project_params[:url]).projects
+      @projects.map do |gh_project|
+        gh_project_params = {
+          name: gh_project.name,
+          description: gh_project.description,
+          url: gh_project.html_url,
+          collection_id: project_params[:collection_id]
+        }
+        project = Project.create(gh_project_params)
+        project.update_issues
       end
+      redirect_to collection_path(project_params[:collection_id])
     end
+
   end
 
   # PATCH/PUT /projects/1
@@ -79,13 +85,23 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
+  def create_single_project?
+    /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
+    repo_path.present?
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      params.require(:project).permit(:url, :collection_id)
-    end
+  def create_all_orgs_projects?
+    /github\.com\/(?<org_name>[a-zA-Z\-_0-9]+)?/ =~ params[:project][:url]
+    org_name.present?
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    params.require(:project).permit(:url, :collection_id)
+  end
 end

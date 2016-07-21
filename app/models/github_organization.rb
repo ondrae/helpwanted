@@ -14,8 +14,8 @@ class GithubOrganization
     @org_name = org_name
   end
 
-  def repos
-    @repos ||= @github_api.org_repos @org_name
+  def projects
+    @projects ||= @github_api.org_repos @org_name
   end
 
   def org_name

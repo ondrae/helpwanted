@@ -10,8 +10,6 @@ class Project < ActiveRecord::Base
     update_issues
   end
 
-  private
-
   def update_issues
     gh_project = GithubProject.new(self.url)
     unless gh_project.issues.blank?
@@ -25,6 +23,8 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
+  private
 
   def labels(labels)
     labels.map { |label| label[:name] }

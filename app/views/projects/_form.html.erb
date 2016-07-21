@@ -14,11 +14,12 @@
   <div class="form-group">
     <%= f.label :url %><br>
     <%= f.text_field :url, class: 'form-control' %>
+    <p class="help-block">Add a Github project or org url</p>
   </div>
 
   <div class="form-group">
-    <%= f.label :project_id %>
-    <%= f.collection_select :collection_id, Collection.all, :id, :name, {}, class: 'form-control' %>
+    <%= f.label :collection_id %>
+    <%= f.collection_select :collection_id, @collections, :id, :name, {}, class: 'form-control' %>
   </div>
 
   <div class="actions">

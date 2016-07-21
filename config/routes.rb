@@ -10,7 +10,6 @@ Rails.application.routes.draw do
 
   resources :collections do
     get "issues"
-    resources :projects
     member do
       put "update_from_github"
     end

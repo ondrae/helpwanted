@@ -96,53 +96,78 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe "POST #create" do
+    context "an organization url" do
 
-    issue_params = {
-      title: "UPDATED TITLE",
-      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
-      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
-    }
-    let(:issues){ double(Issue, issue_params) }
-    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
-    before do
-      allow(GithubProject).to receive(:new).and_return( gh_project )
-    end
+      let(:org_url_params) { { url: "https://github.com/TESTORG", collection_id: 1 } }
 
-    context "with valid params" do
-      it "creates a new Project" do
+      let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT" ) }
+      let(:gh_org){ double(GithubOrganization, projects: [gh_project, gh_project]) }
+      before do
+        create :collection, id: 1
+        allow(GithubOrganization).to receive(:new).and_return( gh_org )
+        allow_any_instance_of(Project).to receive(:update_issues)
+      end
+
+      it "creates two new Projects" do
         expect {
+          post :create, {project: org_url_params }, valid_session
+        }.to change(Project, :count).by(2)
+      end
+
+    end
+
+    context "a project url" do
+
+      issue_params = {
+        title: "UPDATED TITLE",
+        html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
+        labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
+      }
+      let(:issues){ double(Issue, issue_params) }
+      let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
+      before do
+        allow(GithubProject).to receive(:new).and_return( gh_project )
+      end
+
+      context "with valid params" do
+        it "creates a new Project" do
+          expect {
+            post :create, {:project => valid_attributes}, valid_session
+          }.to change(Project, :count).by(1)
+        end
+
+        it "assigns a newly created project as @project" do
           post :create, {:project => valid_attributes}, valid_session
-        }.to change(Project, :count).by(1)
+          expect(assigns(:project)).to be_a(Project)
+          expect(assigns(:project)).to be_persisted
+        end
+
+        it "redirects to the created project" do
+          post :create, {:project => valid_attributes}, valid_session
+          expect(response).to redirect_to(Project.last)
+        end
+
+        it "updates the project from Github" do
+          post :create, {:project => valid_attributes}, valid_session
+          expect(Project.last.name).to eq("UPDATED NAME")
+        end
       end
 
-      it "assigns a newly created project as @project" do
-        post :create, {:project => valid_attributes}, valid_session
-        expect(assigns(:project)).to be_a(Project)
-        expect(assigns(:project)).to be_persisted
-      end
+      # context "with invalid params" do
+      #   it "assigns a newly created but unsaved project as @project" do
+      #     post :create, {:project => invalid_attributes}, valid_session
+      #     expect(assigns(:project)).to be_a_new(Project)
+      #   end
+      #
+      #   it "re-renders the 'new' template" do
+      #     post :create, {:project => invalid_attributes}, valid_session
+      #     expect(response).to render_template("new")
+      #   end
+      # end
 
-      it "redirects to the created project" do
-        post :create, {:project => valid_attributes}, valid_session
-        expect(response).to redirect_to(Project.last)
-      end
-
-      it "updates the project from Github" do
-        post :create, {:project => valid_attributes}, valid_session
-        expect(Project.last.name).to eq("UPDATED NAME")
-      end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved project as @project" do
-        post :create, {:project => invalid_attributes}, valid_session
-        expect(assigns(:project)).to be_a_new(Project)
-      end
 
-      it "re-renders the 'new' template" do
-        post :create, {:project => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
   end
 
   describe "PUT #update" do
