@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProjectsController, type: :controller do
+  include Devise::TestHelpers
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
@@ -75,6 +76,11 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe "GET #new" do
+    let(:user){create :user}
+    let(:collection){create :collection, user: user}
+    before do
+      sign_in user
+    end
     it "assigns a new project as @project" do
       get :new, {}, valid_session
       expect(assigns(:project)).to be_a_new(Project)

@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     @projects = self.collections.map { |collection| Project.where(collection: collection) }.flatten
   end
 
+  def issues
+    @issues = self.projects.map { |project| Issue.where(project: project) }.flatten
+  end
+
   def update_collections
     collections.map { |collection| collection.update_projects }
   end

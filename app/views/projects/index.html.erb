@@ -2,7 +2,9 @@
 
 <div class="page-header">
   <h1>Projects</h1>
-  <%= link_to 'New project', new_project_path, class: 'btn btn-primary pull-right' %>
+  <% if user_signed_in? %>
+    <%= link_to 'New project', new_project_path, class: 'btn btn-primary pull-right' %>
+  <% end %>
 </div>
 
 <table class="table">

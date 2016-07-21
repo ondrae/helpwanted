@@ -6,21 +6,10 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default default-color">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -35,16 +24,14 @@
         <ul class="nav navbar-nav navbar-right">
 
           <% if user_signed_in? %>
-          <li><%= link_to image_tag(current_user.image, size: "32", style: "border-radius: 2px;")%></li>
-          <li><%= link_to current_user.github_name %></li>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            <li><%= link_to "#{image_tag(current_user.image, size: '32', style: 'border-radius: 2px;')} #{current_user.github_name.titleize}".html_safe, "/" + current_user.github_name, id: "github-info" %></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
           <% else %>
-          <li><%= link_to "Sign in", new_user_session_path %></li>
+            <li><%= link_to "Sign in with Github", user_github_omniauth_authorize_path %></li>
+            <li><a href="/collections">All Collections</a></li>
+            <li><a href="/projects">All Projects</a></li>
+            <li><a href="/issues">All Issues</a></li>
           <% end %>
-
-          <li><a href="/collections">Collections</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/issues">Issues</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->

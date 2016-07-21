@@ -19,6 +19,12 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe CollectionsController, type: :controller do
+  include Devise::TestHelpers
+
+  def setup
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in FactoryGirl.create(:user)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Collection. As you add validations to Collection, be sure to

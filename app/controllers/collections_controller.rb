@@ -9,7 +9,12 @@ class CollectionsController < ApplicationController
   # GET /collections
   # GET /collections.json
   def index
-    @collections = Collection.all
+    if params[:github_name]
+      @user = User.find_by_github_name(params[:github_name])
+      @collections = @user.collections
+    else
+      @collections = Collection.all
+    end
   end
 
   # GET /collections/1
@@ -30,7 +35,7 @@ class CollectionsController < ApplicationController
   # POST /collections
   # POST /collections.json
   def create
-    @collection = Collection.new(collection_params)
+    @collection = Collection.new(collection_params.merge(user: current_user))
 
     respond_to do |format|
       if @collection.save

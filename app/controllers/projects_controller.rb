@@ -9,7 +9,12 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    if params[:github_name]
+      @user = User.find_by_github_name(params[:github_name])
+      @projects = @user.projects
+    else
+      @projects = Project.all
+    end
   end
 
   # GET /projects/1
@@ -21,6 +26,11 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    if params[:collection_id]
+      @collection = Collection.find(params[:collection_id])
+    else
+      @collections = current_user.collections
+    end
   end
 
   # GET /projects/1/edit
