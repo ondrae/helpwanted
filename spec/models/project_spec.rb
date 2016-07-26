@@ -24,13 +24,13 @@ RSpec.describe Project, type: :model do
     end
 
     it "updates the projects issue title" do
-      @project.update_project
+      @project.update_issues
 
       expect(@project.issues.first.title).to eq "UPDATED TITLE"
     end
 
     it "updates the projects issue labels" do
-      @project.update_project
+      @project.update_issues
 
       expect(@project.issues.first.labels).to eq ["UPDATED LABEL ONE", "UPDATED LABEL TWO"]
     end

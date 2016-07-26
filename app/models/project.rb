@@ -7,7 +7,6 @@ class Project < ActiveRecord::Base
   def update_project
     gh_project = GithubProject.new(self.url)
     self.update(name: gh_project.name, description: gh_project.description)
-    update_issues
   end
 
   def update_issues

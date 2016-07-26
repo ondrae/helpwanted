@@ -13,6 +13,9 @@ class Collection < ActiveRecord::Base
   end
 
   def update_projects
-    projects.map { |project| project.update_project }
+    projects.map do |project|
+      project.update_project
+      project.update_issues
+    end
   end
 end
