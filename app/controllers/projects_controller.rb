@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :update_from_github]
+  before_action :must_be_logged_in, only: [:new, :edit, :create, :update, :destroy, :update_from_github]
 
   def update_from_github
     @project.update_project
@@ -85,6 +86,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+  def must_be_logged_in
+    redirect_to user_github_omniauth_authorize_path unless current_user
+  end
+
   def create_single_project?
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
     repo_path.present?
