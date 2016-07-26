@@ -86,10 +86,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-  def must_be_logged_in
-    redirect_to user_github_omniauth_authorize_path unless current_user
-  end
-
   def create_single_project?
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
     repo_path.present?
@@ -103,6 +99,10 @@ class ProjectsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def must_be_logged_in
+    redirect_to user_github_omniauth_authorize_path unless current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
