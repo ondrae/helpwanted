@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 
   def update_from_github
     @project.update_project
+    @project.update_issues
     redirect_to @project
   end
 
@@ -39,8 +40,9 @@ class ProjectsController < ApplicationController
   def create
 
     if create_single_project?
-      @project = Project.new(project_params)
+      @project = Project.create(project_params)
       @project.update_project
+      @project.update_issues
       redirect_to @project
 
     elsif create_all_orgs_projects?

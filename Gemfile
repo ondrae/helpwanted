@@ -31,6 +31,7 @@ gem 'omniauth-github'
 gem "octokit"
 
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem 'daemons'
 
 # Use ActiveModel has_secure_password

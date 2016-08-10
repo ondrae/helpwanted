@@ -27,4 +27,6 @@ Rails.application.routes.draw do
   get ":github_name/collections" => "collections#index"
   get ":github_name/projects" => "projects#index"
   get ":github_name/issues" => "issues#index"
+
+  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
 end
