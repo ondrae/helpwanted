@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
       @project = Project.create(project_params)
       @project.update_project
       @project.update_issues
-      redirect_to @project
+      redirect_to collection_path(@project.collection_id)
 
     elsif create_all_orgs_projects?
 

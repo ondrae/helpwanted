@@ -28,7 +28,8 @@ RSpec.describe ProjectsController, type: :controller do
     {
       name: "TEST NAME",
       description: "TEST DESCRIPTION",
-      url: "https://github.com/TESTPERSON/TESTPROJECT"
+      url: "https://github.com/TESTPERSON/TESTPROJECT",
+      collection_id: collection.id
     }
   }
 
@@ -144,7 +145,7 @@ RSpec.describe ProjectsController, type: :controller do
 
         it "redirects to the created project" do
           post :create, {:project => valid_attributes}, valid_session
-          expect(response).to redirect_to(Project.last)
+          expect(response).to redirect_to(collection_path(Project.last.collection_id))
         end
 
         it "updates the project from Github" do
