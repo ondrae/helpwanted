@@ -6,13 +6,7 @@ RSpec.describe Project, type: :model do
   end
 
   describe "#update_project" do
-    issue_params = {
-      title: "UPDATED TITLE",
-      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
-      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
-    }
-    let(:issues){ double(Issue, issue_params) }
-    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
+    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION") }
     before do
       allow(GithubProject).to receive(:new).and_return( gh_project )
     end
@@ -23,16 +17,12 @@ RSpec.describe Project, type: :model do
       expect(@project.description).to eq "UPDATED DESCRIPTION"
     end
 
-    it "updates the projects issue title" do
-      @project.update_issues
 
-      expect(@project.issues.first.title).to eq "UPDATED TITLE"
-    end
+  end
 
-    it "updates the projects issue labels" do
-      @project.update_issues
-
-      expect(@project.issues.first.labels).to eq ["UPDATED LABEL ONE", "UPDATED LABEL TWO"]
+  describe "#update_issues" do
+    it "starts a job to update the issues" do
+      expect { @project.update_issues }.to change { Delayed::Job.count }.by(1)
     end
   end
 

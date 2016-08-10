@@ -44,16 +44,23 @@ RSpec.describe ProjectsController, type: :controller do
   # ProjectsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:github_project) { double(GithubProject) }
+  let(:user){create :user}
+  let(:collection){create :collection, user: user}
+  let(:project){create :project, collection: collection}
+  before do
+    sign_in user
+  end
+
   describe "PUT #update_from_github" do
-    let(:github_project) { double(GithubProject) }
 
     it "gets new attributes from Github" do
       allow(GithubProject).to receive(:new).and_return(github_project)
       allow(github_project).to receive(:name).and_return("UPDATED NAME")
       allow(github_project).to receive(:description).and_return("UPDATED DESCRIPTION")
-      allow(github_project).to receive(:issues)
-      project = create :project
-      put :update_from_github, {:id => project.to_param}, valid_session
+
+      put :update_from_github, {:id => project.to_param}
+
       project.reload
       expect(project.name).to eq("UPDATED NAME")
       expect(project.description).to eq("UPDATED DESCRIPTION")
@@ -133,7 +140,7 @@ RSpec.describe ProjectsController, type: :controller do
       context "with valid params" do
         it "creates a new Project" do
           expect {
-            post :create, {:project => valid_attributes}, valid_session
+            post :create, {:project => valid_attributes}
           }.to change(Project, :count).by(1)
         end
 

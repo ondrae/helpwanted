@@ -60,13 +60,11 @@ RSpec.describe CollectionsController, type: :controller do
       allow(GithubProject).to receive(:new).and_return(github_project)
       allow(github_project).to receive(:name).and_return("UPDATED NAME")
       allow(github_project).to receive(:description).and_return("UPDATED DESCRIPTION")
-      allow(github_project).to receive(:issues).and_return([issues])
       @collection = create :collection
       @project = create :project, collection: @collection
-      @issue = create :issue, project: @project
+
       put :update_from_github, {:id => @collection.to_param}, valid_session
       @project.reload
-      @issue.reload
     end
 
     it "updates the project" do
@@ -74,10 +72,6 @@ RSpec.describe CollectionsController, type: :controller do
       expect(@project.description).to eq("UPDATED DESCRIPTION")
     end
 
-    it "updates the labels" do
-      expect(@issue.title).to eq("UPDATED TITLE")
-      expect(@issue.labels).to eq(["UPDATED LABEL ONE","UPDATED LABEL TWO"])
-    end
   end
 
   describe "GET #index" do
