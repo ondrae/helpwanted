@@ -83,3 +83,4 @@ production:
   database: gitcollections_production
   username: gitcollections
   password: <%= ENV['GITCOLLECTIONS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
