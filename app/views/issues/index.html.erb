@@ -1,25 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <div class="page-header">
   <h1>Issues</h1>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Labels</th>
-      <th>Project</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @issues.each do |issue| %>
-      <tr>
-        <td><%= link_to issue.title, issue %></td>
-        <td><%= issue.label_string %></td>
-        <td><%= link_to issue.project.name, issue.project %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render @issues %>

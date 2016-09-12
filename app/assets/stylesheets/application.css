@@ -14,10 +14,18 @@
  *= require_self
  */
 
+.container {
+  max-width: 800px;
+ }
+
 .page-header h1 {
   display: inline;
 }
 
 #github-info {
   padding-top: 15px;
+}
+
+.card-footer .user-info {
+  padding-top: 5px;
 }

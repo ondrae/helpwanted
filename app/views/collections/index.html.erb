@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="page-header">
   <% if @user %>
     <h1><%= @user.github_name.titleize + "'s" %> Collections</h1>
@@ -7,34 +5,10 @@
     <h1>All Collections</h1>
   <% end %>
   <% if user_signed_in? %>
-    <%= link_to 'New Collection', new_collection_path, class: 'btn btn-primary btn-sm pull-right' %>
+    <%= link_to 'New Collection', new_collection_path, class: 'btn btn-primary btn-sm btn-fa' %>
   <% end %>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <% if user_signed_in? %>
-        <th>Owner</th>
-      <% end %>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @collections.each do |collection| %>
-      <tr>
-        <td><%= link_to collection.name, collection %></td>
-        <td><%= collection.description %></td>
-        <td><%= link_to collection.user.github_name, collection.user.github_name %></td>
-        <td><%= link_to 'Update', update_from_github_collection_path(collection), method: :put %></td>
-        <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
-        <td><%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<section>
+  <%= render @collections %>
+</section>

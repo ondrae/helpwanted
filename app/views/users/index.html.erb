@@ -1,28 +1,7 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
 <div class="page-header">
   <h1>Users</h1>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.github_name, user %></td>
-        <td><%= user.email %></td>
-        <td><%= link_to 'Update', update_from_github_user_path(user), method: :put %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<%= render @users %>

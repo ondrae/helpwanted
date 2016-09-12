@@ -1,0 +1,23 @@
+<div class="card col-xs-12">
+  <div class="card-content">
+    <div class="card-body">
+      <div class="media">
+        <div class="media-left">
+          <%= link_to user.github_name do %>
+            <%= image_tag user.image, size: '65', style: 'border-radius: 2px;' %>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading"><%= link_to user.github_name, user.github_name %></h4>
+          <p><%= user.email %></p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="card-footer">
+      <%= link_to "Collections", "/#{user.github_name}/collections", class: "btn btn-primary waves-effect waves-light" %>
+      <%= link_to "Projects", "/#{user.github_name}/projects", class: "btn btn-success waves-effect waves-light" %>
+      <%= link_to "Issues", "/#{user.github_name}/issues", class: "btn btn-info waves-effect waves-light" %>
+    </footer>
+  </div>
+</div>
