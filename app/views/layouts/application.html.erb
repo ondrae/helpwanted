@@ -24,13 +24,10 @@
         <ul class="nav navbar-nav navbar-right">
 
           <% if user_signed_in? %>
-            <li><%= link_to "#{image_tag(current_user.image, size: '32', style: 'border-radius: 2px;')} #{current_user.github_name.titleize}".html_safe, "/" + current_user.github_name, id: "github-info" %></li>
+            <li><%= link_to "#{image_tag(current_user.image, size: '32', style: 'border-radius: 2px;')} #{current_user.github_name}".html_safe, "/" + current_user.github_name, id: "github-info" %></li>
             <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to "Sign in with Github", user_github_omniauth_authorize_path %></li>
-            <li><a href="/collections">All Collections</a></li>
-            <li><a href="/projects">All Projects</a></li>
-            <li><a href="/issues">All Issues</a></li>
           <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -39,7 +36,7 @@
 
   <div class="container">
 
-    <p class="notice"><%= notice %></p>
+    <p class="notice"></p>
     <p class="alert"><%= alert %></p>
 
     <%= yield %>
