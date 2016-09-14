@@ -65,6 +65,7 @@ class ProjectsController < ApplicationController
         project = Project.create(gh_project_params)
         project.update_issues
       end
+      @collection = Collection.find(project_params[:collection_id])
       redirect_to collection_path(@collection.name)
     end
 

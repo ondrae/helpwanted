@@ -105,13 +105,12 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe "POST #create" do
     context "an organization url" do
-
-      let(:org_url_params) { { url: "https://github.com/TESTORG", collection_id: 1 } }
+      let(:collection){ create :collection, id: 1 }
+      let(:org_url_params) { { url: "https://github.com/TESTORG", collection_id: collection.id } }
 
       let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT" ) }
       let(:gh_org){ double(GithubOrganization, projects: [gh_project, gh_project]) }
       before do
-        create :collection, id: 1
         allow(GithubOrganization).to receive(:new).and_return( gh_org )
         allow_any_instance_of(Project).to receive(:update_issues)
       end
@@ -120,6 +119,11 @@ RSpec.describe ProjectsController, type: :controller do
         expect {
           post :create, {project: org_url_params }, valid_session
         }.to change(Project, :count).by(2)
+      end
+
+      it "redirects to parent collection" do
+        post :create, { project: org_url_params }
+        expect(response).to redirect_to collection_path(collection.name)
       end
 
     end
