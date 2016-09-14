@@ -1,22 +1,26 @@
 <div class="card col-xs-12">
   <div class="card-content">
     <div class="card-body">
-      <h4><%= collection.name %></h4>
+      <h4><%= link_to collection.name, collection %></h4>
       <p><%= collection.description %></p>
     </div>
 
     <footer class="card-footer">
-      <%= link_to "Projects", "/#{collection.user.github_name}/#{collection.name}/projects", class: "btn btn-success btn-sm waves-effect waves-light" %>
-      <%= link_to "Issues", "/#{collection.user.github_name}/#{collection.name}/issues", class: "btn btn-info btn-sm waves-effect waves-light" %>
+      <%= link_to "Projects", collection_projects_path(collection), class: "btn-flat btn-success waves-effect waves-light" %>
+      <%= link_to "Issues",  collection_issues_path(collection), class: "btn-flat btn-info waves-effect waves-light" %>
       <div class="user-info pull-right">
-        <%= link_to collection.user.github_name, class: 'btn btn-default btn-sm waves-effect waves-light' do %>
-          <%= image_tag collection.user.image, size: "25" %>
-          <%= collection.user.github_name %>
+        <%= link_to collection.owner.github_name, class: "btn-flat waves-effect waves-teal" do %>
+          <%= image_tag collection.owner.image, size: "25" %>
+          <%= collection.owner.github_name %>
         <% end %>
         <% if user_signed_in? %>
           <% if current_user.github_name == collection.user.github_name %>
-            <%= link_to 'Edit', edit_collection_path(collection), class: 'btn btn-warning btn-sm waves-effect waves-light' %>
-            <%= link_to 'Remove', collection, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm waves-effect waves-light' %>
+            <%= link_to edit_collection_path(collection), class: "btn-flat btn-warning btn-sm waves-effect waves-light" do %>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            <% end %>
+            <%= link_to collection, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-flat btn-danger btn-sm waves-effect waves-light" do %>
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            <% end %>
           <% end %>
         <% end %>
       </div>

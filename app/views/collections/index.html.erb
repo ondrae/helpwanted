@@ -5,7 +5,9 @@
     <h1>All Collections</h1>
   <% end %>
   <% if user_signed_in? %>
-    <%= link_to 'New Collection', new_collection_path, class: 'btn btn-primary btn-sm btn-fa' %>
+    <%= link_to new_collection_path, class: 'btn-floating btn-primary waves-effect waves-light pull-right' do %>
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    <% end %>
   <% end %>
 </div>
 

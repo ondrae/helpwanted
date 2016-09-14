@@ -4,6 +4,14 @@ class Project < ActiveRecord::Base
 
   validates :url, presence: true
 
+  def to_param
+    name
+  end
+
+  def owner
+    collection.owner
+  end
+
   def update_project
     gh_project = GithubProject.new(self.url)
     self.update(name: gh_project.name, description: gh_project.description)

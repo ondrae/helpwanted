@@ -4,11 +4,21 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    if params[:github_name]
+    if params[:project_id]
+      @project = Project.find_by_name(params[:project_id])
+      @issues = @project.issues
+      @headline = @project.name + "'s Issues"
+    elsif params[:collection_id]
+      @collection = Collection.find_by_name(params[:collection_id])
+      @issues = @collection.issues
+      @headline = @collection.name + " Issues"
+    elsif params[:github_name]
       @user = User.find_by_github_name(params[:github_name])
       @issues = @user.issues
+      @headline = @user.github_name.capitalize + "'s Issues"
     else
       @issues = Issue.all
+      @headline = "All Issues"
     end
   end
 

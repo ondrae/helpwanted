@@ -9,12 +9,7 @@ class CollectionsController < ApplicationController
   # GET /collections
   # GET /collections.json
   def index
-    if params[:github_name]
-      @user = User.find_by_github_name(params[:github_name])
-      @collections = @user.collections
-    else
-      @collections = Collection.all
-    end
+    @collections = Collection.all
   end
 
   # GET /collections/1
@@ -80,9 +75,7 @@ class CollectionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_collection
       if params[:id]
-        @collection = Collection.find(params[:id])
-      elsif params[:collection_id]
-        @collection = Collection.find(params[:collection_id])
+        @collection = Collection.find_by name: params[:id]
       end
     end
 

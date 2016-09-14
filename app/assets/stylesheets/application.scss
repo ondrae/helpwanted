@@ -14,6 +14,9 @@
  *= require_self
  */
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 .container {
   max-width: 800px;
  }
@@ -26,6 +29,6 @@
   padding-top: 15px;
 }
 
-.card-footer .user-info {
-  padding-top: 5px;
+.card-footer .btn-flat {
+  margin-left: 0;
 }

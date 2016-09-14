@@ -6,6 +6,10 @@ RSpec.describe Collection, type: :model do
     @collection = create :collection
   end
 
+  describe "#owner" do
+    
+  end
+
   describe "#update_projects" do
     issue_params = {
       title: "UPDATED TITLE",

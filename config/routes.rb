@@ -9,24 +9,28 @@ Rails.application.routes.draw do
   end
 
   resources :collections do
-    get "issues"
+    get "projects" => "projects#index"
+    get "issues" => "issues#index"
     member do
       put "update_from_github"
     end
   end
 
   resources :projects do
+    get "issues" => "issues#index"
     member do
       put "update_from_github"
     end
   end
 
   resources :issues, only: %i[index show]
+  #
+  get ":github_name" => "users#show", as: "user_page"
 
-  get ":github_name" => "users#show"
-  get ":github_name/collections" => "collections#index"
-  get ":github_name/projects" => "projects#index"
-  get ":github_name/issues" => "issues#index"
+  # Routes for humans
+  get ":github_name/collections" => "collections#index", as: "users_collections"
+  get ":github_name/projects" => "projects#index", as: "users_projects"
+  get ":github_name/issues" => "issues#index", as: "users_issues"
 
   match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
 end

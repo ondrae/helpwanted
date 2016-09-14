@@ -1,20 +1,25 @@
 <div class="card col-xs-12">
   <div class="card-content">
     <div class="card-body">
-      <h4><%= project.name %></h4>
+      <h4><%= link_to project.name, project.url %></h4>
       <p><%= project.description %></p>
     </div>
 
     <footer class="card-footer">
-      <%= link_to "Issues", project, class: "btn btn-info btn-sm waves-effect waves-light" %>
+      <%= link_to "Issues", project_issues_path(project), class: "btn-flat btn-info waves-effect waves-light" %>
       <div class="user-info pull-right">
-        <%= image_tag project.collection.user.image, size: "25" %> <%= link_to project.collection.user.github_name %>
+        <%= link_to user_page_path(project.owner.github_name), class: "btn-flat waves-effect waves-teal" do %>
+          <%= image_tag project.owner.image, size: "25" %>
+          <%= project.owner.github_name %>
+        <% end %>
         <% if user_signed_in? %>
-          <% if current_user.github_name == project.collection.user.github_name %>
-            <%= link_to 'Remove', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm waves-effect waves-light' %>
+          <% if current_user.github_name == project.owner.github_name %>
+            <%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-flat btn-danger btn-sm waves-effect waves-light" do %>
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            <% end %>
           <% end %>
         <% end %>
       </div>
-      </footer>
+    </footer>
   </div>
 </div>

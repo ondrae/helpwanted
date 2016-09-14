@@ -15,9 +15,9 @@
     </div>
 
     <footer class="card-footer">
-      <%= link_to "Collections", "/#{user.github_name}/collections", class: "btn btn-primary waves-effect waves-light" %>
-      <%= link_to "Projects", "/#{user.github_name}/projects", class: "btn btn-success waves-effect waves-light" %>
-      <%= link_to "Issues", "/#{user.github_name}/issues", class: "btn btn-info waves-effect waves-light" %>
+      <%= link_to "Collections", users_collections_path(user.github_name), class: "btn-flat btn-primary waves-effect waves-light" %>
+      <%= link_to "Projects", users_projects_path(user.github_name), class: "btn-flat btn-success waves-effect waves-light" %>
+      <%= link_to "Issues", users_issues_path(user.github_name), class: "btn-flat btn-info waves-effect waves-light" %>
     </footer>
   </div>
 </div>

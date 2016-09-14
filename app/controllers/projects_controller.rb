@@ -11,18 +11,24 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    if params[:github_name]
+    if params[:collection_id]
+      @collection = Collection.find_by_name(params[:collection_id])
+      @projects = @collection.projects
+      @headline = @collection.name + " Projects"
+      render "index"
+    elsif params[:github_name]
       @user = User.find_by_github_name(params[:github_name])
       @projects = @user.projects
+      @headline = @user.github_name.capitalize + "'s Projects"
     else
       @projects = Project.all
+      @headline = "All Projects"
     end
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @issues = Issue.where(project: @project)
   end
 
   # GET /projects/new
@@ -43,7 +49,8 @@ class ProjectsController < ApplicationController
       @project = Project.create(project_params)
       @project.update_project
       @project.update_issues
-      redirect_to collection_path(@project.collection_id)
+      @collection = Collection.find(@project.collection_id)
+      redirect_to collection_path(@collection.name)
 
     elsif create_all_orgs_projects?
 
@@ -82,7 +89,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -100,7 +107,11 @@ class ProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_project
-    @project = Project.find(params[:id])
+    if params[:id]
+      @project = Project.find_by_name(params[:id])
+    else
+      @project = Project.find_by_name(params[:project_name])
+    end
   end
 
   def must_be_logged_in
