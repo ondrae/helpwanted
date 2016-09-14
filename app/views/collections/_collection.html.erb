@@ -6,8 +6,12 @@
     </div>
 
     <footer class="card-footer">
-      <%= link_to "Projects", collection_projects_path(collection), class: "btn-flat btn-success waves-effect waves-light" %>
-      <%= link_to "Issues",  collection_issues_path(collection), class: "btn-flat btn-info waves-effect waves-light" %>
+      <%= link_to collection_projects_path(collection), class: "btn-flat btn-success waves-effect waves-light" do %>
+        Projects <span class="badge"><%= collection.projects.count %></span>
+      <% end %>
+      <%= link_to collection_issues_path(collection), class: "btn-flat btn-info waves-effect waves-light" do %>
+        Issues <span class="badge"><%= collection.issues.count %></span>
+      <% end %>
       <div class="user-info pull-right">
         <%= link_to collection.owner.github_name, class: "btn-flat waves-effect waves-teal" do %>
           <%= image_tag collection.owner.image, size: "25" %>

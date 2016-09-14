@@ -7,7 +7,9 @@
 
     <footer class="card-footer">
       <%= link_to "Collection", project.collection, class: "btn-flat btn-primary waves-effect waves-light" %>
-      <%= link_to "Issues", project_issues_path(project), class: "btn-flat btn-info waves-effect waves-light" %>
+      <%= link_to project_issues_path(project), class: "btn-flat btn-info waves-effect waves-light" do %>
+        Issues <span class="badge"><%= project.issues.count %></span>
+      <% end %>
       <div class="user-info pull-right">
         <%= link_to user_page_path(project.owner.github_name), class: "btn-flat waves-effect waves-teal" do %>
           <%= image_tag project.owner.image, size: "25" %>
