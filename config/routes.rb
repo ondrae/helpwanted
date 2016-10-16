@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'application#index'
 
+  # admin
+  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :users do
     member do
@@ -31,6 +34,4 @@ Rails.application.routes.draw do
   get ":github_name/collections" => "collections#index", as: "users_collections"
   get ":github_name/projects" => "projects#index", as: "users_projects"
   get ":github_name/issues" => "issues#index", as: "users_issues"
-
-  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
 end
