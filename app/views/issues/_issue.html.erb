@@ -4,7 +4,7 @@
       <p><%= issue.project.name %></p>
       <h4><%= link_to issue.title, issue.url %></h4>
       <% issue.labels.each do |label| %>
-        <span class="tag #{label.color}"><%= label.name %></span>
+        <span class="badge" style="background-color: #<%= label.color %>"><%= label.name %></span>
       <% end %>
     </div>
   </div>
