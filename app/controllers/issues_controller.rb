@@ -5,11 +5,11 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     if params[:project_id]
-      @project = Project.find_by_name(params[:project_id])
+      @project = Project.find(params[:project_id])
       @issues = @project.issues
       @headline = @project.name + "'s Issues"
     elsif params[:collection_id]
-      @collection = Collection.find_by_name(params[:collection_id])
+      @collection = Collection.find(params[:collection_id])
       @issues = @collection.issues
       @headline = @collection.name + " Issues"
     elsif params[:github_name]

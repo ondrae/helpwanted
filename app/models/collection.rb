@@ -4,10 +4,6 @@ class Collection < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def to_param
-    name
-  end
-
   def owner
     user
   end

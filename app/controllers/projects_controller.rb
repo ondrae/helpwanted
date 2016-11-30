@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     if params[:collection_id]
-      @collection = Collection.find_by_name(params[:collection_id])
+      @collection = Collection.find(params[:collection_id])
       @projects = @collection.projects
       @headline = @collection.name + " Projects"
       render "index"
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
       @project.update_project
       @project.update_issues
       @collection = Collection.find(@project.collection_id)
-      redirect_to collection_path(@collection.name)
+      redirect_to collection_path(@collection)
 
     elsif create_all_orgs_projects?
 
@@ -66,7 +66,7 @@ class ProjectsController < ApplicationController
         project.update_issues
       end
       @collection = Collection.find(project_params[:collection_id])
-      redirect_to collection_path(@collection.name)
+      redirect_to collection_path(@collection)
     end
 
   end
@@ -108,11 +108,7 @@ class ProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_project
-    if params[:id]
-      @project = Project.find_by_name(params[:id])
-    else
-      @project = Project.find_by_name(params[:project_name])
-    end
+    @project = Project.find(params[:project_id] || params[:id])
   end
 
   def must_be_logged_in

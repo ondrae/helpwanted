@@ -1,9 +1,11 @@
 <div class="card col-xs-12">
   <div class="card-content">
     <div class="card-body">
-      <h4><%= issue.title %></h4>
-      <p><%= issue.url %></p>
-      <p><%= issue.labels %></p>
+      <p><%= issue.project.name %></p>
+      <h4><%= link_to issue.title, issue.url %></h4>
+      <% issue.labels.each do |label| %>
+        <span class="tag #{label.color}"><%= label.name %></span>
+      <% end %>
     </div>
   </div>
 </div>

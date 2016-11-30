@@ -11,10 +11,6 @@
         Issues <span class="badge"><%= project.issues.count %></span>
       <% end %>
       <div class="user-info pull-right">
-        <%= link_to user_page_path(project.owner.github_name), class: "btn-flat waves-effect waves-teal" do %>
-          <%= image_tag project.owner.image, size: "25" %>
-          <%= project.owner.github_name %>
-        <% end %>
         <% if user_signed_in? %>
           <% if current_user.github_name == project.owner.github_name %>
             <%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-flat btn-danger btn-sm waves-effect waves-light" do %>

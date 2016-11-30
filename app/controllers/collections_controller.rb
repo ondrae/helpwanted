@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy, :issues, :update_from_github]
 
+  # PUT /update_from_github
   def update_from_github
     @collection.update_projects
     redirect_to @collection
@@ -79,9 +80,7 @@ class CollectionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collection
-      if params[:id]
-        @collection = Collection.find_by name: params[:id]
-      end
+      @collection = Collection.find params[:id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
