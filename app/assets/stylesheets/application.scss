@@ -21,8 +21,16 @@
   max-width: 800px;
  }
 
+ .page-header {
+   margin-top: 0;
+ }
+
 .page-header h1 {
   display: inline;
+}
+
+.alert {
+  margin-bottom: 0;
 }
 
 #github-info {
@@ -31,4 +39,8 @@
 
 .card-footer .btn-flat {
   margin-left: 0;
+}
+
+.navbar {
+  margin-bottom: 0;
 }
