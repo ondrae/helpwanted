@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
   belongs_to :project
-  has_many :labels
+  has_many :labels, dependent: :destroy
   validates :title, :url, presence: true
 
   def number
