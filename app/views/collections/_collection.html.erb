@@ -1,33 +1,24 @@
-<div class="card col-xs-12">
-  <div class="card-content">
-    <div class="card-body">
-      <h4><%= link_to collection.name, collection %></h4>
-      <p><%= collection.description %></p>
-    </div>
+<div class="box">
 
-    <footer class="card-footer">
-      <%= link_to collection_projects_path(collection), class: "btn-flat btn-success waves-effect waves-light" do %>
-        Projects <span class="badge"><%= collection.projects.count %></span>
-      <% end %>
-      <%= link_to collection_issues_path(collection), class: "btn-flat btn-info waves-effect waves-light" do %>
-        Issues <span class="badge"><%= collection.issues.count %></span>
-      <% end %>
-      <div class="user-info pull-right">
-        <%= link_to collection.owner.github_name, class: "btn-flat waves-effect waves-teal" do %>
-          <%= image_tag collection.owner.image, size: "25" %>
-          <%= collection.owner.github_name %>
-        <% end %>
-        <% if user_signed_in? %>
-          <% if current_user.github_name == collection.user.github_name %>
-            <%= link_to edit_collection_path(collection), class: "btn-flat btn-warning btn-sm waves-effect waves-light" do %>
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to collection, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-flat btn-danger btn-sm waves-effect waves-light" do %>
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-      </footer>
+  <div class="content">
+    <p class="title"><%= link_to collection.name, collection %></p>
+    <p class="subtitle"><%= collection.description %></p>
   </div>
+
+  <ul class="control is-grouped">
+    <li>
+      <%= link_to collection_projects_path(collection), class: "button" do %>
+        Projects <span class="tag"><%= collection.projects.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to collection_issues_path(collection), class: "button" do %>
+        Issues <span class="tag"><%= collection.issues.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to "#{image_tag(collection.owner.image, size: '24', style: 'border-radius: 2px;')} #{collection.owner.github_name}".html_safe, "/" + collection.owner.github_name, class: "button" %>
+    </li>
+  </ul>
+
 </div>

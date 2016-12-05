@@ -5,42 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-  <nav class="navbar navbar-default default-color">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">AllGitEverything</a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
 
-          <% if user_signed_in? %>
-            <li><%= link_to "#{image_tag(current_user.image, size: '32', style: 'border-radius: 2px;')} #{current_user.github_name}".html_safe, "/" + current_user.github_name, id: "github-info" %></li>
-            <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to "Sign in with Github", user_github_omniauth_authorize_path %></li>
-          <% end %>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container -->
+  <nav class="nav hero is-primary">
+
+    <div class="container">
+
+      <div class="nav-left">
+        <a class="nav-item is-brand is-large" href="/"> AllGitEverything </a>
+      </div>
+
+      <div class="nav-right">
+        <% if user_signed_in? %>
+          <span class="nav-item">
+            <%= link_to "#{image_tag(current_user.image, size: '24', style: 'border-radius: 2px;')} #{current_user.github_name}".html_safe, "/" + current_user.github_name, class: "nav-item" %>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item" %>
+          </span>
+        <% else %>
+          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, class: "nav-item sign-in" %>
+        <% end %>
+      </div>
+
+    </div>
+
   </nav>
 
-  <div class="container">
+  <%= yield %>
 
-    <p class="notice"></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= yield %>
-
-  </div>
 </body>
 </html>

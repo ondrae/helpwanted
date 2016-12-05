@@ -1,24 +1,17 @@
-<div class="card col-xs-12">
-  <div class="card-content">
-    <div class="card-body">
-      <h4><%= link_to project.name, project.url %></h4>
-      <p><%= project.description %></p>
-    </div>
-
-    <footer class="card-footer">
-      <%= link_to "Collection", project.collection, class: "btn-flat btn-primary waves-effect waves-light" %>
-      <%= link_to project_issues_path(project), class: "btn-flat btn-info waves-effect waves-light" do %>
-        Issues <span class="badge"><%= project.issues.count %></span>
-      <% end %>
-      <div class="user-info pull-right">
-        <% if user_signed_in? %>
-          <% if current_user.github_name == project.owner.github_name %>
-            <%= link_to project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-flat btn-danger btn-sm waves-effect waves-light" do %>
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-    </footer>
+<div class="box">
+  <div class="content">
+    <p class="title"><%= link_to project.name, project.url %></p>
+    <p class="subtitle"><%= project.description %></p>
   </div>
+
+  <ul class="control is-grouped">
+    <li>
+      <%= link_to "Collection", project.collection, class: "button" %>
+    </li>
+    <li>
+      <%= link_to project_issues_path(project), class: "button" do %>
+        Issues <span class="tag"><%= project.issues.count %></span>
+      <% end %>
+    </li>
+  </ul>
 </div>

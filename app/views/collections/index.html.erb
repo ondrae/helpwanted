@@ -1,16 +1,11 @@
-<div class="page-header">
-  <% if @user %>
-    <h1><%= @user.github_name.titleize + "'s" %> Collections</h1>
-  <% else %>
-    <h1>All Collections</h1>
-  <% end %>
-  <% if user_signed_in? %>
-    <%= link_to new_collection_path, class: 'btn-floating btn-primary waves-effect waves-light pull-right' do %>
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    <% end %>
-  <% end %>
-</div>
+<section class="section hero is-primary">
+  <div class="container has-text-centered">
+    <h2 class="title is-2">Collections</h2>
+  </div>
+</section>
 
-<section>
-  <%= render @collections %>
+<section class="section">
+  <div class="container">
+    <%= render @collections %>
+  </div>
 </section>

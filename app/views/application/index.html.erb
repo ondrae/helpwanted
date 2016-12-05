@@ -1,7 +1,32 @@
-<div class="jumbotron">
-  <h3>Collections of handpicked Github projects.</h3>
-  <a class="btn btn-primary btn-lg waves-effect waves-light" href="/collections" role="button">Explore Collections <span class="badge"><%= @collection_count %></span></a>
-  <a class="btn btn-success btn-lg waves-effect waves-light" href="/projects" role="button">Explore Projects <span class="badge"><%= @project_count %></span></a>
-  <a class="btn btn-info btn-lg waves-effect waves-light" href="/issues" role="button">Explore Issues <span class="badge"><%= @issue_count %></span></a>
-  <a class="btn btn-default btn-lg waves-effect waves-light" href="/users" role="button">Explore People <span class="badge"><%= @user_count %></span></a>
-</div>
+<section class="hero is-primary is-medium">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h2 class="title is-2">
+        All Git Everything
+      </h2>
+      <h3 class="subtitle is-3">
+        Collections of hand picked Github projects.
+      </h3>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <%= link_to collections_path, class: "button is-large" do %>
+      Collections <span class="tag"><%= @collection_count %></span>
+    <% end %>
+
+    <%= link_to projects_path, class: "button is-large" do %>
+      Projects <span class="tag"><%= @project_count %></span>
+    <% end %>
+
+    <%= link_to issues_path, class: "button is-large" do %>
+      Issues <span class="tag"><%= @issue_count %></span>
+    <% end %>
+
+    <%= link_to users_path, class: "button is-large" do %>
+      Users <span class="tag"><%= @user_count %></span>
+    <% end %>
+  </div>
+</section>

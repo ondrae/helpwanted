@@ -1,11 +1,9 @@
-<div class="card col-xs-12">
-  <div class="card-content">
-    <div class="card-body">
-      <p><%= issue.project.name %></p>
-      <h4><%= link_to issue.title, issue.url %></h4>
-      <% issue.labels.each do |label| %>
-        <span class="badge" style="background-color: #<%= label.color %>"><%= label.name %></span>
-      <% end %>
-    </div>
+<div class="box">
+  <div class="content">
+    <p class="title"><%= link_to issue.title, issue.url %></p>
+    <p class="subtitle"><%= link_to issue.project.name, issue.project.url %></p>
   </div>
+  <% issue.labels.each do |label| %>
+    <span class="tag #{label.color}"><%= label.name %></span>
+  <% end %>
 </div>
