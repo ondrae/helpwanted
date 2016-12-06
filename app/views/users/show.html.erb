@@ -1,3 +1,13 @@
 <p id="notice"></p>
 
-<%= render partial: "user", locals: {user: @user} %> 
+<section class="section hero is-primary">
+  <div class="container has-text-centered">
+    <h2 class="title is-2">Users</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <%= render @user %>
+  </div>
+</section>
