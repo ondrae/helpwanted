@@ -3,6 +3,10 @@ class Project < ActiveRecord::Base
   has_many :issues, dependent: :destroy
 
   validates :url, presence: true
+  validates :name, presence: true, uniqueness: true
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   def owner
     collection.owner

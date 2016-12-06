@@ -2,7 +2,10 @@ class Collection < ActiveRecord::Base
   belongs_to :user
   has_many :projects, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   def owner
     user

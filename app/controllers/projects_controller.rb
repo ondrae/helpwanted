@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     if params[:collection_id]
-      @collection = Collection.find(params[:collection_id])
+      @collection = Collection.friendly.find(params[:collection_id])
       @projects = @collection.projects
       @headline = @collection.name + " Projects"
       render "index"

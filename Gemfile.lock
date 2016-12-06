@@ -92,6 +92,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
+    friendly_id (5.2.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (3.4.3)
@@ -260,6 +262,7 @@ DEPENDENCIES
   factory_girl
   factory_girl_rails
   font-awesome-sass
+  friendly_id
   jbuilder (~> 2.0)
   jquery-rails
   octokit
