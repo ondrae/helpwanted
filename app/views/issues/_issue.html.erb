@@ -1,9 +1,18 @@
 <div class="box">
   <div class="content">
-    <p class="title"><%= link_to issue.title, issue.url %></p>
-    <p class="subtitle"><%= link_to issue.project.name, issue.project.url %></p>
+    <p class="title"><%= issue.title %></p>
+    <p>
+      <% issue.labels.each do |label| %>
+        <span class="issue tag"><%= label.name %></span>
+      <% end %>
+    </p>
+    <p>Added to <%= link_to issue.project.name, issue.project.url %> on <%= issue.created_at.to_formatted_s(:short) %></p>
   </div>
-  <% issue.labels.each do |label| %>
-    <span class="tag #{label.color}"><%= label.name %></span>
-  <% end %>
+
+  <ul class="control is-grouped">
+    <li>
+      <%= link_to "Contribute on Github", issue.url, class: "button" %>
+    </li>
+  </ul>
+
 </div>
