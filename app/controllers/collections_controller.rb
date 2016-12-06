@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy, :issues, :update_from_github]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy, :update_from_github]
 
   # PUT /update_from_github
   def update_from_github
@@ -21,7 +21,6 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
-    @projects = @collection.projects
   end
 
   # GET /collections/new
@@ -71,10 +70,6 @@ class CollectionsController < ApplicationController
       format.html { redirect_to collections_url, notice: 'Collection was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def issues
-    @issues = @collection.issues
   end
 
   private
