@@ -8,7 +8,7 @@ RSpec.describe IssuesController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/issues/1").to route_to("issues#show", :id => "1")
+      expect(:get => "/issues/1").not_to be_routable
     end
 
   end

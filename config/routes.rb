@@ -19,14 +19,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects do
+  resources :projects, except: :show do
     get "issues" => "issues#index"
     member do
       put "update_from_github"
     end
   end
 
-  resources :issues, only: %i[index show]
+  resources :issues, only: :index
   #
   get ":github_name" => "users#show", as: "user_page"
 
