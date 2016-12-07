@@ -24,11 +24,11 @@
       <div class="nav-right">
         <% if user_signed_in? %>
           <span class="nav-item">
-            <%= link_to "#{image_tag(current_user.image, size: '24', style: 'border-radius: 2px;')} #{current_user.github_name}".html_safe, "/" + current_user.github_name, class: "nav-item" %>
+            <%= link_to "#{image_tag(current_user.image, id: "nav-github-avatar")} #{current_user.github_name}".html_safe, "/" + current_user.github_name, class: "nav-item" %>
             <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item" %>
           </span>
         <% else %>
-          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, class: "nav-item sign-in" %>
+          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, class: "nav-item sign-in is-pulled-right" %>
         <% end %>
       </div>
 

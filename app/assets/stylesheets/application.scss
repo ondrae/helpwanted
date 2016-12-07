@@ -14,8 +14,20 @@
  *= require_self
  */
 
+.nav-right {
+  width: 50%;
+}
+
 .sign-in {
   line-height: 28px;
+  margin-right: 20px;
+}
+
+#nav-github-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  margin-right: 0.3rem;
 }
 
 .box {
@@ -26,4 +38,10 @@
 .issue.tag {
   color: white;
   background-color: #00d1b2;
+}
+
+#main-menu li a {
+  display: block;
+  padding-top: 0.75rem;
+  margin-bottom: 1rem;
 }

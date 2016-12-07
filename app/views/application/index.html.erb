@@ -13,20 +13,27 @@
 
 <section class="section">
   <div class="container">
-    <%= link_to collections_path, class: "button is-large" do %>
-      Collections <span class="tag"><%= @collection_count %></span>
-    <% end %>
-
-    <%= link_to projects_path, class: "button is-large" do %>
-      Projects <span class="tag"><%= @project_count %></span>
-    <% end %>
-
-    <%= link_to issues_path, class: "button is-large" do %>
-      Issues <span class="tag"><%= @issue_count %></span>
-    <% end %>
-
-    <%= link_to users_path, class: "button is-large" do %>
-      People <span class="tag"><%= @user_count %></span>
-    <% end %>
+    <ul id="main-menu">
+      <li>
+        <%= link_to collections_path, class: "button is-large is-outlined" do %>
+          Collections <span class="tag"><%= @collection_count %></span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to projects_path, class: "button is-large is-outlined" do %>
+          Projects <span class="tag"><%= @project_count %></span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to issues_path, class: "button is-large is-outlined" do %>
+          Issues <span class="tag"><%= @issue_count %></span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to users_path, class: "button is-large is-outlined" do %>
+          People <span class="tag"><%= @user_count %></span>
+        <% end %>
+      </li>
+    </ul>
   </div>
 </section>
