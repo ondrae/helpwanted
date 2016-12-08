@@ -1,22 +1,51 @@
-<div class="media box">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <%= link_to user.github_name do %>
-        <%= image_tag user.image, size: '64', style: 'border-radius: 2px;' %>
-      <% end %>
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-        <h4 class="media-heading"><%= link_to user.github_name, user.github_name %></h4>
-        <p><%= user.email %></p>
-    </div>
-    <nav class="level">
-      <div class="level-left">
-        <%= link_to "Collections", users_collections_path(user.github_name), class: "button level-item" %>
-        <%= link_to "Projects", users_projects_path(user.github_name), class: "button level-item" %>
-        <%= link_to "Issues", users_issues_path(user.github_name), class: "button level-item" %>
+<div class="box">
+  <div class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <%= link_to user.github_name do %>
+          <%= image_tag user.image, size: '64', style: 'border-radius: 5px;' %>
+        <% end %>
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+          <h4 class="media-heading"><%= link_to user.github_name, user.github_name %></h4>
+          <p><%= user.email %></p>
       </div>
-    </nav>
+    </div>
   </div>
+
+  <br/>
+
+  <ul class="control is-grouped">
+    <li>
+      <%= link_to users_collections_path(user.github_name), class: "button" do %>
+        Collections <span class="tag"><%= @collections.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to users_projects_path(user.github_name), class: "button" do %>
+        Projects <span class="tag"><%= @projects.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to users_issues_path(user.github_name), class: "button" do %>
+        Issues <span class="tag"><%= @issues.count %></span>
+      <% end %>
+    </li>
+  </ul>
+  <% if current_user == user %>
+    <ul class="control is-grouped">
+      <li>
+        <%= link_to new_collection_path, class: "button" do %>
+          New Collection &nbsp; <i class="fa fa-plus"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to new_project_path, class: "button" do %>
+          New Project  &nbsp; <i class="fa fa-plus"></i>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
 </div>

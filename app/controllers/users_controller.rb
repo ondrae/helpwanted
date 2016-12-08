@@ -17,6 +17,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_github_name params[:github_name]
     @collections = @user.collections
+    @projects = @user.projects
+    @issues = @user.issues
   end
 
   # DELETE /users/1
