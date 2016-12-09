@@ -8,6 +8,10 @@
     <% end %>
   </p>
 
+  <% if issue.labels.present? %>
+    <br />
+  <% end %>
+
   <hr />
 
   <footer class="level is-mobile">
@@ -15,7 +19,7 @@
       <%= link_to issue.project.name, issue.project.url, class: "button level-item" %>
     </div>
     <div class="level-right">
-      <span class="level-item">Update at <%= issue.created_at.to_formatted_s(:short) %></span>
+      <span class="level-item"><%= issue.updated_at.to_date %></span>
     </div>
   </footer>
 

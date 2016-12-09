@@ -7,4 +7,5 @@ class Issue < ActiveRecord::Base
     /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+\/?\/issues\/(?<number>\d+)/ =~ url
     number
   end
+
 end
