@@ -40,8 +40,13 @@
   background-color: #00d1b2;
 }
 
-#main-menu li a {
+#block-menu li a {
   display: block;
   padding-top: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.hero.is-primary .button.is-primary {
+  border-width: 1px;
+  border-color: white;
 }
