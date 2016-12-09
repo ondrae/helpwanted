@@ -4,12 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
-    @collection_count = Collection.all.count
-    @project_count = Project.all.count
-    @issue_count = Issue.all.count
-    @user_count = User.all.count
+    @collection_count = Collection.count
+    @project_count = Project.count
+    @issue_count = Issue.count
+    @user_count = User.count
   end
-
-
 
 end

@@ -7,18 +7,14 @@ class IssuesController < ApplicationController
     if params[:project_id]
       @project = Project.friendly.find(params[:project_id])
       @issues = @project.issues
-      @headline = @project.name + "'s Issues"
     elsif params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])
       @issues = @collection.issues
-      @headline = @collection.name + " Issues"
     elsif params[:github_name]
       @user = User.find_by_github_name(params[:github_name])
       @issues = @user.issues
-      @headline = @user.github_name.capitalize + "'s Issues"
     else
       @issues = Issue.all
-      @headline = "All Issues"
     end
   end
 

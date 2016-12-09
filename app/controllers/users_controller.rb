@@ -16,9 +16,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find_by_github_name params[:github_name]
-    @collections = @user.collections
-    @projects = @user.projects
-    @issues = @user.issues
   end
 
   # DELETE /users/1

@@ -14,15 +14,11 @@ class ProjectsController < ApplicationController
     if params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])
       @projects = @collection.projects
-      @headline = @collection.name + " Projects"
-      render "index"
     elsif params[:github_name]
       @user = User.find_by_github_name(params[:github_name])
       @projects = @user.projects
-      @headline = @user.github_name.capitalize + "'s Projects"
     else
       @projects = Project.all
-      @headline = "All Projects"
     end
   end
 
