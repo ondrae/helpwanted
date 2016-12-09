@@ -11,15 +11,16 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+  <div class="control">
+    <%= f.label :name, class: "label" %>
+    <%= f.text_field :name, class: 'input is-large' %>
   </div>
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: 'form-control' %>
+  <div class="control">
+    <%= f.label :description, class: "label" %>
+    <%= f.text_area :description, class: 'textarea is-large' %>
   </div>
-  <div class="actions">
-    <%= f.submit 'Submit', class: 'btn btn-primary' %>
-  </div>
+  <p class="control">
+    <%= f.submit 'Submit', class: 'button is-primary is-large' %>
+    <%= link_to 'Back', collections_path, class: 'button is-large' %>
+  </p>
 <% end %>
