@@ -1,6 +1,7 @@
 class Collection < ActiveRecord::Base
   belongs_to :user
   has_many :projects, dependent: :destroy
+  has_many :issues, through: :projects
 
   validates :name, presence: true, uniqueness: true
 
@@ -9,14 +10,6 @@ class Collection < ActiveRecord::Base
 
   def owner
     user
-  end
-
-  def projects
-    @projects = Project.where(collection: self)
-  end
-
-  def issues
-    @issues = self.projects.map { |project| Issue.where(project: project) }.flatten
   end
 
   def update_projects

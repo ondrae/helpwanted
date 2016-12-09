@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :collections, dependent: :destroy
+  has_many :projects, through: :collections
+  has_many :issues, through: :projects
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -16,14 +18,6 @@ class User < ActiveRecord::Base
      user.github_name = auth.info.nickname
      user.image = auth.info.image
     end
-  end
-
-  def projects
-    @projects = self.collections.map { |collection| Project.where(collection: collection) }.flatten
-  end
-
-  def issues
-    @issues = self.projects.map { |project| Issue.where(project: project) }.flatten
   end
 
   def update_collections
