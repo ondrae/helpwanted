@@ -4,7 +4,7 @@
 
   <p>
     <% issue.labels.each do |label| %>
-      <span class="issue tag"><%= label.name %></span>
+      <span class="issue tag" style="background-color: #<%= label.color %>"><%= label.name %></span>
     <% end %>
   </p>
 
