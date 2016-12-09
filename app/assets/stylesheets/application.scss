@@ -23,16 +23,15 @@
   margin-right: 20px;
 }
 
-#nav-github-avatar {
+.github-avatar {
   width: 24px;
   height: 24px;
   border-radius: 2px;
   margin-right: 0.3rem;
 }
 
-.box {
-  border-top: 10px solid #00d1b2;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.3);
+.box .title {
+  font-weight: bold;
 }
 
 .issue.tag {
@@ -42,8 +41,20 @@
 
 #block-menu li a {
   display: block;
+}
+
+#block-menu li a.is-large {
   padding-top: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.box footer a {
+  color: inherit;
+}
+
+.level-left + .level-right {
+  display: inline;
+  margin-top: 0;
 }
 
 .hero.is-primary .button.is-primary {

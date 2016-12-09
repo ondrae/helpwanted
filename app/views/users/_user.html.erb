@@ -1,4 +1,5 @@
 <div class="box">
+
   <div class="media">
     <figure class="media-left">
       <p class="image is-64x64">
@@ -8,38 +9,22 @@
       </p>
     </figure>
     <div class="media-content">
-      <div class="content">
-          <h2 class="media-heading title is-2"><%= link_to user.github_name, user.github_name %></h2>
-      </div>
+        <p class="media-heading title"><%= link_to user.github_name, user.github_name %></p>
     </div>
   </div>
 
-  <br/>
+  <hr />
 
-  <ul id="block-menu">
-    <% if current_user == user %>
-      <li>
-        <%= link_to new_collection_path, class: "button is-large is-primary is-outlined" do %>
-          Create a Collection &nbsp; <i class="fa fa-plus"></i>
-        <% end %>
-      </li>
+  <footer class="level is-mobile">
+    <%= link_to users_collections_path(user.github_name), class: "level-item" do %>
+      Collections <span class="tag"><%= user.collections.count %></span>
     <% end %>
-  </ul>
-  <ul class="control is-grouped">
-    <li>
-      <%= link_to users_collections_path(user.github_name), class: "button" do %>
-        Collections <span class="tag"><%= user.collections.count %></span>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to projects_path, class: "button" do %>
-        Projects <span class="tag"><%= user.projects.count %></span>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to issues_path, class: "button" do %>
-        Issues <span class="tag"><%= user.issues.count %></span>
-      <% end %>
-    </li>
-  </ul>
+    <%= link_to users_projects_path(user.github_name), class: "level-item" do %>
+      Project <span class="tag"><%= user.projects.count %></span>
+    <% end %>
+    <%= link_to users_issues_path(user.github_name), class: "level-item" do %>
+      Issues <span class="tag"><%= user.issues.count %></span>
+    <% end %>
+
+  </footer>
 </div>

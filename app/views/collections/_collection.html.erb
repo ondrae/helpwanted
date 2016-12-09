@@ -1,24 +1,21 @@
 <div class="box">
 
-  <div class="content">
-    <p class="title"><%= link_to collection.name, collection %></p>
-    <p class="subtitle"><%= collection.description %></p>
-  </div>
+  <p class="title"><%= link_to collection.name, collection %></p>
+  <p class="subtitle"><%= collection.description %></p>
 
-  <ul class="control is-grouped">
-    <li>
-      <%= link_to collection_projects_path(collection), class: "button" do %>
+  <hr />
+
+  <footer class="level is-mobile">
+    <div class="level-left">
+      <%= link_to collection_projects_path(collection), class: "button level-item" do %>
         Projects <span class="tag"><%= collection.projects.count %></span>
       <% end %>
-    </li>
-    <li>
-      <%= link_to collection_issues_path(collection), class: "button" do %>
+    </div>
+    <div class="level-right">
+      <%= link_to collection_issues_path(collection), class: "button level-item" do %>
         Issues <span class="tag"><%= collection.issues.count %></span>
       <% end %>
-    </li>
-    <li>
-      <%= link_to "#{image_tag(collection.owner.image, size: '24', style: 'border-radius: 2px;')} #{collection.owner.github_name}".html_safe, "/" + collection.owner.github_name, class: "button" %>
-    </li>
-  </ul>
+    </div>
+  </footer>
 
 </div>

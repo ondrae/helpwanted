@@ -1,17 +1,19 @@
 <div class="box">
-  <div class="content">
-    <p class="title"><%= link_to project.name, project.url %></p>
-    <p class="subtitle"><%= project.description %></p>
-  </div>
 
-  <ul class="control is-grouped">
-    <li>
-      <%= link_to "Collection", project.collection, class: "button" %>
-    </li>
-    <li>
-      <%= link_to project_issues_path(project), class: "button" do %>
+  <p class="title"><%= link_to project.name, project.url %></p>
+  <p class="subtitle"><%= project.description %></p>
+
+  <hr />
+
+  <footer class="level is-mobile">
+    <div class="level-left">
+      <%= link_to project.collection.name, project.collection, class: "button level-item" %>
+    </div>
+    <div class="level-right">
+      <%= link_to project_issues_path(project), class: "button level-item" do %>
         Issues <span class="tag"><%= project.issues.count %></span>
       <% end %>
-    </li>
-  </ul>
+    </div>
+  </footer>
+
 </div>
