@@ -14,6 +14,15 @@
  *= require_self
  */
 
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: white;
+}
+
 .nav-right {
   width: 50%;
 }
