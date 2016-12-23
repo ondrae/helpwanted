@@ -17,11 +17,7 @@ class IssuesController < ApplicationController
       @issues = Issue.order(github_updated_at: :desc)
     end
     if params[:search]
-      if search_labels.present?
-        @issues = search_labels
-      elsif search_titles.present?
-        @issues = search_titles
-      end
+      @issues = search_labels + search_titles
     end
   end
 
@@ -56,6 +52,6 @@ class IssuesController < ApplicationController
     end
 
     def search_titles
-      @issues.where("title ILIKE :search", { search: "%#{params[:search]}%" } )
+      @issues.basic_search params[:search]
     end
 end

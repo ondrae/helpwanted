@@ -1,40 +1,9 @@
-<section class="hero is-primary is-medium">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h2 class="title is-2">
-        All Git Everything
-      </h2>
-      <h3 class="subtitle is-3">
-        Collections of hand picked Github projects.
-      </h3>
-      <%= render "shared/search" %>
-    </div>
-  </div>
-</section>
+<% content_for :sub_title do %>
+  <h3 class="subtitle is-3">
+    Collections of hand picked Github projects.
+  </h3>
+<% end %>
 
-<section class="section">
-  <div class="container">
-    <ul id="block-menu">
-      <li>
-        <%= link_to collections_path, class: "button is-large is-outlined" do %>
-          Collections <span class="tag"><%= @collection_count %></span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to projects_path, class: "button is-large is-outlined" do %>
-          Projects <span class="tag"><%= @project_count %></span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to issues_path, class: "button is-large is-outlined" do %>
-          Issues <span class="tag"><%= @issue_count %></span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to users_path, class: "button is-large is-outlined" do %>
-          People <span class="tag"><%= @user_count %></span>
-        <% end %>
-      </li>
-    </ul>
-  </div>
-</section>
+<%= render partial: "collections/collection", collection: @collections if @collections.present? %>
+<%= render partial: "projects/project", collection: @projects if @projects.present? %>
+<%= render partial: "issues/issue", collection: @issues if @issues.present? %>

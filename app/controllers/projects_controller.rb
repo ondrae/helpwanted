@@ -21,8 +21,7 @@ class ProjectsController < ApplicationController
       @projects = Project.all.order(github_updated_at: :desc)
     end
     if params[:search]
-      @projects = @projects.where("name ILIKE :search OR description ILIKE :search", { search: "%#{params[:search]}%" } )
-      @projects = @projects.order(github_updated_at: :desc)
+      @projects = @projects.basic_search params[:search]
     end
   end
 

@@ -44,6 +44,8 @@ gem 'font-awesome-sass'
 
 gem 'friendly_id'
 
+gem 'textacular'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'puma'

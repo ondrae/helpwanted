@@ -17,8 +17,7 @@ class CollectionsController < ApplicationController
       @collections = Collection.order(updated_at: :desc)
     end
     if params[:search]
-      @collections = @collections.where("name ILIKE :search OR description ILIKE :search", { search: "%#{params[:search]}%" } )
-      @collections = @collections.order(updated_at: :desc)
+      @collections = @collections.basic_search params[:search]
     end
   end
 
