@@ -35,6 +35,7 @@ class Project < ActiveRecord::Base
       end
     end
   end
+  handle_asynchronously :update_issues
 
   private
 
