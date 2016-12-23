@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     member do
       put "update_from_github"
     end
+    resources :collections
+    resources :projects, except: :show
+    resources :issues, only: :index
   end
 
   resources :collections do
@@ -27,11 +30,10 @@ Rails.application.routes.draw do
   end
 
   resources :issues, only: :index
-  #
-  get ":github_name" => "users#show", as: "user_page"
-
-  # Routes for humans
-  get ":github_name/collections" => "collections#index", as: "users_collections"
-  get ":github_name/projects" => "projects#index", as: "users_projects"
-  get ":github_name/issues" => "issues#index", as: "users_issues"
+  # get "/users/:github_name" => "users#show", as: "user_page"
+  # #
+  # # # Routes for humans
+  # get "/users/:github_name/collections" => "collections#index", as: "users_collections"
+  # get "/users/:github_name/projects" => "projects#index", as: "users_projects"
+  # get "/users/:github_name/issues" => "issues#index", as: "users_issues"
 end

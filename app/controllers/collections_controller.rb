@@ -10,9 +10,9 @@ class CollectionsController < ApplicationController
   # GET /collections
   # GET /collections.json
   def index
-    if params[:github_name]
-      @user = User.find_by_github_name(params[:github_name])
-      @collections = @user.collections
+    if params[:user_id]
+      user = User.friendly.find(params[:user_id])
+      @collections = user.collections
     else
       @collections = Collection.order(updated_at: :desc)
     end

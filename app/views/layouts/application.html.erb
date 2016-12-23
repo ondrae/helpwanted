@@ -24,7 +24,7 @@
       <div class="nav-right">
         <% if user_signed_in? %>
           <span class="nav-item">
-            <%= link_to "#{image_tag(current_user.image, class: "github-avatar")} #{current_user.github_name}".html_safe, "/" + current_user.github_name, class: "nav-item" %>
+            <%= link_to "#{image_tag(current_user.image, class: "github-avatar")} #{current_user.github_name}".html_safe, user_path(current_user), class: "nav-item" %>
             <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item" %>
           </span>
         <% else %>

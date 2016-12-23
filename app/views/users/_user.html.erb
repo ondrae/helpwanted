@@ -10,21 +10,37 @@
     </figure>
     <div class="media-content">
         <p class="media-heading title"><%= link_to user.github_name, user.github_name %></p>
+        <ul>
+          <li>
+            <%= link_to user_collections_path(user) do %>
+              Collections <span class="tag"><%= user.collections.count %></span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_projects_path(user) do %>
+              Projects <span class="tag"><%= user.projects.count %></span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_issues_path(user) do %>
+              Issues <span class="tag"><%= user.issues.count %></span>
+            <% end %>
+          </li>
     </div>
   </div>
 
-  <hr />
+  <% if current_user == user %>
 
-  <footer class="level is-mobile">
-    <%= link_to users_collections_path(user.github_name), class: "level-item" do %>
-      Collections <span class="tag"><%= user.collections.count %></span>
-    <% end %>
-    <%= link_to users_projects_path(user.github_name), class: "level-item" do %>
-      Project <span class="tag"><%= user.projects.count %></span>
-    <% end %>
-    <%= link_to users_issues_path(user.github_name), class: "level-item" do %>
-      Issues <span class="tag"><%= user.issues.count %></span>
-    <% end %>
+    <hr />
 
-  </footer>
+    <footer class="level is-mobile">
+      <%= link_to new_collection_path, class: "button is-primary is-outlined level-item" do %>
+        Create a Collection &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to new_project_path, class: "button is-primary is-outlined level-item" do %>
+        Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
+    </footer>
+
+  <% end %>
 </div>

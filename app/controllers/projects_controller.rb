@@ -12,11 +12,11 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     if params[:collection_id]
-      @collection = Collection.friendly.find(params[:collection_id])
-      @projects = @collection.projects
-    elsif params[:github_name]
-      @user = User.find_by_github_name(params[:github_name])
-      @projects = @user.projects
+      collection = Collection.friendly.find(params[:collection_id])
+      @projects = collection.projects
+    elsif params[:user_id]
+      user = User.friendly.find(params[:user_id])
+      @projects = user.projects
     else
       @projects = Project.all.order(github_updated_at: :desc)
     end

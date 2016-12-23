@@ -10,9 +10,9 @@ class IssuesController < ApplicationController
     elsif params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])
       @issues = @collection.issues
-    elsif params[:github_name]
-      @user = User.find_by_github_name(params[:github_name])
-      @issues = @user.issues
+    elsif params[:user_id]
+      user = User.friendly.find(params[:user_id])
+      @issues = user.issues
     else
       @issues = Issue.order(github_updated_at: :desc)
     end
