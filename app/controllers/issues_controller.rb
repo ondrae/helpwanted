@@ -16,6 +16,13 @@ class IssuesController < ApplicationController
     else
       @issues = Issue.order(github_updated_at: :desc)
     end
+    if params[:search]
+      if search_labels.present?
+        @issues = search_labels
+      elsif search_titles.present?
+        @issues = search_titles
+      end
+    end
   end
 
   # GET /issues/1
@@ -42,5 +49,13 @@ class IssuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
       params.require(:issue).permit(:title, :url, :labels, :project_id)
+    end
+
+    def search_labels
+      @issues.joins(:labels).where("name ILIKE :search", { search: "%#{params[:search]}%" } )
+    end
+
+    def search_titles
+      @issues.where("title ILIKE :search", { search: "%#{params[:search]}%" } )
     end
 end

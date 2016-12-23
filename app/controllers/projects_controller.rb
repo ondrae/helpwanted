@@ -18,7 +18,11 @@ class ProjectsController < ApplicationController
       @user = User.find_by_github_name(params[:github_name])
       @projects = @user.projects
     else
-      @projects = Project.order(github_updated_at: :desc)
+      @projects = Project.all.order(github_updated_at: :desc)
+    end
+    if params[:search]
+      @projects = @projects.where("name ILIKE :search OR description ILIKE :search", { search: "%#{params[:search]}%" } )
+      @projects = @projects.order(github_updated_at: :desc)
     end
   end
 
