@@ -13,6 +13,7 @@ class Collection < ActiveRecord::Base
   end
 
   def update_projects
+    puts "Updating #{self.name}'s projects"
     projects.map do |project|
       project.update_project
       project.update_issues

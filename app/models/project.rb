@@ -24,7 +24,11 @@ class Project < ActiveRecord::Base
       gh_project.issues.map do |gh_issue|
         exisiting_issue = Issue.where(project_id: self.id, url: gh_issue.html_url).first
         if exisiting_issue
-          exisiting_issue.update(title: gh_issue.title, labels: issue.gh_labels)
+          if gh_issue.gh_labels
+            exisiting_issue.update(title: gh_issue.title, labels: gh_issue.gh_labels)
+          else
+            exisiting_issue.update(title: gh_issue.title)
+          end
         else
           Issue.create(title: gh_issue.title, project: self, url: gh_issue.html_url, labels: gh_labels(gh_issue))
         end

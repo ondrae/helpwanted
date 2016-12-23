@@ -12,6 +12,7 @@ class GithubProject
     @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: true)
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ @url
     @repo_path = repo_path
+    puts "updating #{@repo_path} from github"
   end
 
   def project
