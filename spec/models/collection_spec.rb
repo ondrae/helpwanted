@@ -48,26 +48,51 @@ RSpec.describe Collection, type: :model do
 
   describe "#projects" do
     before do
-      3.times do
+      Timecop.travel(Time.now - 1.year) do
         create :project, collection: @collection
       end
+      Timecop.travel(Time.now) do
+        create :project, collection: @collection
+      end
+      Timecop.travel(Time.now - 1.day) do
+        create :project, collection: @collection
+      end
+
     end
     it "gets all of a collections projects" do
       expect(@collection.projects.count).to eq(3)
+    end
+    it "returns projects in order of updated_at" do
+      expect(@collection.projects).to eq Project.order(updated_at: :desc)
     end
   end
 
   describe "#issues" do
     before do
-      3.times do
+      Timecop.travel(Time.now - 1.year) do
         create :project, collection: @collection
       end
-      3.times do |i|
-        create :issue, project: Project.all[i]
+      Timecop.travel(Time.now) do
+        create :project, collection: @collection
+      end
+      Timecop.travel(Time.now - 1.day) do
+        create :project, collection: @collection
+      end
+      Timecop.travel(Time.now - 1.year) do
+        create :issue, project: Project.third
+      end
+      Timecop.travel(Time.now) do
+        create :issue, project: Project.second
+      end
+      Timecop.travel(Time.now - 1.day) do
+        create :issue, project: Project.first
       end
     end
     it "gets all of a collections issues" do
       expect(@collection.issues.count).to eq(3)
+    end
+    it "returns issues in order of updated_at" do
+      expect(@collection.issues).to eq Issue.order(updated_at: :desc)
     end
   end
 

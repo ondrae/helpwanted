@@ -14,7 +14,7 @@ class CollectionsController < ApplicationController
       @user = User.find_by_github_name(params[:github_name])
       @collections = @user.collections
     else
-      @collections = Collection.all
+      @collections = Collection.order(updated_at: :desc)
     end
   end
 

@@ -14,7 +14,7 @@ class IssuesController < ApplicationController
       @user = User.find_by_github_name(params[:github_name])
       @issues = @user.issues
     else
-      @issues = Issue.all
+      @issues = Issue.order(updated_at: :desc)
     end
   end
 
