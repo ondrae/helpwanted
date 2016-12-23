@@ -1,6 +1,11 @@
 <section class="section hero is-primary">
   <div class="container has-text-centered">
     <h2 class="title is-2">Projects</h2>
+    <% if user_signed_in? %>
+      <%= link_to new_project_path, class: "button is-large is-primary" do %>
+        Add a Project &nbsp; <i class="fa fa-plus"></i>
+      <% end %>
+    <% end %>
   </div>
 </section>
 
