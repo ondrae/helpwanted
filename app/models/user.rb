@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :collections, -> { order(updated_at: :desc) }, dependent: :destroy
-  has_many :projects, -> { order(updated_at: :desc) }, through: :collections
-  has_many :issues, -> { order(updated_at: :desc) }, through: :projects
+  has_many :projects, -> { order(github_updated_at: :desc) }, through: :collections
+  has_many :issues, -> { order(github_updated_at: :desc) }, through: :projects
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

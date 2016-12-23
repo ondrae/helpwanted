@@ -1,7 +1,7 @@
 class Collection < ActiveRecord::Base
   belongs_to :user
-  has_many :projects, -> { order(updated_at: :desc) }, dependent: :destroy
-  has_many :issues, -> { order(updated_at: :desc) }, through: :projects
+  has_many :projects, -> { order(github_updated_at: :desc) }, dependent: :destroy
+  has_many :issues, -> { order(github_updated_at: :desc) }, through: :projects
 
   validates :name, presence: true, uniqueness: true
 

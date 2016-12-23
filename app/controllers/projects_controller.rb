@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
       @user = User.find_by_github_name(params[:github_name])
       @projects = @user.projects
     else
-      @projects = Project.order(updated_at: :desc)
+      @projects = Project.order(github_updated_at: :desc)
     end
   end
 

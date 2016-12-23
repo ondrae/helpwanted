@@ -15,8 +15,8 @@ class GithubProject
     puts "updating #{@repo_path} from github"
   end
 
-  def project
-    @project ||= @github_api.repo @repo_path
+  def api_response
+    @api_response ||= @github_api.repo @repo_path
   end
 
   def repo_path
@@ -24,11 +24,19 @@ class GithubProject
   end
 
   def name
-    self.project[:name]
+    api_response[:name]
   end
 
   def description
-    self.project[:description]
+    api_response[:description]
+  end
+
+  def pushed_at
+    if api_response[:pushed_at]
+      api_response[:pushed_at]
+    else
+      api_response[:updated_at]
+    end
   end
 
   def issues
