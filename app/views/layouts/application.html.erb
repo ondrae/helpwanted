@@ -21,37 +21,40 @@
         <a class="nav-item is-brand is-large" href="/"> AllGitEverything </a>
       </div>
 
-      <div class="nav-right">
-        <% if user_signed_in? %>
-          <span class="nav-item">
-            <%= link_to "#{image_tag(current_user.image, class: "github-avatar")} #{current_user.github_name}".html_safe, user_path(current_user), class: "nav-item" %>
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item" %>
-          </span>
-        <% else %>
-          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, class: "nav-item sign-in is-pulled-right" %>
-        <% end %>
+      <span id="nav-toggle" class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+
+      <div id="nav-menu" class="nav-menu">
+        <aside class="menu">
+          <ul class="menu-list">
+            <% if user_signed_in? %>
+            <li class="nav-item"><%= link_to "#{image_tag(current_user.image, class: "small-github-avatar")} #{current_user.github_name}".html_safe, user_path(current_user) %></li>
+            <li class="nav-item"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to "Sign in with Github", user_github_omniauth_authorize_path %></li>
+          <% end %>
+
+          <li class="nav-item">
+            <%= link_to "Collections", collections_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Projects", projects_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Issues", issues_path %>
+          </li>
+
+          </ul>
+        </aside>
       </div>
 
     </div>
 
   </nav>
 
-  <nav class="nav hero is-primary">
-    <ul class="container ul level is-mobile">
-      <li class="nav-item level-item">
-        <%= link_to "Collections", collections_path %>
-      </li>
-      <li class="nav-item level-item">
-        <%= link_to "Projects", projects_path %>
-
-      </li>
-      <li class="nav-item level-item">
-        <%= link_to "Issues", issues_path %>
-      </li>
-    </ul>
-  </nav>
-
-  </nav>
 
   <section class="section hero is-primary">
     <div class="container">

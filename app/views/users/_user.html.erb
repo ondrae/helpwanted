@@ -2,30 +2,29 @@
 
   <div class="media">
     <figure class="media-left">
-      <p class="image is-64x64">
-        <%= link_to user.github_name do %>
-          <%= image_tag user.image, size: '64', style: 'border-radius: 5px;' %>
-        <% end %>
-      </p>
+      <%= link_to user.github_name do %>
+        <%= image_tag user.image, class: 'large-github-avatar' %>
+      <% end %>
     </figure>
     <div class="media-content">
-        <p class="media-heading title"><%= link_to user.github_name, user.github_name %></p>
-        <ul>
-          <li>
-            <%= link_to user_collections_path(user) do %>
-              Collections <span class="tag"><%= user.collections.count %></span>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to user_projects_path(user) do %>
-              Projects <span class="tag"><%= user.projects.count %></span>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to user_issues_path(user) do %>
-              Issues <span class="tag"><%= user.issues.count %></span>
-            <% end %>
-          </li>
+      <p class="media-heading title"><%= link_to user.github_name, user %></p>
+      <ul>
+        <li>
+          <%= link_to user_collections_path(user) do %>
+            <%= "My" if current_user == user %> Collections <span class="tag"><%= user.collections.count %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to user_projects_path(user) do %>
+            <%= "My" if current_user == user %> Projects <span class="tag"><%= user.projects.count %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to user_issues_path(user) do %>
+            <%= "My" if current_user == user %> Issues <span class="tag"><%= user.issues.count %></span>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -33,7 +32,7 @@
 
     <hr />
 
-    <footer class="level is-mobile">
+    <footer class="level">
       <%= link_to new_collection_path, class: "button is-primary is-outlined level-item" do %>
         Create a Collection &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
       <% end %>

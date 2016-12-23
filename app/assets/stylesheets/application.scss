@@ -22,6 +22,39 @@ body {
   min-height: 100%;
   background-color: white;
 }
+#nav-toggle {
+  display: block;
+}
+
+.hero.is-primary .nav-toggle span {
+  background-color: white;
+}
+.hero.is-primary .nav-toggle:hover {
+  background-color: rgba(10, 10, 10, 0.1);
+}
+.hero.is-primary .nav-toggle.is-active span {
+  background-color: white;
+}
+.hero.is-primary .nav-menu .nav-item {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.hero.is-primary .nav-menu {
+  background-color: #00d1b2;
+  box-shadow: 0 4px 7px rgba(10, 10, 10, 0.1);
+  left: 0;
+  display: none;
+  right: 0;
+  top: 100%;
+  position: absolute;
+}
+.hero.is-primary .nav-menu .nav-item {
+  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  padding: 10px;
+}
+.hero.is-primary .nav-menu.is-active {
+  display: block;
+}
 
 .nav-right {
   width: 50%;
@@ -32,11 +65,21 @@ body {
   margin-right: 20px;
 }
 
-.github-avatar {
+.small-github-avatar {
   width: 24px;
   height: 24px;
   border-radius: 2px;
   margin-right: 0.3rem;
+}
+
+.large-github-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.nav-menu a:hover {
+  background-color: transparent;
 }
 
 #search {
