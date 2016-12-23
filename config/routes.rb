@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :collections do
-    get "projects" => "projects#index"
+    resources :projects, except: :show
     get "issues" => "issues#index"
     member do
       put "update_from_github"
@@ -30,10 +30,4 @@ Rails.application.routes.draw do
   end
 
   resources :issues, only: :index
-  # get "/users/:github_name" => "users#show", as: "user_page"
-  # #
-  # # # Routes for humans
-  # get "/users/:github_name/collections" => "collections#index", as: "users_collections"
-  # get "/users/:github_name/projects" => "projects#index", as: "users_projects"
-  # get "/users/:github_name/issues" => "issues#index", as: "users_issues"
 end

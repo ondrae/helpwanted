@@ -34,6 +34,11 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @collections = current_user.collections
+    if params[:collection_id]
+      @current_collection = Collection.friendly.find(params[:collection_id])
+    else
+      @current_collection = nil
+    end
   end
 
   # GET /projects/1/edit
@@ -48,7 +53,7 @@ class ProjectsController < ApplicationController
       @project = Project.create(project_params)
       @project.update_project
       @project.update_issues
-      @collection = Collection.find(@project.collection_id)
+      @collection = Collection.friendly.find(@project.collection_id)
       redirect_to collection_path(@collection)
 
     elsif create_all_orgs_projects?
@@ -66,7 +71,7 @@ class ProjectsController < ApplicationController
           project.update_issues
         end
       end
-      @collection = Collection.find(project_params[:collection_id])
+      @collection = Collection.friendly.find(@project.collection_id)
       redirect_to collection_path(@collection)
     end
 

@@ -16,12 +16,16 @@
     <%= f.text_field :url, class: 'input is-large' %>
     <p class="help">Add a Github project or organization url</p>
   </div>
-  <div class="control">
-    <%= f.label :collection_id, class: "label" %>
-    <span class="select is-large">
-      <%= f.collection_select :collection_id, @collections, :id, :name, {} %>
-    </span>
-  </div>
+  <% if @current_collection %>
+      <%= f.hidden_field :collection_id, value: @current_collection.id %>
+  <% else %>
+    <div class="control">
+      <%= f.label :collection_id, class: "label" %>
+      <span class="select is-large">
+        <%= f.collection_select :collection_id, @collections, :id, :name, {} %>
+      </span>
+    </div>
+  <% end %>
   <p class="control">
     <%= f.submit 'Submit', class: 'button is-primary is-large' %>
     <%= link_to 'Back', projects_path, class: 'button is-large' %>

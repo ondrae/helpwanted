@@ -55,9 +55,9 @@
 
   <section class="section hero is-primary">
     <div class="container">
-      <h2 class="title is-2"><%= @title %></h2>
+      <h2 class="title is-2"><%= content_for :title or @title %></h2>
       <%= content_for :sub_title %>
-      <%= render "shared/search" %>
+      <%= render "shared/search" if params[:action] == "index" %>
     </div>
   </section>
 

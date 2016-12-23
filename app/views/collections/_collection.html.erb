@@ -3,6 +3,12 @@
   <p class="title"><%= link_to collection.name, collection %></p>
   <p class="subtitle"><%= collection.description %></p>
 
+  <% if current_user == collection.user %>
+    <%= link_to new_collection_project_path(collection), class: "button is-primary is-outlined level-item" do %>
+      Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+    <% end %>
+  <% end %>
+
   <hr />
 
   <footer class="level is-mobile">
