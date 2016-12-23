@@ -36,7 +36,38 @@
 
   </nav>
 
-  <%= yield %>
+  <nav class="nav hero is-primary">
+    <ul class="container ul level is-mobile">
+      <li class="nav-item level-item">
+        <%= link_to "Collections", collections_path %>
+      </li>
+      <li class="nav-item level-item">
+        <%= link_to "Projects", projects_path %>
+
+      </li>
+      <li class="nav-item level-item">
+        <%= link_to "Issues", issues_path %>
+      </li>
+    </ul>
+  </nav>
+
+  </nav>
+
+  <section class="section hero is-primary">
+    <div class="container">
+      <h2 class="title is-2"><%= @title %></h2>
+      <%= content_for :sub_title %>
+      <%= render "shared/search" %>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <%= yield %>
+
+    </div>
+  </section>
 
 </body>
 </html>
