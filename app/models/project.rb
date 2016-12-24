@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   has_many :issues, -> { order(github_updated_at: :desc) }, dependent: :destroy
 
   validates :url, presence: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 
   extend FriendlyId
   friendly_id :name, use: :slugged
