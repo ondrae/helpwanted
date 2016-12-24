@@ -14,8 +14,17 @@ class ApplicationController < ActionController::Base
     if params[:search]
       @collections = Collection.basic_search params[:search]
       @projects = Project.basic_search params[:search]
-      @issues = Issue.basic_search params[:search]
+      @issues = search_labels + search_titles
     end
   end
+
+  private
+    def search_labels
+      Issue.all.joins(:labels).where("name ILIKE :search", { search: "%#{params[:search]}%" } )
+    end
+
+    def search_titles
+      Issue.all.basic_search params[:search]
+    end
 
 end
