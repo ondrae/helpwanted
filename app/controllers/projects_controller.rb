@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
       @project = Project.create(project_params)
       @project.update_project
       @project.update_issues
-      @collection = Collection.friendly.find(@project.collection_id)
+      @collection = Collection.friendly.find(project_params[:collection_id])
       redirect_to collection_path(@collection)
 
     elsif create_all_orgs_projects?
@@ -71,7 +71,7 @@ class ProjectsController < ApplicationController
           project.update_issues
         end
       end
-      @collection = Collection.friendly.find(@project.collection_id)
+      @collection = Collection.friendly.find(project_params[:collection_id])
       redirect_to collection_path(@collection)
     end
 
