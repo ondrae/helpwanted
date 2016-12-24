@@ -43,4 +43,11 @@ class GithubProject
     @issues ||= @github_api.issues @repo_path
   end
 
+  def owner_login
+    api_response[:owner][:login]
+  end
+
+  def owner_avatar_url
+    api_response[:owner][:avatar_url]
+  end
 end
