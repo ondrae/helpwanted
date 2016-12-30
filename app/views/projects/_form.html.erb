@@ -12,9 +12,10 @@
   <% end %>
 
   <div class="control">
-    <%= f.label :url, class: "label" %><br>
+    <%= f.label :url, class: "label" do %>
+      Add a Github project or Github organization
+    <% end %><br>
     <%= f.text_field :url, class: 'input is-large' %>
-    <p class="help">Add a Github project or organization url</p>
   </div>
   <% if @current_collection %>
       <%= f.hidden_field :collection_id, value: @current_collection.id %>

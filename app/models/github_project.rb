@@ -5,12 +5,11 @@ class GithubProject
   validates_format_of :url, :with => URI.regexp
   validates_format_of :url, :with => /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+\/?/
 
-  attr_accessor :url, :name, :description, :issue
+  attr_accessor :url, :name, :description, :html_url, :issue, :owner_login, :owner_html_url, :owner_avatar_url
 
   def initialize(url)
     @url = url
     @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: true)
-    /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ @url
     @repo_path = repo_path
     puts "updating #{@repo_path} from github"
   end
@@ -20,7 +19,8 @@ class GithubProject
   end
 
   def repo_path
-    @repo_path
+    /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ @url
+    repo_path
   end
 
   def name
