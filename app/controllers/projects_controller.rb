@@ -64,8 +64,9 @@ class ProjectsController < ApplicationController
           name: gh_project.name,
           description: gh_project.description,
           url: gh_project.html_url,
-          owner_login: gh_project.owner_login,
-          owner_avatar_url: gh_project.owner_avatar_url,
+          github_updated_at: gh_project.pushed_at,
+          owner_login: gh_project.owner.login,
+          owner_avatar_url: gh_project.owner.avatar_url,
           collection_id: project_params[:collection_id]
         }
         project = Project.create(gh_project_params)
