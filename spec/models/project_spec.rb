@@ -5,8 +5,17 @@ RSpec.describe Project, type: :model do
     @project = create :project
   end
 
-  describe "#gh_labels" do
+  describe "validations" do
+    it "can only have one of the same projects per collection" do
+      duplicate_project = Project.create(name: @project.name, url: @project.url, collection: @project.collection)
+      expect(duplicate_project).to_not be_valid
 
+      project_new_url = Project.create(name: @project.name, url: "https://github.com/differenturl", collection: @project.collection)
+      expect(project_new_url).to be_valid
+    end
+  end
+
+  describe "#gh_labels" do
   end
 
   describe "#update_project" do

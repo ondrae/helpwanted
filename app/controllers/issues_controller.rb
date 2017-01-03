@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     if params[:project_id]
-      @project = Project.friendly.find(params[:project_id])
+      @project = Project.find(params[:project_id])
       @issues = @project.issues
     elsif params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])

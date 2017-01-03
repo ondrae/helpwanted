@@ -2,11 +2,8 @@ class Project < ActiveRecord::Base
   belongs_to :collection
   has_many :issues, -> { order(github_updated_at: :desc) }, dependent: :destroy
 
-  validates :url, presence: true
+  validates :url, presence: true, uniqueness: { scope: :collection, message: "can only add a project once per collection" }
   validates :name, presence: true
-
-  extend FriendlyId
-  friendly_id :name, use: :slugged
 
   def owner
     collection.owner
