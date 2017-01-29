@@ -14,7 +14,7 @@ class IssuesController < ApplicationController
       user = User.friendly.find(params[:user_id])
       @issues = user.issues
     else
-      @issues = Issue.order(github_updated_at: :desc)
+      @issues = Issue.all
     end
     if params[:search]
       @issues = search_labels + search_titles

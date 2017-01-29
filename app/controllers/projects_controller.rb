@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
       user = User.friendly.find(params[:user_id])
       @projects = user.projects
     else
-      @projects = Project.all.order(github_updated_at: :desc)
+      @projects = Project.all
     end
     if params[:search]
       @projects = @projects.basic_search params[:search]

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    @collections = Collection.order(updated_at: :desc)
+    @collections = Collection.all
     if params[:search]
       @collections = Collection.basic_search params[:search]
       @projects = Project.basic_search params[:search]

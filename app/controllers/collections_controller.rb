@@ -14,7 +14,7 @@ class CollectionsController < ApplicationController
       user = User.friendly.find(params[:user_id])
       @collections = user.collections
     else
-      @collections = Collection.order(updated_at: :desc)
+      @collections = Collection.all
     end
     if params[:search]
       @collections = @collections.basic_search params[:search]
