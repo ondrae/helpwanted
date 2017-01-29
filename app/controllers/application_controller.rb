@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    @collections = Collection.all
+    @collections = Collection.all.page(params[:page])
     if params[:search]
       @collections = Collection.basic_search params[:search]
       @projects = Project.basic_search params[:search]

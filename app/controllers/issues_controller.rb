@@ -6,18 +6,18 @@ class IssuesController < ApplicationController
   def index
     if params[:project_id]
       @project = Project.find(params[:project_id])
-      @issues = @project.issues
+      @issues = @project.issues.page(params[:page])
     elsif params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])
-      @issues = @collection.issues
+      @issues = @collection.issues.page(params[:page])
     elsif params[:user_id]
       user = User.friendly.find(params[:user_id])
-      @issues = user.issues
+      @issues = user.issues.page(params[:page])
     else
-      @issues = Issue.all
+      @issues = Issue.page(params[:page])
     end
     if params[:search]
-      @issues = search_labels + search_titles
+      @issues = search_with_pagination
     end
   end
 
@@ -47,8 +47,13 @@ class IssuesController < ApplicationController
       params.require(:issue).permit(:title, :url, :labels, :project_id)
     end
 
+    def search_with_pagination
+      search_array = search_labels + search_titles
+      Kaminari.paginate_array(search_array, total_count: search_array.length - 1).page(params[:page])
+    end
+
     def search_labels
-      @issues.joins(:labels).where("name ILIKE :search", { search: "%#{params[:search]}%" } )
+      @issues.joins(:labels).where("labels.name ILIKE :search", { search: "%#{params[:search]}%" } )
     end
 
     def search_titles

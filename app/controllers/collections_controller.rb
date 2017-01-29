@@ -12,12 +12,12 @@ class CollectionsController < ApplicationController
   def index
     if params[:user_id]
       user = User.friendly.find(params[:user_id])
-      @collections = user.collections
+      @collections = user.collections.page(params[:page])
     else
-      @collections = Collection.all
+      @collections = Collection.all.page(params[:page])
     end
     if params[:search]
-      @collections = @collections.basic_search params[:search]
+      @collections = @collections.basic_search(params[:search]).page(params[:page])
     end
   end
 

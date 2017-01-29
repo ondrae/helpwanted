@@ -13,15 +13,15 @@ class ProjectsController < ApplicationController
   def index
     if params[:collection_id]
       collection = Collection.friendly.find(params[:collection_id])
-      @projects = collection.projects
+      @projects = collection.projects.page(params[:page])
     elsif params[:user_id]
       user = User.friendly.find(params[:user_id])
-      @projects = user.projects
+      @projects = user.projects.page(params[:page])
     else
-      @projects = Project.all
+      @projects = Project.all.page(params[:page])
     end
     if params[:search]
-      @projects = @projects.basic_search params[:search]
+      @projects = @projects.basic_search(params[:search]).page(params[:page])
     end
   end
 

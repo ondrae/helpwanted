@@ -50,6 +50,9 @@ gem 'textacular'
 # gem 'unicorn'
 gem 'puma'
 
+# pagination
+gem 'kaminari'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
