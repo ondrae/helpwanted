@@ -4,19 +4,19 @@ RSpec.describe CollectionsController, type: :controller do
   include Devise::TestHelpers
 
   def setup
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
     sign_in FactoryGirl.create(:user)
   end
 
   describe "PUT #update_from_github" do
-    let(:collection) { create :collection }
+    let!(:collection) { create :collection }
     before do
-      allow(controller).to receive(:set_collection).and_return(collection)
-      # allow(collection).to receive :update_projects
+      allow(Collection).to receive_message_chain(:friendly, :find).and_return(collection)
+      allow(collection).to receive :update_projects
     end
     it "updates a collections projects" do
-      put :update_from_github, {:name => collection.to_param}
+      put :update_from_github, {:id => collection.to_param}
 
+      expect(assigns[:collection]).to eq collection
       expect(collection).to have_received :update_projects
     end
   end
