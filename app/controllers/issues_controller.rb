@@ -49,7 +49,7 @@ class IssuesController < ApplicationController
 
     def search_with_pagination
       search_array = search_labels + search_titles
-      Kaminari.paginate_array(search_array, total_count: search_array.length).page(params[:page])
+      Kaminari.paginate_array(search_array).page(params[:page]).per(50)
     end
 
     def search_labels
@@ -57,6 +57,6 @@ class IssuesController < ApplicationController
     end
 
     def search_titles
-      @issues.basic_search params[:search]
+      @issues.basic_search(params[:search])
     end
 end
