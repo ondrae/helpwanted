@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy, :update_from_github]
+  before_action :set_collection, only: [:show, :edit, :update, :destroy, :update_from_github, :owner_only]
+  before_action :owner_only, only: [:edit, :update, :destroy]
 
   # PUT /update_from_github
   def update_from_github
@@ -84,5 +85,9 @@ class CollectionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
       params.require(:collection).permit(:name, :description, :slug)
+    end
+
+    def owner_only
+      render json: {}, status: :forbidden unless current_user == @collection.user
     end
 end

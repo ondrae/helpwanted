@@ -21,7 +21,6 @@ RSpec.describe CollectionsController, type: :controller do
     let(:user) { create :user }
     let(:collection) { create :collection, user: user }
     let(:collection2) { create :collection, description: "BICYCLES" }
-    before { sign_in user }
 
     it "shows all of a users collections" do
       get :index, params = { user_id: user.github_name }
@@ -59,6 +58,11 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "GET #edit" do
+    let(:collection) { create :collection }
+    it "cant edit when not logged in" do
+      get :edit, {id: collection.to_param}
+      expect(response.status).to eq 403
+    end
   end
 
   describe "POST #create" do
@@ -98,21 +102,32 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "PUT #update" do
-    context "with valid params" do
-      let(:collection) { create :collection }
-      let(:new_attributes) { { name: "UPDATED NAME", description: "UPDATED DESCRIPTION", slug: "updated-slug" } }
+    let(:user) { create :user }
+    let(:user2) { create :user }
 
-      it "updates the requested collection" do
+    let(:collection) { create :collection, user: user }
+    let(:new_attributes) { { name: "UPDATED NAME", description: "UPDATED DESCRIPTION", slug: "updated-slug" } }
+    before { sign_in user }
+
+    context "only collections owner can edit it" do
+      it "when the owner is logged in, a collection can be updated" do
         put :update, {id: collection.to_param, collection: new_attributes}
         collection.reload
         expect(collection.name).to eq("UPDATED NAME")
         expect(collection.description).to eq("UPDATED DESCRIPTION")
         expect(collection.slug).to eq("updated-slug")
       end
+
+      it "when trying to edit a non-owned collection" do
+        sign_out user
+        sign_in user2
+
+        put :update, {id: collection.to_param, collection: new_attributes}
+        expect(response.status).to eq 403
+      end
     end
 
     context "with invalid params" do
-      let(:collection) { create :collection }
       let(:new_attributes) { { name: nil, description: "UPDATED DESCRIPTION", slug: "updated-slug" } }
 
       it "re-renders the 'edit' template" do
@@ -123,7 +138,9 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:collection) { create :collection }
+    let(:user) { create :user }
+    let!(:collection) { create :collection, user: user }
+    before { sign_in user }
 
     it "destroys the requested collection" do
       expect {
@@ -134,6 +151,13 @@ RSpec.describe CollectionsController, type: :controller do
     it "redirects to the collections list" do
       delete :destroy, {id: collection.to_param}
       expect(response).to redirect_to(collections_url)
+    end
+
+    it "only destroys a users own collections" do
+      sign_out user
+
+      delete :destroy, {id: collection.to_param}
+      expect(response.status).to eq 403
     end
   end
 
