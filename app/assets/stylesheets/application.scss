@@ -22,48 +22,6 @@ body {
   min-height: 100%;
   background-color: white;
 }
-#nav-toggle {
-  display: block;
-}
-
-.hero.is-primary .nav-toggle span {
-  background-color: white;
-}
-.hero.is-primary .nav-toggle:hover {
-  background-color: rgba(10, 10, 10, 0.1);
-}
-.hero.is-primary .nav-toggle.is-active span {
-  background-color: white;
-}
-.hero.is-primary .nav-menu .nav-item {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-
-.hero.is-primary .nav-menu {
-  background-color: #00d1b2;
-  box-shadow: 0 4px 7px rgba(10, 10, 10, 0.1);
-  left: 0;
-  display: none;
-  right: 0;
-  top: 100%;
-  position: absolute;
-}
-.hero.is-primary .nav-menu .nav-item {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
-  padding: 10px;
-}
-.hero.is-primary .nav-menu.is-active {
-  display: block;
-}
-
-.nav-right {
-  width: 50%;
-}
-
-.sign-in {
-  line-height: 30px;
-  margin-right: 20px;
-}
 
 .small-github-avatar {
   width: 24px;
@@ -76,10 +34,6 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 4px;
-}
-
-.nav-menu a:hover {
-  background-color: transparent;
 }
 
 #search {
@@ -95,15 +49,6 @@ body {
   color: white;
 }
 
-#block-menu li a {
-  display: block;
-}
-
-#block-menu li a.is-large {
-  padding-top: 0.75rem;
-  margin-bottom: 1rem;
-}
-
 .box footer a {
   color: inherit;
 }
@@ -111,6 +56,10 @@ body {
 .level-left + .level-right {
   display: inline;
   margin-top: 0;
+}
+
+.level {
+  padding-top: 10px;
 }
 
 .level-item:not(:last-child) {
@@ -122,7 +71,7 @@ body {
     margin-right: 0;
 }
 
-.hero.is-primary .button.is-primary {
+.hero .button {
   border-width: 1px;
   border-color: white;
 }

@@ -4,7 +4,7 @@
   <p class="subtitle"><%= project.description %></p>
 
   <div class="level">
-    <%= link_to "https://github.com/" + project.owner_login, class: "level-item" do %>
+    <%= link_to "https://github.com/" + project.owner_login do %>
         <%= image_tag project.owner_avatar_url, class: "small-github-avatar" %> <%= project.owner_login %>
     <% end %>
   </div>

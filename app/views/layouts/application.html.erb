@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <%= javascript_include_tag 'application' %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
 
-  <nav class="nav hero is-primary">
+  <nav class="nav">
 
     <div class="container">
 
@@ -27,28 +27,28 @@
         <span></span>
       </span>
 
-      <div id="nav-menu" class="nav-menu">
-        <aside class="menu">
-          <ul class="menu-list">
-            <% if user_signed_in? %>
-            <li class="nav-item"><%= link_to "#{image_tag(current_user.image, class: "small-github-avatar")} #{current_user.github_name}".html_safe, user_path(current_user) %></li>
-            <li class="nav-item"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li class="nav-item"><%= link_to "Sign in with Github", user_github_omniauth_authorize_path %></li>
-          <% end %>
-
-          <li class="nav-item">
-            <%= link_to "Collections", collections_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Projects", projects_path %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Issues", issues_path %>
-          </li>
-
-          </ul>
-        </aside>
+      <div class="nav-right nav-menu">
+        <li class="nav-item">
+          <%= link_to "Collections", collections_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Projects", projects_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Issues", issues_path %>
+        </li>
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "#{image_tag(current_user.image, class: "small-github-avatar")}".html_safe, user_path(current_user) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to '<i class="fa fa-sign-out fa-lg"></i>'.html_safe, destroy_user_session_path, method: :delete %>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path %>
+        </li>
+        <% end %>
       </div>
 
     </div>
