@@ -7,7 +7,7 @@
   <hr />
 
   <div class="level is-mobile">
-    <%= link_to user_path collection.owner.github_name, class: "level-item" do %>
+    <%= link_to user_path(collection.owner.github_name), class: "level-item" do %>
         <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
     <% end %>
     <%= link_to collection_projects_path(collection), class: "level-item" do %>
