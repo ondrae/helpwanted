@@ -1,7 +1,5 @@
 <% content_for :sub_title do %>
-  <h3 class="subtitle is-3">
-    Hand picked Github projects.
-  </h3>
+  Hand picked Github projects
 <% end %>
 
 <%= render partial: "collections/collection", collection: @collections if @collections.present? %>
