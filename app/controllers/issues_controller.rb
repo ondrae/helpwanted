@@ -7,9 +7,11 @@ class IssuesController < ApplicationController
     if params[:project_id]
       @project = Project.find(params[:project_id])
       @issues = @project.issues.page(params[:page])
+      @title = @project.name + "'s Issues"
     elsif params[:collection_id]
       @collection = Collection.friendly.find(params[:collection_id])
       @issues = @collection.issues.page(params[:page])
+      @title = @collection.name + "'s Issues"
     elsif params[:user_id]
       user = User.friendly.find(params[:user_id])
       @issues = user.issues.page(params[:page])

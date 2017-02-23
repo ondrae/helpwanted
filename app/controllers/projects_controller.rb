@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
     if params[:collection_id]
       collection = Collection.friendly.find(params[:collection_id])
       @projects = collection.projects.page(params[:page])
+      @title = collection.name + "'s Projects"
     elsif params[:user_id]
       user = User.friendly.find(params[:user_id])
       @projects = user.projects.page(params[:page])
