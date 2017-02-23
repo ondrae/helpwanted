@@ -1,11 +1,11 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy, :update_from_github, :owner_only]
+  before_action :set_collection, only: [:edit, :update, :destroy, :update_from_github, :owner_only]
   before_action :owner_only, only: [:edit, :update, :destroy]
 
   # PUT /update_from_github
   def update_from_github
     @collection.update_projects
-    redirect_to @collection
+    redirect_to request.referer
   end
 
   # GET /collections
@@ -20,11 +20,6 @@ class CollectionsController < ApplicationController
     if params[:search]
       @collections = @collections.basic_search(params[:search]).page(params[:page])
     end
-  end
-
-  # GET /collections/1
-  # GET /collections/1.json
-  def show
   end
 
   # GET /collections/new
@@ -43,7 +38,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       if @collection.save
-        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
+        format.html { redirect_to collections_path, notice: 'Collection was successfully created.' }
         format.json { render :show, status: :created, location: @collection }
       else
         format.html { render :new }

@@ -1,11 +1,11 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :update_from_github]
-  before_action :must_be_logged_in, only: [:new, :edit, :create, :update, :destroy, :update_from_github]
+  before_action :set_project, only: [:destroy, :update_from_github]
+  before_action :must_be_logged_in, only: [:destroy, :update_from_github]
 
   def update_from_github
     @project.update_project
     @project.update_issues
-    redirect_to @project
+    redirect_to request.referer
   end
 
   # GET /projects
@@ -26,11 +26,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
-  end
-
   # GET /projects/new
   def new
     @project = Project.new
@@ -42,43 +37,27 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
-  def edit
-  end
-
   # POST /projects
   # POST /projects.json
   def create
 
     if create_single_project?
-      @project = Project.create(project_params)
+      @project = Project.create!(project_params)
       @project.update_project
       @project.update_issues
       @collection = Collection.friendly.find(project_params[:collection_id])
-      redirect_to collection_path(@collection)
+      redirect_to collection_projects_path(@collection)
 
     elsif create_all_orgs_projects?
       @collection = Collection.friendly.find(project_params[:collection_id])
+      organization = Organization.create!(name: project_params[:url], collection: @collection)
+      organization.update_projects
+      redirect_to collection_projects_path(@collection)
 
-      Organization.create!(name: project_params[:url], collection: @collection)
-
-      redirect_to collection_path(@collection)
+    else
+      redirect_to new_project_path
     end
 
-  end
-
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
-  def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /projects/1
