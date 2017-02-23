@@ -1,23 +1,40 @@
 <div class="box">
-
-  <p class="title"><%= link_to collection.name, collection %></p>
-  <p class="subtitle"><%= collection.description %></p>
-
-  <% if current_user == collection.user %>
-    <%= link_to new_collection_project_path(collection), class: "button is-primary is-outlined level-item" do %>
-      Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
-    <% end %>
-  <% end %>
+  <header>
+    <p class="title"><%= collection.name %></p>
+    <p class="subtitle"><%= collection.description %></p>
+  </header>
 
   <hr />
 
-  <footer class="level is-mobile">
-    <%= link_to collection_projects_path(collection), class: "button level-item" do %>
+  <div class="level is-mobile">
+    <%= link_to user_path collection.owner.github_name, class: "level-item" do %>
+        <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
+    <% end %>
+    <%= link_to collection_projects_path(collection), class: "level-item" do %>
       Projects <span class="tag"><%= collection.projects.count %></span>
     <% end %>
-    <%= link_to collection_issues_path(collection), class: "button level-item" do %>
+    <%= link_to collection_issues_path(collection), class: "level-item" do %>
       Issues <span class="tag"><%= collection.issues.count %></span>
     <% end %>
-  </footer>
+  </div>
+
+  <% if current_user == collection.user %>
+
+    <footer class="level">
+      <%= link_to new_collection_project_path(collection), class: "button is-primary is-outlined level-item" do %>
+        Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to collection, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+        Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to edit_collection_path(collection), class: "button is-primary is-outlined level-item" do %>
+        Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to update_from_github_collection_path(collection), class: "button is-primary is-outlined level-item", method: :put do %>
+        Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+      <% end %>
+    </footer>
+
+  <% end %>
 
 </div>

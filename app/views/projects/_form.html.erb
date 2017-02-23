@@ -13,9 +13,10 @@
 
   <div class="control">
     <%= f.label :url, class: "label" do %>
-      Add a Github project or Github organization
-    <% end %><br>
-    <%= f.text_field :url, class: 'input is-large' %>
+      Add a Github repository or a whole Github organization
+    <% end %>
+    <br>
+    <%= f.text_field :url, class: 'input is-large', placeholder: "https://github.com/codeforamerica" %>
   </div>
   <% if @current_collection %>
       <%= f.hidden_field :collection_id, value: @current_collection.id %>

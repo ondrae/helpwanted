@@ -1,25 +1,36 @@
 <div class="box">
 
-  <p class="title"><%= link_to project.name, project.url %></p>
-  <p class="subtitle"><%= project.description %></p>
-
-  <div class="level">
-    <%= link_to "https://github.com/" + project.owner_login do %>
-        <%= image_tag project.owner_avatar_url, class: "small-github-avatar" %> <%= project.owner_login %>
-    <% end %>
-  </div>
+  <header>
+    <p class="title"><%= link_to project.name, project.url %></p>
+    <p class="subtitle"><%= project.description %></p>
+  </header>
 
   <hr />
 
-  <footer class="level is-mobile">
-    <%= link_to project.collection, class: "button level-item" do %>
+  <div class="level is-mobile">
+    <%= link_to "https://github.com/" + project.owner_login, class: "level-item" do %>
+        <%= image_tag project.owner_avatar_url, class: "small-github-avatar" %> <%= project.owner_login %>
+    <% end %>
+    <%= link_to project.collection, class: "level-item" do %>
         <%= project.collection.name %>
     <% end %>
-    <% if project.issues.present? %>
-      <%= link_to project_issues_path(project), class: "button level-item" do %>
-        Issues <span class="tag"><%= project.issues.count %></span>
-      <% end %>
+    <%= link_to project.url + '/issues', class: "level-item" do %>
+      Issues <span class="tag"><%= project.issues.count %></span>
     <% end %>
-  </footer>
+  </div>
+
+
+  <% if current_user == project.owner %>
+
+    <footer class="level">
+      <%= link_to project, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+        Remove Project &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to update_from_github_project_path(project), class: "button is-primary is-outlined level-item", method: :put do %>
+        Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+      <% end %>
+    </footer>
+
+  <% end %>
 
 </div>
