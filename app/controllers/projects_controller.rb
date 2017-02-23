@@ -57,24 +57,10 @@ class ProjectsController < ApplicationController
       redirect_to collection_path(@collection)
 
     elsif create_all_orgs_projects?
-
-      @projects = GithubOrganization.new(project_params[:url]).projects
-      @projects.map do |gh_project|
-        gh_project_params = {
-          name: gh_project.name,
-          description: gh_project.description,
-          url: gh_project.html_url,
-          github_updated_at: gh_project.pushed_at,
-          owner_login: gh_project.owner.login,
-          owner_avatar_url: gh_project.owner.avatar_url,
-          collection_id: project_params[:collection_id]
-        }
-        project = Project.create(gh_project_params)
-        if project.valid?
-          project.update_issues
-        end
-      end
       @collection = Collection.friendly.find(project_params[:collection_id])
+
+      Organization.create!(name: project_params[:url], collection: @collection)
+
       redirect_to collection_path(@collection)
     end
 

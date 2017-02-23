@@ -1,5 +1,6 @@
 class Collection < ActiveRecord::Base
   belongs_to :user
+  has_many :organizations, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :issues, through: :projects
 
@@ -16,6 +17,9 @@ class Collection < ActiveRecord::Base
 
   def update_projects
     puts "Updating #{self.name}'s projects"
+    organizations.map do |organization|
+      organization.update_projects
+    end
     projects.map do |project|
       project.update_project
       project.update_issues
