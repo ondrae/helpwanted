@@ -8,25 +8,20 @@
     </figure>
     <div class="media-content">
       <p class="media-heading title"><%= link_to user.github_name, user %></p>
-      <ul>
-        <li>
-          <%= link_to user_collections_path(user) do %>
-            <%= "My" if current_user == user %> Collections <span class="tag"><%= user.collections.count %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to user_projects_path(user) do %>
-            <%= "My" if current_user == user %> Projects <span class="tag"><%= user.projects.count %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to user_issues_path(user) do %>
-            <%= "My" if current_user == user %> Issues <span class="tag"><%= user.issues.count %></span>
-          <% end %>
-        </li>
-      </ul>
     </div>
   </div>
+
+    <div class="level is-mobile">
+      <%= link_to user_collections_path(user), class: "level-item" do %>
+        Collections <span class="tag"><%= user.collections.count %></span>
+      <% end %>
+      <%= link_to user_projects_path(user), class: "level-item" do %>
+        Projects <span class="tag"><%= user.projects.count %></span>
+      <% end %>
+      <%= link_to user_issues_path(user) + "?search=help+wanted", class: "level-item" do %>
+        Help Wanted Issues <span class="tag"><%= user.issues.help_wanted.count %></span>
+      <% end %>
+    </div>
 
   <% if current_user == user %>
 
@@ -38,6 +33,9 @@
       <% end %>
       <%= link_to new_project_path, class: "button is-primary is-outlined level-item" do %>
         Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to current_user, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: "You sure?" } do %>
+        Delete my account &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
     </footer>
 

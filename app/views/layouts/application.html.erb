@@ -60,7 +60,9 @@
     <div class="container">
       <h2 class="title is-2"><%= content_for :title or @title %></h2>
       <h3 class="subtitle is-3"><%= content_for :sub_title or @subtitle %></h3>
-      <%= render "shared/search" if params[:action].in? ["index", "show"] %>
+      <% if params[:action].in? ["index", "show"] and params[:controller] != "users"%>
+        <%= render "shared/search" %>
+      <% end %>
     </div>
   </section>
 
