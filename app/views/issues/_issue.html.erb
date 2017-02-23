@@ -11,9 +11,10 @@
   <hr />
 
   <footer class="level is-mobile">
-    <div class="level-left">
-      <%= link_to issue.project.name, issue.project.url, class: "level-item" %>
-    </div>
+    <%= link_to "https://github.com/" + issue.project.owner_login, class: "level-item" do %>
+        <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
+    <% end %>
+    <%= link_to issue.project.name, issue.project.url, class: "level-item" %>
   </footer>
 
 </div>
