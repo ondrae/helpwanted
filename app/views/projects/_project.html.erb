@@ -5,6 +5,14 @@
     <p class="subtitle"><%= project.description %></p>
   </header>
 
+  <div class="level">
+    <% if project.issues.help_wanted.any? %>
+      <%= link_to project.url + '/issues' do %>
+        Help Wanted Issues <span class="tag"><%= project.issues.help_wanted.count %></span>
+      <% end %>
+    <% end %>
+  </div>
+
   <hr />
 
   <div class="level is-mobile">
@@ -13,9 +21,6 @@
     <% end %>
     <%= link_to project.collection, class: "level-item" do %>
         <%= project.collection.name %>
-    <% end %>
-    <%= link_to project.url + '/issues', class: "level-item" do %>
-      Issues <span class="tag"><%= project.issues.count %></span>
     <% end %>
   </div>
 

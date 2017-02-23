@@ -4,6 +4,8 @@ class Issue < ActiveRecord::Base
   validates :title, :url, presence: true
 
   default_scope { order('github_updated_at DESC') }
+  scope :help_wanted, -> { joins(:labels).where("labels.name ILIKE '%help wanted%'") }
+
 
   def number
     /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+\/?\/issues\/(?<number>\d+)/ =~ url

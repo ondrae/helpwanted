@@ -1,21 +1,26 @@
 <div class="box">
   <header>
-    <p class="title"><%= collection.name %></p>
+    <p class="title"><%= link_to collection.name, collection %></p>
     <p class="subtitle"><%= collection.description %></p>
   </header>
+
+  <div class="level is-mobile">
+    <%= link_to collection_projects_path(collection), class: "level-item" do %>
+      Projects <span class="tag"><%= collection.projects.count %></span>
+    <% end %>
+    <%= link_to collection_issues_path(collection) + "?search=help+wanted", class: "level-item" do %>
+      Help Wanted Issues <span class="tag"><%= collection.issues.help_wanted.count %></span>
+    <% end %>
+  </div>
 
   <hr />
 
   <div class="level is-mobile">
-    <%= link_to user_path(collection.owner.github_name), class: "level-item" do %>
-        <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
-    <% end %>
-    <%= link_to collection_projects_path(collection), class: "level-item" do %>
-      Projects <span class="tag"><%= collection.projects.count %></span>
-    <% end %>
-    <%= link_to collection_issues_path(collection), class: "level-item" do %>
-      Issues <span class="tag"><%= collection.issues.count %></span>
-    <% end %>
+    <div class="level-left">
+      <%= link_to user_path(collection.owner.github_name), class: "level-item" do %>
+          <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
+      <% end %>
+    </div>
   </div>
 
   <% if current_user == collection.user %>
