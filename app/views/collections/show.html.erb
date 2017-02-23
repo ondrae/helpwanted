@@ -1,1 +1,7 @@
+<%= content_for :title, @collection.name %>
+<% content_for :sub_title do %>
+  Search for projects and issues
+<% end %>
 <%= render @collection %>
+<%= render partial: "projects/project", collection: @projects if @projects.present? %>
+<%= render partial: "issues/issue", collection: @issues if @issues.present? %>

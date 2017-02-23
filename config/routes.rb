@@ -9,12 +9,12 @@ Rails.application.routes.draw do
     member do
       put "update_from_github"
     end
-    resources :collections, except: :show
+    resources :collections
     resources :projects, except: :show
     resources :issues, only: :index
   end
 
-  resources :collections, except: :show do
+  resources :collections do
     resources :projects, except: :show
     get "issues" => "issues#index"
     member do
