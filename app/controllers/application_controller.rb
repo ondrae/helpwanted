@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def set_title
     if params[:controller] == "application"
-      @title = "All Git Everything"
+      @title = "GitCollections"
     else
       @title = params[:controller].capitalize.pluralize
     end
