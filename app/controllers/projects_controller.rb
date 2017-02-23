@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
   def create
 
     if create_single_project?
-      @project = Project.create!(project_params)
+      @project = Project.new(project_params)
       @project.update_project
       @project.update_issues
       @collection = Collection.friendly.find(project_params[:collection_id])
