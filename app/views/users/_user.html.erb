@@ -11,17 +11,18 @@
     </div>
   </div>
 
-    <div class="level is-mobile">
-      <%= link_to user_collections_path(user), class: "level-item" do %>
+  <ul>
+    <li>
+      <%= link_to user_collections_path(user) do %>
         Collections <span class="tag"><%= user.collections.count %></span>
       <% end %>
-      <%= link_to user_projects_path(user), class: "level-item" do %>
-        Projects <span class="tag"><%= user.projects.count %></span>
-      <% end %>
-      <%= link_to user_issues_path(user) + "?search=help+wanted", class: "level-item" do %>
+    </li>
+    <li>
+      <%= link_to user_issues_path(user) do %>
         Help Wanted Issues <span class="tag"><%= user.issues.help_wanted.count %></span>
       <% end %>
-    </div>
+    </li>
+  </ul>
 
   <% if current_user == user %>
 
@@ -29,10 +30,10 @@
 
     <footer class="level">
       <%= link_to new_collection_path, class: "button is-primary is-outlined level-item" do %>
-        Create a Collection &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+        Create a new collection &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
       <% end %>
       <%= link_to new_project_path, class: "button is-primary is-outlined level-item" do %>
-        Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+        Add a project to a collection &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
       <% end %>
       <%= link_to current_user, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: "You sure?" } do %>
         Delete my account &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>

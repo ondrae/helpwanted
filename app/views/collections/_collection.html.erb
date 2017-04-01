@@ -4,26 +4,29 @@
     <p class="subtitle"><%= collection.description %></p>
   </header>
 
-  <div class="level is-mobile">
-    <%= link_to collection_projects_path(collection), class: "level-item" do %>
-      Projects <span class="tag"><%= collection.projects.count %></span>
-    <% end %>
-    <%= link_to collection_issues_path(collection) + "?search=help+wanted", class: "level-item" do %>
-      Help Wanted Issues <span class="tag"><%= collection.issues.help_wanted.count %></span>
-    <% end %>
-  </div>
+  <br/>
 
-  <hr />
-
-  <div class="level is-mobile">
-    <div class="level-left">
-      <%= link_to user_path(collection.owner.github_name), class: "level-item" do %>
+  <ul>
+    <li>
+      <%= link_to collection_projects_path(collection) do %>
+        Projects in collection: <span class="tag"><%= collection.projects.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to collection_path(collection) do %>
+        Help Wanted Issues in collection: <span class="tag"><%= collection.issues.help_wanted.count %></span>
+      <% end %>
+    </li>
+    <li>
+      By: <%= link_to user_path(collection.owner.github_name) do %>
           <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
       <% end %>
-    </div>
-  </div>
+    </li>
+  </ul>
 
   <% if current_user == collection.user %>
+
+    <br />
 
     <footer class="level">
       <%= link_to new_collection_project_path(collection), class: "button is-primary is-outlined level-item" do %>
@@ -35,7 +38,7 @@
       <%= link_to edit_collection_path(collection), class: "button is-primary is-outlined level-item" do %>
         Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
       <% end %>
-      <%= link_to update_from_github_collection_path(collection), class: "button is-primary is-outlined level-item", method: :put do %>
+      <%= link_to update_from_github_collection_path(collection), class: "button is-primary is-outlined level-item github-modal", method: :put, remote: true do %>
         Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
       <% end %>
     </footer>

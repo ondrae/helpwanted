@@ -1,4 +1,4 @@
-<div class="box">
+<div class="tile is-child box">
 
   <p class="title"><%= link_to issue.title, issue.url %></p>
 
@@ -7,16 +7,25 @@
       <span class="issue tag" style="background-color: #<%= label.color %>"><%= label.name %></span>
     <% end %>
   </p>
+  <br/>
 
-  <p class="small">Updated <%= time_ago_in_words issue.github_updated_at %></p>
+  <p>Issue Updated <%= time_ago_in_words issue.github_updated_at %> ago</p>
 
   <hr />
 
-  <footer class="level is-mobile">
-    <%= link_to "https://github.com/" + issue.project.owner_login, class: "level-item" do %>
-        <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
-    <% end %>
-    <%= link_to issue.project.name, issue.project.url, class: "level-item" %>
+  <footer>
+    <ul>
+      <% unless params[:controller] == "collections" %>
+        <li>Collection: <%= link_to issue.project.collection.name, issue.project.collection %></li>
+      <% end %>
+      <li>Project: <%= link_to issue.project.name, issue.project.url %></li>
+      <li>
+        By:
+        <%= link_to "https://github.com/" + issue.project.owner_login do %>
+            <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
+        <% end %>
+      </li>
+    </ul>
   </footer>
 
 </div>

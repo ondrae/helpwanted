@@ -16,8 +16,12 @@
 
 jQuery(document).ready(function ($) {
 
-  $('#nav-toggle').click(function() {
-    $('#nav-menu').toggleClass('is-active');
+  $('.github-modal').click(function() {
+    $('#github-modal').toggleClass('is-active');
+  });
+
+  $('.modal-close').click(function() {
+    $('#github-modal').toggleClass('is-active');
   });
 
 });

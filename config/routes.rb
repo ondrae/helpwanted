@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get ":id", to: 'collections#show'
+
+
   resources :projects, except: :show do
     get "issues" => "issues#index"
     member do

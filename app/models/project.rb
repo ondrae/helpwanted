@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
     gh_project = GithubProject.new(self.url)
     self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
   end
+  handle_asynchronously :update_project
 
   def update_issues(logger: Delayed::Worker.logger)
     logger.debug "Updating issues of #{self.url}"

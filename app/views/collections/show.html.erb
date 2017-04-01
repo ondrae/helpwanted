@@ -1,7 +1,32 @@
 <%= content_for :title, @collection.name %>
-<% content_for :sub_title do %>
-  Search for projects and issues
+<%= content_for :sub_title, "Help Wanted issues from all the projects in this collection." %>
+
+<% if current_user == @collection.user %>
+  <% content_for :action do %>
+    <div class="level">
+      <%= link_to new_collection_project_path(@collection), class: "button is-primary level-item" do %>
+        Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to @collection, class: "button is-primary level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+        Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to edit_collection_path(@collection), class: "button is-primary level-item" do %>
+        Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to update_from_github_collection_path(@collection), class: "button is-primary level-item github-modal", method: :put, remote: true do %>
+        Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
-<%= render @collection %>
-<%= render partial: "projects/project", collection: @projects if @projects.present? %>
-<%= render partial: "issues/issue", collection: @issues if @issues.present? %>
+
+<% @issues.in_groups_of(3, false).each do |issues| %>
+  <div class="tile is-12">
+    <%= render issues %>
+  </div>
+<% end %>
+
+<%= paginate @issues %>
+<%= page_entries_info @issues %>
+
+<%= render 'modal' %>

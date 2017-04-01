@@ -11,25 +11,36 @@
     </div>
   <% end %>
 
-  <div class="control">
+  <div class="field">
     <%= f.label :url, class: "label" do %>
-      Add a Github repository or a whole Github organization
+      Add a Github repository or a Github organization
     <% end %>
-    <br>
-    <%= f.text_field :url, class: 'input is-large', placeholder: "https://github.com/codeforamerica" %>
+    <p class="control">
+      <%= f.text_field :url, class: 'input is-medium', placeholder: "https://github.com/codeforamerica" %>
+    </p>
   </div>
+
   <% if @current_collection %>
       <%= f.hidden_field :collection_id, value: @current_collection.id %>
   <% else %>
-    <div class="control">
+    <div class="field">
       <%= f.label :collection_id, class: "label" %>
-      <span class="select is-large">
-        <%= f.collection_select :collection_id, @collections, :id, :name, {} %>
-      </span>
+      <p class="control">
+        <span class="select is-large">
+          <%= f.collection_select :collection_id, @collections, :id, :name, {} %>
+        </span>
+      </p>
     </div>
   <% end %>
-  <p class="control">
-    <%= f.submit 'Submit', class: 'button is-primary is-large' %>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <%= f.submit 'Submit', class: 'button is-primary is-large' %>
+    </p>
+    <p class="control">
     <%= link_to 'Back', projects_path, class: 'button is-large' %>
-  </p>
+    </p>
+  </div>
+
+  <p>Wait a minute or two and the issues will start showing up.</p>
 <% end %>

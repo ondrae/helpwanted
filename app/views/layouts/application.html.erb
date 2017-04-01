@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>GitCollections</title>
+  <title>#helpwanted</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <%= render "layouts/mixpanel" %>
   <%= render "layouts/ganalytics" %>
 
   <%= javascript_include_tag 'application' %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
@@ -21,36 +21,16 @@
     <div class="container">
 
       <div class="nav-left">
-        <a class="nav-item is-brand is-large" href="/">GitCollections</a>
+        <a class="nav-item is-brand is-large" href="/">#helpwanted</a>
       </div>
 
-      <span id="nav-toggle" class="nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-
-      <div id="nav-menu" class="nav-right nav-menu">
-        <li class="nav-item">
-          <%= link_to "Collections", collections_path %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Projects", projects_path %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Issues", issues_path %>
-        </li>
+      <div class="nav-center">
+        <%= link_to "Collections", collections_path, class: "nav-item is-tab" %>
         <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "#{image_tag(current_user.image, class: "small-github-avatar")}".html_safe, user_path(current_user) %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '<i class="fa fa-sign-out fa-lg"></i>'.html_safe, destroy_user_session_path, method: :delete %>
-        </li>
+          <%= link_to "#{image_tag(current_user.image, class: "small-github-avatar-header")}".html_safe, user_path(current_user), class: "nav-item is-tab" %>
+          <%= link_to '<i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>'.html_safe, destroy_user_session_path, method: :delete, class: "nav-item is-tab" %>
         <% else %>
-        <li class="nav-item">
-          <%= link_to "Sign in with Github", user_github_omniauth_authorize_path %>
-        </li>
+          <%= link_to '<i class="fa fa-github fa-lg" aria-hidden="true"></i>'.html_safe, user_github_omniauth_authorize_path, class: "nav-item is-tab" %>
         <% end %>
       </div>
 
@@ -60,19 +40,17 @@
 
   <section class="section hero is-primary">
     <div class="container">
-      <h2 class="title is-2"><%= content_for :title or @title %></h2>
-      <h3 class="subtitle is-3"><%= content_for :sub_title or @subtitle %></h3>
-      <% if params[:action].in? ["index", "show"] and params[:controller] != "users"%>
-        <%= render "shared/search" %>
-      <% end %>
+      <h1 class="title is-1"><%= content_for :title or @title %></h1>
+      <h4 class="subtitle is-4"><%= content_for :sub_title or @subtitle %></h4>
+      <%= content_for :action %>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-
-      <%= yield %>
-
+      <div class="tile is-ancestor is-vertical">
+        <%= yield %>
+      </div>
     </div>
   </section>
 

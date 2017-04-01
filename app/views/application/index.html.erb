@@ -1,7 +1,13 @@
+<% content_for :title, "#helpwanted" %>
 <% content_for :sub_title do %>
-  Hand picked Github projects
+  GitHub issues that need your help. 👏
 <% end %>
 
-<%= render partial: "collections/collection", collection: @collections if @collections.present? %>
-<%= render partial: "projects/project", collection: @projects if @projects.present? %>
-<%= render partial: "issues/issue", collection: @issues if @issues.present? %>
+<% @issues.in_groups_of(3, false).each do |issues| %>
+  <div class="tile">
+    <%= render issues %>
+  </div>
+<% end %>
+
+<%= paginate @issues %>
+<%= page_entries_info @issues %>

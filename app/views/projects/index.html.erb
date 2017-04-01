@@ -1,5 +1,8 @@
-<% content_for :sub_title do %>
-  Search for projects
+<% content_for :sub_title, "Hand picked Github projects" %>
+<% if user_signed_in? %>
+  <% content_for :action do %>
+    <% link_to 'Add a project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>'.html_safe, new_project_path, class: "button is-primary" %>
+  <% end %>
 <% end %>
 <%= render @projects %>
 <%= paginate @projects %>

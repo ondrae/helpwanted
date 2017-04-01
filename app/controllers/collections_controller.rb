@@ -25,10 +25,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
-    if params[:search]
-      @projects = @collection.projects.basic_search params[:search]
-      @issues = search_labels + search_titles
-    end
+    @issues = @collection.issues.help_wanted.page(params[:page])
   end
 
   # GET /collections/new

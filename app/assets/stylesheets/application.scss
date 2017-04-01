@@ -23,17 +23,32 @@ body {
   background-color: white;
 }
 
+a.nav-item.is-brand  {
+  font-weight: bold;
+}
+
+.small-github-avatar-header {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
 .small-github-avatar {
   width: 24px;
   height: 24px;
-  border-radius: 2px;
-  margin-right: 0.3rem;
+  border-radius: 4px;
+  position: relative;
+  top: 0.5rem;
 }
 
 .large-github-avatar {
   width: 48px;
   height: 48px;
   border-radius: 4px;
+}
+
+.tile.is-child {
+  margin: 1rem !important;
 }
 
 #search {
@@ -49,7 +64,7 @@ body {
   color: white;
 }
 
-.box footer a {
+.card footer a {
   color: inherit;
 }
 
