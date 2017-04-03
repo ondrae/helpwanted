@@ -30,8 +30,8 @@ class Project < ActiveRecord::Base
           Issue.create(title: gh_issue.title, project: self, url: gh_issue.html_url, github_updated_at: gh_issue.updated_at, labels: gh_labels(gh_issue))
         end
       end
-      delete_closed_issues(open_issues: gh_project.issues, project_issues: self.issues)
     end
+    delete_closed_issues(open_issues: gh_project.issues, project_issues: self.issues)
   end
   handle_asynchronously :update_issues
 
