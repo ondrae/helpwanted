@@ -17,10 +17,6 @@ class Collection < ActiveRecord::Base
 
   def update_projects
     puts "Updating #{self.name}'s projects"
-    # do we want all of orgs projects to always be included?
-    # organizations.map do |organization|
-    #   organization.update_projects
-    # end
     projects.map do |project|
       project.update_project
       project.update_issues
