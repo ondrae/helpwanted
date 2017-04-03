@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     elsif create_all_orgs_projects?
       @collection = Collection.friendly.find(project_params[:collection_id])
       organization = Organization.create!(name: project_params[:url], collection: @collection)
-      organization.update_projects
+      organization.get_new_projects
       redirect_to collection_path(@collection)
 
     else
