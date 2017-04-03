@@ -29,18 +29,18 @@
     <br />
 
     <footer class="level">
-      <%= link_to new_collection_project_path(collection), class: "button is-primary is-outlined level-item" do %>
-        Add a Project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to collection, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
-        Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to edit_collection_path(collection), class: "button is-primary is-outlined level-item" do %>
-        Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to update_from_github_collection_path(collection), class: "button is-primary is-outlined level-item github-modal", method: :put, remote: true do %>
-        Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
-      <% end %>
+        <%= link_to collection_projects_path(collection), class: "button is-primary is-outlined level-item" do %>
+          See projects &nbsp; <i class="fa fa-list" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to collection, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+          Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to edit_collection_path(collection), class: "button is-primary is-outlined level-item" do %>
+          Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to update_from_github_collection_path(collection), class: "button is-primary is-outlined level-item github-modal", method: :put, remote: true do %>
+          Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+        <% end %>
     </footer>
 
   <% end %>
