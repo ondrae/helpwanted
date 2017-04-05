@@ -53,6 +53,9 @@ gem 'puma'
 # pagination
 gem 'kaminari'
 
+# requests
+gem 'httparty'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

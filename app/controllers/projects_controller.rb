@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:destroy, :update_from_github]
   before_action :must_be_logged_in, only: [:destroy, :update_from_github]
+  protect_from_forgery :except => [:create]
 
   def update_from_github
     @project.update_project
