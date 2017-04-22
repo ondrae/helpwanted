@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CollectionsController, type: :controller do
   include Devise::TestHelpers
 
-  describe "PUT #update_from_github" do
+  describe "PUT #update_from_github", js: true do
     let!(:collection) { create :collection }
     before do
       allow(Collection).to receive_message_chain(:friendly, :find).and_return(collection)
@@ -11,7 +11,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it "updates a collections projects" do
-      put :update_from_github, {:id => collection.to_param}
+      put :update_from_github, {:id => collection.to_param, :format => 'js'}
       expect(assigns[:collection]).to eq collection
       expect(collection).to have_received :update_projects
     end
