@@ -68,6 +68,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_girl'
   gem 'factory_girl_rails'
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'timecop'
 end
 
