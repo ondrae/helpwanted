@@ -44,7 +44,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       if @collection.save
-        format.html { redirect_to collections_path, notice: 'Collection was successfully created.' }
+        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render :show, status: :created, location: @collection }
       else
         format.html { render :new }
@@ -85,7 +85,7 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description)
+      params.require(:collection).permit(:name, :description, :slug)
     end
 
     def owner_only

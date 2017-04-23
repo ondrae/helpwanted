@@ -16,11 +16,11 @@
   <footer>
     <ul>
       <% unless params[:controller] == "collections" %>
-        <li>Collection: <%= link_to issue.project.collection.name, issue.project.collection %></li>
+        <li>Collection: <%= link_to issue.project.collection.name, short_collection_path(issue.project.collection) %></li>
       <% end %>
-      <li>Project: <%= link_to issue.project.name, issue.project.url %></li>
+      <li>Repo: <%= link_to issue.project.name, issue.project.url %></li>
       <li>
-        By:
+        Owner:
         <%= link_to "https://github.com/" + issue.project.owner_login do %>
             <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
         <% end %>

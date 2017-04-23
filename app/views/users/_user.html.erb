@@ -17,11 +17,6 @@
         Collections <span class="tag"><%= user.collections.count %></span>
       <% end %>
     </li>
-    <li>
-      <%= link_to user_issues_path(user) do %>
-        Help Wanted Issues <span class="tag"><%= user.issues.help_wanted.count %></span>
-      <% end %>
-    </li>
   </ul>
 
   <% if current_user == user %>
