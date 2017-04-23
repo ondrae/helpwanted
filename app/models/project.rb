@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   has_many :issues, dependent: :destroy
 
   validates :url, presence: true, uniqueness: { scope: :collection, message: "can only add a project once per collection" }
-  validates :name, presence: true
+  # validates :name, presence: true
 
   default_scope ->{ order('github_updated_at DESC') }
 

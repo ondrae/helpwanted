@@ -9,28 +9,15 @@ Rails.application.routes.draw do
     member do
       put "update_from_github"
     end
-    resources :collections
-    resources :projects, except: :show
-    resources :issues, only: :index
   end
 
   resources :collections do
-    resources :projects, except: :show
+    resources :projects, shallow: true
     get "issues" => "issues#index"
     member do
       put "update_from_github"
     end
   end
 
-  get ":id", to: 'collections#show'
-
-
-  resources :projects, except: :show do
-    get "issues" => "issues#index"
-    member do
-      put "update_from_github"
-    end
-  end
-
-  resources :issues, only: :index
+  get ":id", to: 'collections#show', as: "short_collection"
 end

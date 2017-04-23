@@ -2,7 +2,7 @@ FactoryGirl.define do
   sequence(:name) { |n| "TEST-PROJECT#{n}" }
 
   factory :collection do
-    name
+    name "TEST COLLECTION NAME"
     description "TEST COLLECTION DESCRIPTION"
 
     user

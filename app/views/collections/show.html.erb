@@ -4,6 +4,9 @@
 <% if current_user == @collection.user %>
   <% content_for :action do %>
     <div class="level">
+      <%= link_to new_collection_project_path(@collection), class: "button is-primary level-item" do %>
+        Add a project &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+      <% end %>
       <%= link_to collection_projects_path(@collection), class: "button is-primary level-item" do %>
         See projects &nbsp; <i class="fa fa-list" aria-hidden="true"></i>
       <% end %>

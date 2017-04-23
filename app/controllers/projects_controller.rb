@@ -1,81 +1,69 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:destroy, :update_from_github]
+  before_action :set_collection, except: :destroy
   before_action :must_be_logged_in, only: [:destroy, :update_from_github]
   protect_from_forgery :except => [:create]
 
   def update_from_github
     @project.update_project
     @project.update_issues
-    redirect_to request.referer
+    render nothing: true
   end
 
   # GET /projects
   # GET /projects.json
   def index
-    if params[:collection_id]
-      collection = Collection.friendly.find(params[:collection_id])
-      @title = collection.name + "'s Projects"
-      @projects = collection.projects.page(params[:page])
-    elsif params[:user_id]
-      user = User.friendly.find(params[:user_id])
-      @title = user.github_name + "'s Projects"
-      @projects = user.projects.page(params[:page])
-    else
-      @projects = Project.all.page(params[:page])
-    end
-    if params[:search]
-      @projects = @projects.basic_search(params[:search]).page(params[:page])
-    end
+    @title = @collection.name + "'s Projects"
+    @projects = @collection.projects.page(params[:page])
   end
 
   # GET /projects/new
   def new
+    @title = "Add a Project"
     @project = Project.new
-    @collections = current_user.collections
-    if params[:collection_id]
-      @current_collection = Collection.friendly.find(params[:collection_id])
-    else
-      @current_collection = nil
-    end
+    @collection = Collection.friendly.find(params[:collection_id])
   end
 
   # POST /projects
   # POST /projects.json
   def create
+    @project = Project.create(project_params.merge(name: repo_name))
 
     if create_single_project?
-      @project = Project.new(project_params)
-      @project.update_project
-      @project.update_issues
-      @collection = Collection.friendly.find(project_params[:collection_id])
-      redirect_to collection_path(@collection)
+      if @project.errors.empty?
+        @project.update_project
+        @project.update_issues
+        redirect_to collection_projects_path @collection
+      else
+        render :new
+      end
 
     elsif create_all_orgs_projects?
-      @collection = Collection.friendly.find(project_params[:collection_id])
       organization = Organization.create!(name: project_params[:url], collection: @collection)
       organization.get_new_projects
-      redirect_to collection_path(@collection)
+      redirect_to collection_projects_path @collection
 
     else
-      redirect_to new_project_path
+      render :new
     end
-
   end
 
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to :back, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to :back
   end
 
   private
   def create_single_project?
     /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
     repo_path.present?
+  end
+
+  def repo_name
+    /github\.com\/[a-zA-Z\-_0-9]+\/(?<name>[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
+    name
   end
 
   def create_all_orgs_projects?
@@ -86,6 +74,10 @@ class ProjectsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_project
     @project = Project.find(params[:project_id] || params[:id])
+  end
+
+  def set_collection
+    @collection = Collection.friendly.find(params[:collection_id])
   end
 
   def must_be_logged_in
