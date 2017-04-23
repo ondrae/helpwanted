@@ -5,6 +5,7 @@ class CollectionsController < ApplicationController
   # PUT /update_from_github
   def update_from_github
     @collection.update_projects
+    render nothing: true
   end
 
   # GET /collections

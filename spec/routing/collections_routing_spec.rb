@@ -3,6 +3,11 @@ require "rails_helper"
 RSpec.describe CollectionsController, type: :routing do
   describe "routing" do
 
+    it "/slug goes works too" do
+      create :collection, slug: "TEST-COLLECTION"
+      expect(get: "/TEST-COLLECTION").to route_to "collections#show", id: "TEST-COLLECTION"
+    end
+
     it "routes to #index" do
       expect(:get => "/collections").to route_to("collections#index")
     end
@@ -12,6 +17,7 @@ RSpec.describe CollectionsController, type: :routing do
     end
 
     it "routes to #show" do
+      expect(:get => "/collections/test-collection").to route_to("collections#show", :id => "test-collection")
       expect(:get => "/collections/1").to route_to("collections#show", :id => "1")
     end
 
@@ -36,7 +42,7 @@ RSpec.describe CollectionsController, type: :routing do
     end
 
     it "routes to #issues" do
-      expect(:get => "/collections/1/issues").to route_to("collections#issues", :collection_id => "1")
+      expect(:get => "/collections/1/issues").to route_to("issues#index", :collection_id => "1")
     end
 
   end

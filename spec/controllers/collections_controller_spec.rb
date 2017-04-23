@@ -11,7 +11,7 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     it "updates a collections projects" do
-      put :update_from_github, {:id => collection.to_param, :format => 'js'}
+      put :update_from_github, { id: collection.to_param }
       expect(assigns[:collection]).to eq collection
       expect(collection).to have_received :update_projects
     end
