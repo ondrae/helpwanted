@@ -6,9 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :users do
-    member do
-      put "update_from_github"
-    end
+    get "collections", to: "collections#index"
   end
 
   resources :collections do
