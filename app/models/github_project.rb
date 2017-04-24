@@ -40,7 +40,7 @@ class GithubProject
   end
 
   def issues
-    @issues ||= @github_api.issues @repo_path
+    @issues ||= @github_api.issues(@repo_path, { labels: "help wanted" })
   end
 
   def owner_login
