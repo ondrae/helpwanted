@@ -45,5 +45,9 @@ RSpec.describe CollectionsController, type: :routing do
       expect(:get => "/collections/1/issues").to route_to("issues#index", :collection_id => "1")
     end
 
+    it "routes to #embed" do
+      expect(get: "/collections/test-collection/embed").to route_to("collections#embed", :id => "test-collection")
+    end
+
   end
 end

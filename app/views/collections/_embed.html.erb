@@ -1,0 +1,7 @@
+<% @issues.in_groups_of(3, false).each do |issues| %>
+  <div class="tile is-12">
+    <%= render issues %>
+  </div>
+<% end %>
+
+<%= paginate @issues %>

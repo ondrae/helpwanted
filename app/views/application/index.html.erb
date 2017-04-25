@@ -3,11 +3,4 @@
   GitHub issues that need your help. 👏
 <% end %>
 
-<% @issues.in_groups_of(3, false).each do |issues| %>
-  <div class="tile">
-    <%= render issues %>
-  </div>
-<% end %>
-
-<%= paginate @issues %>
-<p><%= page_entries_info @issues %></p>
+<%= render "collections/embed" %>

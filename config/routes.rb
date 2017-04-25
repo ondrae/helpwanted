@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get "issues" => "issues#index"
     member do
       put "update_from_github"
+      get "embed"
     end
   end
 

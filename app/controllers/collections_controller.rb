@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy, :update_from_github, :owner_only]
+  before_action :set_collection, except: [:index, :new, :create]
   before_action :owner_only, only: [:edit, :update, :destroy]
 
   # PUT /update_from_github
@@ -26,6 +26,12 @@ class CollectionsController < ApplicationController
   # GET /collections/1.json
   def show
     @issues = @collection.issues.help_wanted.page(params[:page])
+  end
+
+  def embed
+    response.headers.delete "X-Frame-Options"
+    @issues = @collection.issues.help_wanted.page(params[:page])
+    render layout: "embed"
   end
 
   # GET /collections/new
