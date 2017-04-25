@@ -15,8 +15,11 @@
     <%= f.label :url, class: "label" do %>
       Add a Github repository or a Github organization
     <% end %>
-    <p class="control">
-      <%= f.text_field :url, class: 'input is-medium', placeholder: "https://github.com/codeforamerica" %>
+    <p class="control has-icons-right">
+      <%= f.text_field :url, class: 'input is-medium', placeholder: "https://github.com/codeforamerica", required: true %>
+      <span class="icon is-medium is-right">
+        <i class="fa fa-github"></i>
+      </span>
     </p>
   </div>
 

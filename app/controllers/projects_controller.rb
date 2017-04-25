@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @title = @collection.name + "'s Projects"
     @projects = @collection.projects.page(params[:page])
   end
 
