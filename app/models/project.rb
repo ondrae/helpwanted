@@ -3,8 +3,7 @@ class Project < ActiveRecord::Base
   has_many :issues, dependent: :destroy
 
   validates :url, presence: true, uniqueness: { scope: :collection, message: "can only add a project once per collection" }
-  # validates :name, presence: true
-
+  validates_format_of :url, with: /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+\/?/, on: :create
   default_scope ->{ order('github_updated_at DESC') }
 
   def owner
@@ -16,7 +15,6 @@ class Project < ActiveRecord::Base
     logger.debug "Updating #{self.url}"
     gh_project = GithubProject.new(self.url)
     self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
-    sleep(0.1)
   end
 
   def update_issues
@@ -33,8 +31,9 @@ class Project < ActiveRecord::Base
       end
     end
     delete_closed_issues(open_issues: gh_project.issues, project_issues: self.issues)
-    sleep(0.1)
+    sleep 0.1
   end
+  handle_asynchronously :update_issues
 
   private
 

@@ -1,13 +1,14 @@
 class Organization < ActiveRecord::Base
   belongs_to :collection
+  validates :url, presence: true, uniqueness: { scope: :collection, message: "can only add a GitHub organization once per collection" }
   validates :collection_id, presence: true
 
   def get_new_projects
-    puts "Asking #{name} for new projects"
+    puts "Asking #{url} for new projects"
 
-    existing_urls = collection.projects.map(&:url)
+    existing_urls = collection.projects.pluck(:url)
 
-    GithubOrganization.new(name).projects.each do |gh_project|
+    GithubOrganization.new(url).projects.each do |gh_project|
       unless existing_urls.include? gh_project.html_url
         gh_project_params = {
           name: gh_project.name,
@@ -20,10 +21,10 @@ class Organization < ActiveRecord::Base
         }
         project = Project.create!(gh_project_params)
         if project.valid?
-          project.delay(priority: 1).update_issues
+          project.update_issues
         end
       end
-      sleep(0.1)
     end
   end
+
 end

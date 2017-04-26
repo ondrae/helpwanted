@@ -24,17 +24,17 @@ class ProjectsController < ApplicationController
 
     if create_single_project?
       if @project.errors.empty?
-        @project.delay(priority: 1).update_project
-        @project.delay(priority: 1).update_issues
-        redirect_to collection_projects_path @collection
+        @project.update_project
+        @project.update_issues
+        redirect_to short_collection_path @collection
       else
         render :new
       end
 
     elsif create_all_orgs_projects?
-      organization = Organization.create!(name: project_params[:url], collection: @collection)
-      organization.delay(priority: 1).get_new_projects
-      redirect_to collection_projects_path @collection
+      organization = Organization.create(project_params)
+      organization.get_new_projects
+      redirect_to short_collection_path @collection
 
     else
       render :new

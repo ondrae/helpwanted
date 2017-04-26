@@ -3,7 +3,6 @@ task :update_collections => :environment do
   Delayed::Worker.logger.debug "Updating all users collections"
   User.all.each do |user|
     user.update_collections
-    sleep(1)
   end
   puts "done"
 end

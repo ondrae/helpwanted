@@ -20,8 +20,8 @@ class Collection < ActiveRecord::Base
     organizations.map(&:get_new_projects)
 
     projects.map do |project|
-      project.delay(priority: 100).update_project
-      project.delay(priority: 100).update_issues
+      project.update_project
+      project.update_issues
     end
   end
 
