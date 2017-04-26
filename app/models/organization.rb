@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
   validates :collection_id, presence: true
 
   def get_new_projects
-    puts "Asking #{name} for new projects"
+    Delayed::Worker.logger.debug "Asking #{name} for new projects"
 
     existing_urls = collection.projects.map(&:url)
 
@@ -20,11 +20,10 @@ class Organization < ActiveRecord::Base
         }
         project = Project.create!(gh_project_params)
         if project.valid?
-          project.update_issues
+          project.delay(priority: 1).update_issues
         end
       end
+      sleep 0.1
     end
   end
-  handle_asynchronously :get_new_projects
-
 end

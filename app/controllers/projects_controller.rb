@@ -24,8 +24,8 @@ class ProjectsController < ApplicationController
 
     if create_single_project?
       if @project.errors.empty?
-        @project.update_project
-        @project.update_issues
+        @project.delay(priority: 1).update_project
+        @project.delay(priority: 1).update_issues
         redirect_to collection_projects_path @collection
       else
         render :new
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
 
     elsif create_all_orgs_projects?
       organization = Organization.create!(name: project_params[:url], collection: @collection)
-      organization.get_new_projects
+      organization.delay(priority: 1).get_new_projects
       redirect_to collection_projects_path @collection
 
     else

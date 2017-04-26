@@ -16,12 +16,12 @@ class Collection < ActiveRecord::Base
   end
 
   def update_projects
-    puts "Updating #{self.name}'s projects"
+    Delayed::Worker.logger.debug "Updating #{self.name}'s projects"
     organizations.map(&:get_new_projects)
 
     projects.map do |project|
-      project.update_project
-      project.update_issues
+      project.delay(priority: 100).update_project
+      project.delay(priority: 100).update_issues
     end
   end
 
