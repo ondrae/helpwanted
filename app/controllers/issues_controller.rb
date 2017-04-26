@@ -4,7 +4,13 @@ class IssuesController < ApplicationController
   def feature
     @issue = Issue.find(params[:id])
     @issue.update featured: true
-    redirect_to :back
+    redirect_to @issue.project.collection
+  end
+
+  def unfeature
+    @issue = Issue.find(params[:id])
+    @issue.update featured: false
+    redirect_to @issue.project.collection
   end
 
   private

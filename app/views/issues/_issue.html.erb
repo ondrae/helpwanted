@@ -29,10 +29,16 @@
         <% end %>
       </li>
       <% if issue.project.collection.user == current_user %>
-      <br />
-      <li>
-        <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
-      </li>
+        <br />
+        <% if issue.featured? %>
+          <li>
+            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Unfeature'.html_safe, unfeature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </footer>
