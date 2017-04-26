@@ -3,6 +3,9 @@
   <p class="title"><%= link_to issue.title, issue.url %></p>
 
   <p>
+    <% if issue.featured? %>
+      <span class="issue tag" style="background-color: #ec0;"><i class="fa fa-star" aria-hidden="true"></i> Featured</span>
+    <% end %>
     <% issue.labels.each do |label| %>
       <span class="issue tag" style="background-color: #<%= label.color %>"><%= label.name %></span>
     <% end %>
@@ -22,9 +25,15 @@
       <li>
         Owner:
         <%= link_to "https://github.com/" + issue.project.owner_login do %>
-            <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
+          <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
         <% end %>
       </li>
+      <% if issue.project.collection.user == current_user %>
+      <br />
+      <li>
+        <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
+      </li>
+      <% end %>
     </ul>
   </footer>
 

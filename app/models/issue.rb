@@ -3,7 +3,7 @@ class Issue < ActiveRecord::Base
   has_many :labels, dependent: :destroy
   validates :title, :url, presence: true
 
-  default_scope { order('github_updated_at DESC') }
+  default_scope { order(featured: :desc).order('github_updated_at DESC') }
   scope :help_wanted, -> { joins(:labels).where("labels.name ILIKE '%help wanted%'") }
 
 

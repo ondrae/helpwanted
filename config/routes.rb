@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   end
 
   get ":id", to: 'collections#show', as: "short_collection"
+
+  put "issues/:id/feature", to: "issues#feature", as: "feature_issue"
 end
