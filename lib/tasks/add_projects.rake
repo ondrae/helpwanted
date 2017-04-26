@@ -8,7 +8,7 @@ namespace :add_projects do
       if org["projects_list_url"].include? "https://github.com/"
         ap org["projects_list_url"]
         HTTParty.post('http://helpwanted.team/projects', body: { "project": { url: org["projects_list_url"], collection_id: "civic-tech" } })
-        sleep (0.2)
+        sleep (0.1)
       end
     end
   end

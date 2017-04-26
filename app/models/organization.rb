@@ -23,7 +23,7 @@ class Organization < ActiveRecord::Base
           project.delay(priority: 1).update_issues
         end
       end
-      sleep 0.1
+      sleep(0.1)
     end
   end
 end
