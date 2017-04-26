@@ -17,9 +17,6 @@ class CollectionsController < ApplicationController
     else
       @collections = Collection.all.page(params[:page])
     end
-    if params[:search]
-      @collections = @collections.basic_search(params[:search]).page(params[:page])
-    end
   end
 
   # GET /collections/1

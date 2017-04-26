@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    @issues = Issue.help_wanted.page(params[:page]).per(9)
+    @issues = Issue.help_wanted.page(params[:page])
   end
 
   private
