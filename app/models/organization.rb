@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
   validates :collection_id, presence: true
 
   def get_new_projects
-    Delayed::Worker.logger.debug "Asking #{name} for new projects"
+    puts "Asking #{name} for new projects"
 
     existing_urls = collection.projects.map(&:url)
 

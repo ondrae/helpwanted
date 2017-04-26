@@ -11,7 +11,7 @@ class GithubProject
     @url = url
     @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: true)
     @repo_path = repo_path
-    Delayed::Worker.logger.debug "updating #{@repo_path} from github"
+    puts "updating #{@repo_path} from github"
   end
 
   def api_response

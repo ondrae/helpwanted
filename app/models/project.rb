@@ -11,15 +11,16 @@ class Project < ActiveRecord::Base
     collection.owner
   end
 
-  def update_project(logger: Delayed::Worker.logger)
+  def update_project
+    puts "Updating #{self.url}"
     logger.debug "Updating #{self.url}"
     gh_project = GithubProject.new(self.url)
     self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
     sleep(0.1)
   end
 
-  def update_issues(logger: Delayed::Worker.logger)
-    logger.debug "Updating issues of #{self.url}"
+  def update_issues
+    puts "Updating issues of #{self.url}"
     gh_project = GithubProject.new(self.url)
     unless gh_project.issues.blank?
       gh_project.issues.map do |gh_issue|

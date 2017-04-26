@@ -16,7 +16,7 @@ class Collection < ActiveRecord::Base
   end
 
   def update_projects
-    Delayed::Worker.logger.debug "Updating #{self.name}'s projects"
+    puts "Updating #{self.name}'s projects"
     organizations.map(&:get_new_projects)
 
     projects.map do |project|

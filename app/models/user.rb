@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def update_collections
-    Delayed::Worker.logger.debug "Updating #{self.github_name}'s Collections"
+    puts "Updating #{self.github_name}'s Collections"
     collections.map { |collection| collection.update_projects }
   end
 end
