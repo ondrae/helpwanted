@@ -16,9 +16,6 @@
       <%= link_to edit_collection_path(@collection), class: "button is-primary level-item" do %>
         Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
       <% end %>
-      <%= link_to update_from_github_collection_path(@collection), class: "button is-primary level-item github-modal", method: :put, remote: true do %>
-        Update from Github &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
-      <% end %>
       <%= link_to embed_collection_path(@collection), class: "button is-primary level-item" do %>
         Embed &nbsp; <i class="fa fa-external-link" aria-hidden="true"></i>
       <% end %>

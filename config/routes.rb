@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     resources :projects, shallow: true
     get "issues" => "issues#index"
     member do
-      put "update_from_github"
       get "embed"
     end
   end

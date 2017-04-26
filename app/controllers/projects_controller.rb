@@ -1,14 +1,8 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:destroy, :update_from_github]
+  before_action :set_project, only: [:destroy]
   before_action :set_collection, except: :destroy
-  before_action :must_be_logged_in, only: [:destroy, :update_from_github]
+  before_action :must_be_logged_in, only: [:destroy]
   protect_from_forgery :except => [:create]
-
-  def update_from_github
-    @project.update_project
-    @project.update_issues
-    render nothing: true
-  end
 
   # GET /projects
   # GET /projects.json
@@ -50,7 +44,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.destroy
+    Project.find(params[:id]).destroy
     redirect_to :back
   end
 
@@ -68,11 +62,6 @@ class ProjectsController < ApplicationController
   def create_all_orgs_projects?
     /github\.com\/(?<org_name>[a-zA-Z\-_0-9]+)?/ =~ params[:project][:url]
     org_name.present?
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_project
-    @project = Project.find(params[:project_id] || params[:id])
   end
 
   def set_collection

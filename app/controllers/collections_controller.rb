@@ -2,12 +2,6 @@ class CollectionsController < ApplicationController
   before_action :set_collection, except: [:index, :new, :create]
   before_action :owner_only, only: [:edit, :update, :destroy]
 
-  # PUT /update_from_github
-  def update_from_github
-    @collection.update_projects
-    render nothing: true
-  end
-
   # GET /collections
   # GET /collections.json
   def index
@@ -93,13 +87,5 @@ class CollectionsController < ApplicationController
 
     def owner_only
       render json: {}, status: :forbidden unless current_user == @collection.user
-    end
-
-    def search_labels
-      @collection.issues.joins(:labels).where("labels.name ILIKE :search", { search: "%#{params[:search]}%" } )
-    end
-
-    def search_titles
-      @collection.issues.basic_search params[:search]
     end
 end
