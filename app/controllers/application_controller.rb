@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_title
-  after_filter :store_location
 
   def set_title
     # can be overwritten in the views
@@ -12,24 +11,12 @@ class ApplicationController < ActionController::Base
     @issues = Issue.help_wanted.page(params[:page])
   end
 
-  private
-    # def search_labels
-    #   Issue.all.joins(:labels).where("name ILIKE :search", { search: "%#{params[:search]}%" } )
-    # end
-    #
-    # def search_titles
-    #   Issue.all.basic_search params[:search]
-    # end
+  def rate_limit
+    github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
+    render inline: github_api.rate_limit.to_json
+  end
 
-    def store_location
-      # store last url - this is needed for post-login redirect to whatever the user last visited.
-      return unless request.get?
-      if (request.path != "/users/sign_in" &&
-          request.path != "/users/sign_out" &&
-          !request.xhr?) # don't store ajax calls
-        session[:previous_url] = request.fullpath
-      end
-    end
+  private
 
     def after_sign_in_path_for(resource)
       session[:previous_url] || root_path

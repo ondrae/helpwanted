@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :users do
     get "collections", to: "collections#index"
+    get "/rate_limit", to: "application#rate_limit", as: "rate_limit"
   end
 
   resources :collections do
