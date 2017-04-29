@@ -57,7 +57,7 @@ RSpec.describe ProjectsController, type: :controller do
         labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
       }
       let(:issues){ double(Issue, issue_params) }
-      let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
+      let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues], pushed_at: Time.current, owner_login: "TEST", owner_avatar_url: "TEST") }
       before do
         allow(GithubProject).to receive(:new).and_return( gh_project )
       end

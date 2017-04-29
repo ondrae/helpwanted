@@ -31,7 +31,7 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe "#update_issues", focus: true do
+  describe "#update_issues" do
     let(:gh_project)  { create :github_project }
 
     let(:issue) { create :issue, project: project }

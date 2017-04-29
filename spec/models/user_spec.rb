@@ -1,21 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = create :user
-  end
+  let(:user) { create :user }
 
   describe "#delete" do
     before do
       3.times do
-        create :collection, user: @user
+        create :collection, user: user
       end
     end
 
     it "deletes users's collections too" do
       expect(Collection.all.count).to eq(3)
 
-      @user.destroy
+      user.destroy
 
       expect(Collection.all.count).to eq(0)
     end
@@ -28,19 +26,19 @@ RSpec.describe User, type: :model do
       labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
     }
     let(:issues){ double(Issue, issue_params) }
-    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", issues: [issues]) }
+    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", pushed_at: Time.current, owner_login: "TEST", owner_avatar_url: "TEST", issues: [issues]) }
     before do
       allow(GithubProject).to receive(:new).and_return( gh_project )
 
-      collection = create :collection, user: @user
+      collection = create :collection, user: user
       create :project, collection: collection
     end
 
     it "updates the user's collection's projects" do
-      @user.update_collections
+      user.update_collections
 
-      expect(@user.projects.first.name).to eq "UPDATED NAME"
-      expect(@user.projects.first.description).to eq "UPDATED DESCRIPTION"
+      expect(user.collections.first.projects.first.name).to eq "UPDATED NAME"
+      expect(user.collections.first.projects.first.description).to eq "UPDATED DESCRIPTION"
     end
   end
 
