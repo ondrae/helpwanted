@@ -3,24 +3,10 @@ require 'rails_helper'
 RSpec.describe CollectionsController, type: :controller do
   include Devise::TestHelpers
 
-  describe "PUT #update_from_github", js: true do
-    let!(:collection) { create :collection }
-    before do
-      allow(Collection).to receive_message_chain(:friendly, :find).and_return(collection)
-      allow(collection).to receive :update_projects
-    end
-
-    it "updates a collections projects" do
-      put :update_from_github, { id: collection.to_param }
-      expect(assigns[:collection]).to eq collection
-      expect(collection).to have_received :update_projects
-    end
-  end
-
   describe "GET #index" do
     let(:user) { create :user }
     let(:collection) { create :collection, user: user }
-    let(:collection2) { create :collection, description: "BICYCLES" }
+    let(:collection2) { create :collection, name: "TESTING 1", description: "BICYCLES" }
 
     it "shows all of a users collections" do
       get :index, params = { user_id: user.github_name }
@@ -32,17 +18,11 @@ RSpec.describe CollectionsController, type: :controller do
       get :index
       expect(assigns[:collections]).to include collection, collection2
     end
-
-    it "searching collections works" do
-      get :index, params = { search: "BICYCLES" }
-      expect(assigns[:collections]).to include collection2
-      expect(assigns[:collections]).to_not include collection
-    end
   end
 
   describe "GET #show" do
-    let(:collection) { create :collection }
-    let(:collection2) { create :collection }
+    let(:collection) { create :collection, name: "TESTING 1" }
+    let(:collection2) { create :collection, name: "TESTING 2" }
 
     it "shows to collection" do
       get :show, {:id => collection.to_param}

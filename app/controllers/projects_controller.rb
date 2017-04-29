@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:destroy]
   before_action :set_collection, except: :destroy
   before_action :must_be_logged_in, only: [:destroy]
   protect_from_forgery :except => [:create]
@@ -44,8 +43,9 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    Project.find(params[:id]).destroy
-    redirect_to :back
+    project = Project.find(params[:id])
+    project.destroy
+    redirect_to short_collection_path project.collection
   end
 
   private

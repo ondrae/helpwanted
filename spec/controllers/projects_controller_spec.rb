@@ -97,8 +97,8 @@ RSpec.describe ProjectsController, type: :controller do
       let(:collection){ create :collection, id: 1 }
       let(:org_url_params) { { url: "https://github.com/TESTORG", collection_id: collection.id } }
 
-      let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT" ) }
-      let(:gh_project2){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT2" ) }
+      let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT", pushed_at: Time.current, owner: "TEST", owner_avatar_url: "TEST" ) }
+      let(:gh_project2){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT2", pushed_at: Time.current, owner: "TEST", owner_avatar_url: "TEST" ) }
       let(:gh_org){ double(GithubOrganization, projects: [gh_project, gh_project2]) }
       before do
         allow(GithubOrganization).to receive(:new).and_return( gh_org )
