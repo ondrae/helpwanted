@@ -1,11 +1,11 @@
 <div class="tile is-child box">
+  <% if issue.featured? %>
+    <span class="featured-tag tag is-warning is-pulled-right"><i class="fa fa-star" aria-hidden="true"></i> Featured</span>
+  <% end %>
 
   <p class="title"><%= link_to issue.title, issue.url %></p>
 
   <p>
-    <% if issue.featured? %>
-      <span class="issue tag" style="background-color: #ec0;"><i class="fa fa-star" aria-hidden="true"></i> Featured</span>
-    <% end %>
     <% issue.labels.each do |label| %>
       <span class="issue tag" style="background-color: #<%= label.color %>"><%= label.name %></span>
     <% end %>
