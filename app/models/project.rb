@@ -31,7 +31,6 @@ class Project < ActiveRecord::Base
       end
     end
     delete_closed_issues(open_issues: gh_project.issues, project_issues: self.issues)
-    sleep 0.1
   end
   handle_asynchronously :update_issues
 
