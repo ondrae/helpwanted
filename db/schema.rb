@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426223243) do
+ActiveRecord::Schema.define(version: 20170430225847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20170426223243) do
     t.datetime "updated_at",                        null: false
     t.datetime "github_updated_at"
     t.boolean  "featured",          default: false
+    t.integer  "viewed",            default: 0
+    t.integer  "clicked",           default: 0
   end
 
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree

@@ -3,7 +3,7 @@
     <span class="featured-tag tag is-warning is-pulled-right"><i class="fa fa-star" aria-hidden="true"></i> Featured</span>
   <% end %>
 
-  <p class="title"><%= link_to issue.title, issue.url %></p>
+  <p class="title"><%= link_to issue.title, issue.url, onclick: "clickedIssue(#{issue.id});" %></p>
 
   <p>
     <% issue.labels.each do |label| %>
@@ -32,13 +32,20 @@
         <br />
         <% if issue.featured? %>
           <li>
-            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Unfeature'.html_safe, unfeature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
+            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Unfeature'.html_safe, unfeature_issue_path(issue), class: "button is-primary is-outlined", method: :post %>
           </li>
         <% else %>
           <li>
-            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :put %>
+            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :post %>
           </li>
         <% end %>
+        <br />
+        <li>
+          Viewed: <%= issue.viewed %> times
+        </li>
+        <li>
+          Clicked: <%= issue.clicked %> times
+        </li>
       <% end %>
     </ul>
   </footer>

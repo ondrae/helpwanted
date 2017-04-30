@@ -13,6 +13,11 @@ class IssuesController < ApplicationController
     redirect_to @issue.project.collection
   end
 
+  def clicked
+    Issue.find(params[:id]).increment! :clicked
+    render nothing: true
+  end
+
   private
   def owner_only
     @issue = Issue.find(params[:id])

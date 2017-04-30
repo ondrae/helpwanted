@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
 
   def index
     @issues = Issue.help_wanted.page(params[:page])
+    @issues.each do |issue|
+      issue.increment! :viewed
+    end
   end
 
   def rate_limit

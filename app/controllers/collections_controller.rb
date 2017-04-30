@@ -17,11 +17,17 @@ class CollectionsController < ApplicationController
   # GET /collections/1.json
   def show
     @issues = @collection.issues.help_wanted.page(params[:page])
+    @issues.each do |issue|
+      issue.increment! :viewed
+    end
   end
 
   def embed
     response.headers.delete "X-Frame-Options"
     @issues = @collection.issues.help_wanted.page(params[:page])
+    @issues.each do |issue|
+      issue.increment! :viewed
+    end
     render layout: "embed"
   end
 
