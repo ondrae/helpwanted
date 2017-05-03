@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_collection, except: :destroy
-  before_action :must_be_logged_in, only: [:destroy]
+  before_action :owner_only, only: [:destroy]
   protect_from_forgery :except => [:create]
 
   # GET /projects
@@ -68,12 +68,13 @@ class ProjectsController < ApplicationController
     @collection = Collection.friendly.find(params[:collection_id])
   end
 
-  def must_be_logged_in
-    redirect_to user_github_omniauth_authorize_path unless current_user
-  end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
     params.require(:project).permit(:url, :collection_id)
+  end
+
+  def owner_only
+    @project = Project.find(params[:id])
+    render json: {}, status: :forbidden unless current_user == @project.collection.user
   end
 end
