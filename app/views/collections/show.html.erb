@@ -1,5 +1,5 @@
 <%= content_for :title, @collection.name %>
-<%= content_for :sub_title, "Help Wanted issues from all the projects in this collection." %>
+<%= content_for :sub_title, @collection.description %>
 
 <% if current_user == @collection.user %>
   <% content_for :action do %>
