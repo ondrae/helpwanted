@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, except: [:index, :new, :create]
   before_action :owner_only, only: [:edit, :update, :destroy]
+  before_action :must_be_logged_in, only: [:new, :create]
 
   # GET /collections
   # GET /collections.json
