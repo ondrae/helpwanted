@@ -1,0 +1,35 @@
+# #helpwanted
+
+## GitHub issues that need your help. 👏
+
+## What
+Easily gather all of the help wanted issues from any GitHub projects you choose, and show them off in one place.
+
+## Why
+Open source is hard. Organizing lots of volunteers around lots of open source projects is even harder. This service is meant to create one easy place to point volunteer to. Featured issues show up first.
+
+## How
+Create a collection of repositories, like all of your favorite open source bicycling projects, and embed the help wanted issues on to your main website. Easy. If the open source contributors in your crew want to ship faster, encourage them to start using the default `help wanted` label on their issues.
+
+## Who
+* Tech Meetup Organizers
+* Code for America Brigades
+* Hackathon Organizers
+* Journalist groups
+* Universities
+* Any kind of organizations that maintains a bunch of open source projects
+
+## History
+Help Wanted is my second take on this idea. It builds on the previous work of the https://github.com/codeforamerica/civic-issue-finder
+
+## Contact
+Andrew Hyder
+@hackyourcity
+hyd415 at gmail dot com
+
+## Tech
+* Ruby 2.3
+* Rails 4.2.6
+* RSpec
+* Delayed Job
+* Postgres
