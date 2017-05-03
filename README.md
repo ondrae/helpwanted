@@ -9,7 +9,15 @@ Easily gather all of the help wanted issues from any GitHub projects you choose,
 Open source is hard. Organizing lots of volunteers around lots of open source projects is even harder. This service is meant to create one easy place to point volunteer to. Featured issues show up first.
 
 ## How
-Create a collection of repositories, like all of your favorite open source bicycling projects, and embed the help wanted issues on to your main website. Easy. If the open source contributors in your crew want to ship faster, encourage them to start using the default `help wanted` label on their issues.
+1. Login with GitHub - http://helpwanted.team/users/auth/github
+2. Create a collection - http://helpwanted.team/collections/new
+3. Add a GitHub repository or GitHub organizations - http://helpwanted.team/collections/YOUR-COLLECTION/projects/new
+4. Wait a few seconds as we search those repositories for any open GitHub Issues with the `help wanted` label.
+5. Send out the link to your collection.
+6. Embed the issues like http://helpwanted.team/collections/civic-tech/embed
+
+Once you have a collection of Issues out in the wild, when you the owner are logged in, you'll see how many times the issues have been viewed and how many times they have been clicked on.
+
 
 ## Who
 * Tech Meetup Organizers
