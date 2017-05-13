@@ -14,9 +14,6 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe "#gh_labels" do
-  end
-
   describe "#update_project" do
     let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", pushed_at: Time.current, owner_login: "TEST", owner_avatar_url: "TEST") }
     before do

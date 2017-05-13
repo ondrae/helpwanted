@@ -23,6 +23,6 @@ class User < ActiveRecord::Base
 
   def update_collections
     puts "Updating #{self.github_name}'s Collections"
-    collections.map(&:update_projects)
+    collections.each(&:update_projects)
   end
 end

@@ -10,16 +10,11 @@ class Project < ActiveRecord::Base
     collection.owner
   end
 
-  def update_project
-    puts "Updating #{self.url}"
-    logger.debug "Updating #{self.url}"
-    gh_project = GithubProject.new(self.url)
-    self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
-  end
-
   def update_issues
     puts "Updating issues of #{self.url}"
     gh_project = GithubProject.new(self.url)
+    self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
+
     unless gh_project.issues.blank?
       gh_project.issues.map do |gh_issue|
         existing_issue = Issue.where(project_id: self.id, url: gh_issue.html_url).first

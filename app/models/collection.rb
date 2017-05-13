@@ -17,12 +17,7 @@ class Collection < ActiveRecord::Base
 
   def update_projects
     puts "Updating #{self.name}'s projects"
-    organizations.map(&:get_new_projects)
-
-    projects.map do |project|
-      project.update_project
-      project.update_issues
-    end
+    projects.each(&:update_issues)
   end
 
 end
