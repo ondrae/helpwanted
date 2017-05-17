@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
     collection.owner
   end
 
-  def update_issues
+  def github_update
     puts "Updating issues of #{self.url}"
     gh_project = GithubProject.new(self.url)
     self.update!(name: gh_project.name, description: gh_project.description, github_updated_at: gh_project.pushed_at, owner_login: gh_project.owner_login, owner_avatar_url: gh_project.owner_avatar_url)
@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
     end
     delete_closed_issues(open_issues: gh_project.issues, project_issues: self.issues)
   end
-  handle_asynchronously :update_issues
+  handle_asynchronously :github_update
 
   private
 

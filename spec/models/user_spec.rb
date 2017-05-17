@@ -19,26 +19,12 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#update_collections" do
-    issue_params = {
-      title: "UPDATED TITLE",
-      html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT/issues/1",
-      labels: [{ name: "UPDATED LABEL ONE"},{ name: "UPDATED LABEL TWO" }]
-    }
-    let(:issues){ double(Issue, issue_params) }
-    let(:gh_project){ double(GithubProject, name: "UPDATED NAME", description: "UPDATED DESCRIPTION", pushed_at: Time.current, owner_login: "TEST", owner_avatar_url: "TEST", issues: [issues]) }
-    before do
-      allow(GithubProject).to receive(:new).and_return( gh_project )
-
-      collection = create :collection, user: user
-      create :project, collection: collection
-    end
-
+  describe "#github_update" do
+    let(:collection) { double(Collection) }
     it "updates the user's collection's projects" do
-      user.update_collections
-
-      expect(user.collections.first.projects.first.name).to eq "UPDATED NAME"
-      expect(user.collections.first.projects.first.description).to eq "UPDATED DESCRIPTION"
+      allow(user).to receive(:collections).and_return([collection])
+      expect(collection).to receive(:github_update)
+      user.github_update
     end
   end
 

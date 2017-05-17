@@ -92,30 +92,6 @@ RSpec.describe ProjectsController, type: :controller do
         end
       end
     end
-
-    context "an organization url" do
-      let(:collection){ create :collection, id: 1 }
-      let(:org_url_params) { { url: "https://github.com/TESTORG", collection_id: collection.id } }
-
-      let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT", pushed_at: Time.current, owner: "TEST", owner_avatar_url: "TEST" ) }
-      let(:gh_project2){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT2", pushed_at: Time.current, owner: "TEST", owner_avatar_url: "TEST" ) }
-      let(:gh_org){ double(GithubOrganization, projects: [gh_project, gh_project2]) }
-      before do
-        allow(GithubOrganization).to receive(:new).and_return( gh_org )
-        allow_any_instance_of(Project).to receive(:update_issues)
-      end
-
-      it "creates two new Projects" do
-        expect {
-          post :create, { project: org_url_params, collection_id: collection.id }
-        }.to change(Organization, :count).by(1)
-      end
-
-      it "redirects to parent collection" do
-        post :create, { project: org_url_params, collection_id: collection.id }
-        expect(response).to redirect_to short_collection_path(collection)
-      end
-    end
   end
 
   describe "DELETE #destroy" do

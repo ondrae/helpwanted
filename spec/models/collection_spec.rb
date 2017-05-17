@@ -3,16 +3,15 @@ require 'rails_helper'
 RSpec.describe Collection, type: :model do
   let(:collection) { create :collection }
 
-  describe "#update_projects" do
+  describe "#github_update" do
     let(:gh_project){ double(GithubProject, name: "TEST NAME", description: "TEST DESCRIPTION", html_url: "https://github.com/TEST_GITHUB_ACCOUNT/TEST_PROJECT", pushed_at: Time.current, owner_login: "TEST", owner_avatar_url: "TEST" ) }
     let(:project){ create :project, collection: collection}
     it "updates the project" do
       allow(GithubProject).to receive(:new).and_return( gh_project )
       allow(collection).to receive(:projects).and_return [project]
-      expect(project).to receive(:update_project)
-      expect(project).to receive(:update_issues)
+      expect(project).to receive(:github_update)
 
-      collection.update_projects
+      collection.github_update
     end
   end
 
@@ -41,7 +40,7 @@ RSpec.describe Collection, type: :model do
     it "gets all of a collections projects" do
       expect(collection.projects.count).to eq(3)
     end
-    it "returns projects in order of updated_at" do
+    it "returns projects in order of name" do
       expect(collection.projects).to eq Project.order(:name)
     end
   end

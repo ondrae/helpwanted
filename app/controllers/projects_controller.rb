@@ -18,19 +18,8 @@ class ProjectsController < ApplicationController
   # POST /projects
   def create
     @project = Project.create(project_params.merge(name: repo_name))
-
-    if create_single_project?
-      if @project.errors.empty?
-        @project.update_project
-        @project.update_issues
-        redirect_to short_collection_path @collection
-      else
-        render :new
-      end
-
-    elsif create_all_orgs_projects?
-      organization = Organization.create(project_params)
-      organization.get_new_projects
+    if @project.errors.empty?
+      @project.github_update
       redirect_to short_collection_path @collection
     else
       render :new
@@ -45,19 +34,10 @@ class ProjectsController < ApplicationController
   end
 
   private
-  def create_single_project?
-    /github\.com\/(?<repo_path>[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
-    repo_path.present?
-  end
 
   def repo_name
     /github\.com\/[a-zA-Z\-_0-9]+\/(?<name>[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
     name
-  end
-
-  def create_all_orgs_projects?
-    /github\.com\/(?<org_name>[a-zA-Z\-_0-9]+)?/ =~ params[:project][:url]
-    org_name.present?
   end
 
   def set_collection

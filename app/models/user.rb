@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_collections
+  def github_update
     puts "Updating #{self.github_name}'s Collections"
-    collections.each(&:update_projects)
+    collections.each(&:github_update)
   end
 end
