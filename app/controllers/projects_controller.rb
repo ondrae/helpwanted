@@ -4,7 +4,6 @@ class ProjectsController < ApplicationController
   protect_from_forgery :except => [:create]
 
   # GET /projects
-  # GET /projects.json
   def index
     @projects = @collection.projects.page(params[:page])
   end
@@ -17,7 +16,6 @@ class ProjectsController < ApplicationController
   end
 
   # POST /projects
-  # POST /projects.json
   def create
     @project = Project.create(project_params.merge(name: repo_name))
 
@@ -34,14 +32,12 @@ class ProjectsController < ApplicationController
       organization = Organization.create(project_params)
       organization.get_new_projects
       redirect_to short_collection_path @collection
-
     else
       render :new
     end
   end
 
   # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     project = Project.find(params[:id])
     project.destroy
