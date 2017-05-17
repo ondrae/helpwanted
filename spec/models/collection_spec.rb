@@ -56,7 +56,7 @@ RSpec.describe Collection, type: :model do
     it "gets all of a collections issues" do
       expect(collection.issues.count).to eq(3)
     end
-    it "returns issues in order of updated_at" do
+    it "returns issues in order of github_updated_at" do
       expect(collection.issues).to eq Issue.order(github_updated_at: :desc)
     end
   end

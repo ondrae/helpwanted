@@ -82,31 +82,32 @@ RSpec.describe ProjectsController, type: :controller do
 
         it "updates the project from Github" do
           allow(Project).to receive(:new).and_return(project)
-          allow(project).to receive :update_project
-          allow(project).to receive :update_issues
+          allow(project).to receive :github_update
 
           post :create, { project: valid_attributes, collection_id: collection.id }
 
-          expect(project).to have_received :update_project
-          expect(project).to have_received :update_issues
+          expect(project).to have_received :github_update
         end
       end
     end
   end
 
   describe "DELETE #destroy" do
-    let(:collection){ create :collection, id: 1 }
+    let(:user) { create :user }
+    let(:collection){ create :collection, user: user }
+    let!(:project){ create :project, collection: collection }
+    before do
+      sign_in user
+    end
 
     it "destroys the requested project" do
-      project = Project.create! valid_attributes
       expect {
-        delete :destroy, { id: project.to_param, collection_id: collection.id }
+        delete :destroy, { id: project.id }
       }.to change(Project, :count).by(-1)
     end
 
     it "redirects to the projects list" do
-      project = Project.create! valid_attributes
-      delete :destroy, { id: project.to_param, collection_id: collection.id }
+      delete :destroy, { id: project.id }
       expect(response).to redirect_to short_collection_path collection
     end
   end

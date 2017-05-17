@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
 
   let(:project) { create :project }
+  let(:gh_project)  { create :github_project }
+
+  before { Delayed::Worker.delay_jobs = false }
 
   describe "validations" do
     it "can only have one of the same projects per collection" do

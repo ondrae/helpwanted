@@ -1,15 +1,16 @@
 require 'rails_helper'
+include ActiveJob::TestHelper
+
 
 RSpec.describe User, type: :model do
   let(:user) { create :user }
+  before do
+    3.times do
+      create :collection, user: user
+    end
+  end
 
   describe "#delete" do
-    before do
-      3.times do
-        create :collection, user: user
-      end
-    end
-
     it "deletes users's collections too" do
       expect(Collection.all.count).to eq(3)
 

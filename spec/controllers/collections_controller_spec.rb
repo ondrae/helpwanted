@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe CollectionsController, type: :controller do
   include Devise::TestHelpers
 
+  let(:user) { create :user }
+  before { sign_in user }
+
   describe "GET #index" do
-    let(:user) { create :user }
     let(:collection) { create :collection, user: user }
     let(:collection2) { create :collection, name: "TESTING 1", description: "BICYCLES" }
 
@@ -47,7 +49,6 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      let(:user) { create :user }
       let(:params) { { name: "TEST COLLECTION", description: "TEST DESCRIPTION", user: user } }
       it "creates a new Collection" do
         expect { post :create, { collection: params } }.to change(Collection, :count).by(1)
@@ -66,7 +67,6 @@ RSpec.describe CollectionsController, type: :controller do
     end
 
     context "with invalid params" do
-      let(:user) { create :user }
       let(:params) { { name: nil, description: "TEST DESCRIPTION", user: user } }
 
       it "assigns a newly created but unsaved collection as @collection" do
@@ -82,12 +82,10 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "PUT #update" do
-    let(:user) { create :user }
     let(:user2) { create :user }
 
     let(:collection) { create :collection, user: user }
     let(:new_attributes) { { name: "UPDATED NAME", description: "UPDATED DESCRIPTION", slug: "updated-slug" } }
-    before { sign_in user }
 
     context "only collections owner can edit it" do
       it "when the owner is logged in, a collection can be updated" do
@@ -118,9 +116,7 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let(:user) { create :user }
     let!(:collection) { create :collection, user: user }
-    before { sign_in user }
 
     it "destroys the requested collection" do
       expect {
