@@ -11,7 +11,7 @@ Open source is hard. Organizing lots of volunteers around lots of open source pr
 ## How
 1. Login with GitHub - http://helpwanted.team/users/auth/github
 2. Create a collection - http://helpwanted.team/collections/new
-3. Add a GitHub repository or GitHub organizations - http://helpwanted.team/collections/YOUR-COLLECTION/projects/new
+3. Add a GitHub repository - http://helpwanted.team/collections/YOUR-COLLECTION/projects/new
 4. Wait a few seconds as we search those repositories for any open GitHub Issues with the `help wanted` label.
 5. Send out the link to your collection.
 6. Embed the issues like http://helpwanted.team/collections/civic-tech/embed

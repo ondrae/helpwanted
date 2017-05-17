@@ -1,6 +1,5 @@
 class Collection < ActiveRecord::Base
   belongs_to :user
-  has_many :organizations, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :issues, through: :projects
 

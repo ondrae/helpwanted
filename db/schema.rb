@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430225847) do
+ActiveRecord::Schema.define(version: 20170517225013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,15 +68,6 @@ ActiveRecord::Schema.define(version: 20170430225847) do
 
   add_index "labels", ["issue_id"], name: "index_labels_on_issue_id", using: :btree
 
-  create_table "organizations", force: :cascade do |t|
-    t.string   "url"
-    t.integer  "collection_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "organizations", ["collection_id"], name: "index_organizations_on_collection_id", using: :btree
-
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -118,6 +109,5 @@ ActiveRecord::Schema.define(version: 20170430225847) do
   add_foreign_key "collections", "users"
   add_foreign_key "issues", "projects"
   add_foreign_key "labels", "issues"
-  add_foreign_key "organizations", "collections"
   add_foreign_key "projects", "collections"
 end
