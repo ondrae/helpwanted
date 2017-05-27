@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = @collection.projects.page(params[:page])
+    @projects = @collection.projects
   end
 
   # GET /projects/new
@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   def create
-    @project = Project.create(project_params.merge(name: repo_name))
+    @project = Project.create(project_params)
     if @project.errors.empty?
       @project.github_update
       redirect_to short_collection_path @collection
@@ -34,11 +34,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-  def repo_name
-    /github\.com\/[a-zA-Z\-_0-9]+\/(?<name>[a-zA-Z\-_0-9\.]+)\/?/ =~ params[:project][:url]
-    name
-  end
 
   def set_collection
     @collection = Collection.friendly.find(params[:collection_id])

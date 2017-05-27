@@ -7,18 +7,15 @@ class CollectionsController < ApplicationController
   def index
     if params[:user_id]
       user = User.friendly.find(params[:user_id])
-      @collections = user.collections.page(params[:page])
+      @collections = user.collections
     else
-      @collections = Collection.all.page(params[:page])
+      @collections = Collection.all
     end
   end
 
   # GET /collections/1
   def show
-    @issues = @collection.issues.help_wanted.page(params[:page])
-    @issues.each do |issue|
-      issue.increment! :viewed
-    end
+    get_help_wanted_issues_from_repos(@collection.projects)
   end
 
   def embed

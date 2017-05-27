@@ -5,14 +5,6 @@
     <p class="subtitle"><%= project.description %></p>
   </header>
 
-  <div class="level">
-    <% if project.issues.help_wanted.any? %>
-      <%= link_to project.url + '/issues' do %>
-        Help Wanted Issues <span class="tag"><%= project.issues.help_wanted.count %></span>
-      <% end %>
-    <% end %>
-  </div>
-
   <hr />
 
   <div class="level is-mobile">
@@ -25,7 +17,7 @@
   </div>
 
 
-  <% if current_user == project.owner %>
+  <% if current_user == project.collection.user %>
 
     <footer class="level">
       <%= link_to project, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>

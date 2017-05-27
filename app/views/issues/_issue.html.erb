@@ -1,9 +1,6 @@
 <div class="tile is-child box">
-  <% if issue.featured? %>
-    <span class="featured-tag tag is-warning is-pulled-right"><i class="fa fa-star" aria-hidden="true"></i> Featured</span>
-  <% end %>
 
-  <p class="title"><%= link_to issue.title, issue.url, onclick: "clickedIssue(#{issue.id});" %></p>
+  <p class="title"><%= link_to issue.title, issue.url %></p>
 
   <p>
     <% issue.labels.each do |label| %>
@@ -12,41 +9,20 @@
   </p>
   <br/>
 
-  <p>Issue Updated <%= time_ago_in_words issue.github_updated_at %> ago</p>
+  <p>Issue Updated <%= time_ago_in_words issue.updated_at %> ago</p>
 
   <hr />
 
   <footer>
     <ul>
-      <% unless params[:controller] == "collections" %>
-        <li>Collection: <%= link_to issue.project.collection.name, short_collection_path(issue.project.collection) %></li>
-      <% end %>
-      <li>Repo: <%= link_to issue.project.name, issue.project.url %></li>
+      <li>Collection: <%= link_to issue.project.collection.name %></li>
+      <li>Repo: <%= link_to issue.repo_name, issue.repo_url %></li>
       <li>
         Owner:
-        <%= link_to "https://github.com/" + issue.project.owner_login do %>
+        <%= link_to issue.project.url do %>
           <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
         <% end %>
       </li>
-      <% if issue.project.collection.user == current_user %>
-        <br />
-        <% if issue.featured? %>
-          <li>
-            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Unfeature'.html_safe, unfeature_issue_path(issue), class: "button is-primary is-outlined", method: :post %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to '<i class="fa fa-star" aria-hidden="true"></i> Make Featured'.html_safe, feature_issue_path(issue), class: "button is-primary is-outlined", method: :post %>
-          </li>
-        <% end %>
-        <br />
-        <li>
-          Viewed: <%= issue.viewed %> times
-        </li>
-        <li>
-          Clicked: <%= issue.clicked %> times
-        </li>
-      <% end %>
     </ul>
   </footer>
 

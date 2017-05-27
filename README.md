@@ -39,6 +39,5 @@ hyd415 at gmail dot com
 * Ruby 2.3
 * Rails 4.2.6
 * RSpec
-* Delayed Job
 * Postgres
 * CSS - http://bulma.io/

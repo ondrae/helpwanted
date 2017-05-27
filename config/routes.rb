@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   root 'application#index'
 
-  # admin
-  match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
-
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
   resources :users do
     get "collections", to: "collections#index"
@@ -19,8 +16,5 @@ Rails.application.routes.draw do
   end
 
   get ":id", to: 'collections#show', as: "short_collection"
-
-  post "issues/:id/feature", to: "issues#feature", as: "feature_issue"
-  post "issues/:id/unfeature", to: "issues#unfeature", as: "unfeature_issue"
-  post "issues/:id/clicked", to: "issues#clicked", as: "clicked_issue"
+  get ":id/projects", to: 'projects#index', as: "short_collection_projects"
 end

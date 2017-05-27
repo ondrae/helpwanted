@@ -26,10 +26,7 @@ gem 'omniauth-github'
 
 # wrapper form github api
 gem "octokit"
-
-# jobs
-gem 'delayed_job_active_record'
-gem 'delayed_job_web'
+# gem 'graphql-client'
 
 #fontawesome
 gem 'font-awesome-sass'
@@ -38,9 +35,6 @@ gem 'friendly_id'
 
 # web server
 gem 'puma'
-
-# pagination
-gem 'kaminari'
 
 # requests
 gem 'httparty'

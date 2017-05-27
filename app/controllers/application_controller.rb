@@ -8,9 +8,16 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-    @issues = Issue.help_wanted.page(params[:page])
-    @issues.each do |issue|
-      issue.increment! :viewed
+    get_help_wanted_issues_from_repos(Project.all)
+  end
+
+  def get_help_wanted_issues_from_repos(repos)
+    repos_for_search = repos.map { |repo| "repo:" + repo.owner_login + "/" + repo.name }
+    query = "type:issue state:open label:\"help wanted\"" + repos_for_search.join(" ")
+    @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: false)
+    result = @github_api.search_issues(query, { sort: "updated" })
+    @issues = result.items.map do |github_issue|
+      Issue.new(github_issue)
     end
   end
 

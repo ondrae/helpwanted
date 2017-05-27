@@ -6,11 +6,8 @@
 
   <ul>
     <li>
-      Help Wanted Issues: <span class="tag"><%= collection.issues.help_wanted.count %></span>
-    </li>
-    <li>
-      By: <%= link_to user_path(collection.owner.github_name) do %>
-          <%= image_tag collection.owner.image, class: "small-github-avatar" %> <%= collection.owner.github_name %>
+      By: <%= link_to user_path(collection.user.github_name) do %>
+          <%= image_tag collection.user.image, class: "small-github-avatar" %> <%= collection.user.github_name %>
       <% end %>
     </li>
   </ul>
