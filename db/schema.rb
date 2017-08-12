@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20170527005346) do
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree
   add_index "collections", ["user_id"], name: "index_collections_on_user_id", using: :btree
 
+  create_table "organizations", force: :cascade do |t|
+    t.string   "url"
+    t.integer  "collection_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "organizations", ["collection_id"], name: "index_organizations_on_collection_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -68,5 +77,6 @@ ActiveRecord::Schema.define(version: 20170527005346) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "collections", "users"
+  add_foreign_key "organizations", "collections"
   add_foreign_key "projects", "collections"
 end

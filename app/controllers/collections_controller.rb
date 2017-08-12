@@ -15,7 +15,10 @@ class CollectionsController < ApplicationController
 
   # GET /collections/1
   def show
-    get_help_wanted_issues_from_repos(@collection.projects)
+    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
+  end
+
+  def add_issues
   end
 
   def embed
@@ -30,10 +33,14 @@ class CollectionsController < ApplicationController
   # GET /collections/new
   def new
     @collection = Collection.new
+    @project = Project.new
+    @organization = Organization.new
   end
 
   # GET /collections/1/edit
   def edit
+    @project = Project.new
+    @organization = Organization.new
   end
 
   # POST /collections

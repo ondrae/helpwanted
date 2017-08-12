@@ -1,36 +1,38 @@
-<%= form_for @collection do |f| %>
-  <% if @collection.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+<div class="box">
+  <%= form_for @collection do |f| %>
+    <% if @collection.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
 
-      <ul>
-      <% @collection.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @collection.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, class: "label" %>
+      <p class="control">
+        <%= f.text_field :name, class: 'input is-medium' %>
+      </p>
+    </div>
+
+    <div class="field">
+      <%= f.label :description, class: "label" %>
+      <p class="control">
+        <%= f.text_field :description, class: 'input is-medium' %>
+      </p>
+    </div>
+
+    <div class="field is-grouped">
+      <p class="control">
+        <%= f.submit 'Submit', class: 'button is-primary is-large' %>
+      </p>
+      <p class="control">
+        <%= link_to 'Back', collections_path, class: 'button is-large' %>
+      </p>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name, class: "label" %>
-    <p class="control">
-      <%= f.text_field :name, class: 'input is-medium' %>
-    </p>
-  </div>
-
-  <div class="field">
-    <%= f.label :description, class: "label" %>
-    <p class="control">
-      <%= f.text_field :description, class: 'input is-medium' %>
-    </p>
-  </div>
-
-  <div class="field is-grouped">
-    <p class="control">
-      <%= f.submit 'Submit', class: 'button is-primary is-large' %>
-    </p>
-    <p class="control">
-      <%= link_to 'Back', collections_path, class: 'button is-large' %>
-    </p>
-  </div>
-<% end %>
+</div>

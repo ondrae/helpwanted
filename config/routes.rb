@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :collections do
+    resources :organizations, shallow: true
     resources :projects, shallow: true
     get "issues" => "issues#index"
     member do
+      get "add_issues"
       get "embed"
     end
   end

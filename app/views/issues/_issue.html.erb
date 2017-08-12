@@ -15,13 +15,9 @@
 
   <footer>
     <ul>
-      <li>Collection: <%= link_to issue.project.collection.name %></li>
       <li>Repo: <%= link_to issue.repo_name, issue.repo_url %></li>
       <li>
         Owner:
-        <%= link_to issue.project.url do %>
-          <%= image_tag issue.project.owner_avatar_url, class: "small-github-avatar" %> <%= issue.project.owner_login %>
-        <% end %>
       </li>
     </ul>
   </footer>

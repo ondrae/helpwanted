@@ -1,0 +1,30 @@
+<div class="box">
+
+  <header>
+    <p class="title"><%= link_to project.name, project.url %></p>
+    <p class="subtitle"><%= project.description %></p>
+  </header>
+
+  <hr />
+
+  <div class="level is-mobile">
+    <%= link_to "https://github.com/" + project.owner_login, class: "level-item" do %>
+        <%= image_tag project.owner_avatar_url, class: "small-github-avatar" %> <%= project.owner_login %>
+    <% end %>
+    <%= link_to project.collection, class: "level-item" do %>
+        <%= project.collection.name %>
+    <% end %>
+  </div>
+
+
+  <% if current_user == project.collection.user %>
+
+    <footer class="level">
+      <%= link_to project, class: "button is-primary is-outlined level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+        Remove Project &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+    </footer>
+
+  <% end %>
+
+</div>
