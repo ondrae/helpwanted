@@ -14,15 +14,24 @@
   <% end %>
 <% end %>
 
-<ul>
-  <% @collection.organizations.each do |org| %>
-    <li><%= org.url %></li>
-  <% end %>
-</ul>
+<% if @collection.organizations %>
+  <div class="tile box">
+    <p class="subtitle">Organizations</p>
+    <ul>
+      <% @collection.organizations.each do |org| %>
+        <li><%= org.url %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-
-<ul>
-  <% @collection.projects.each do |project| %>
-    <li><%= project.url %></li>
-  <% end %>
-</ul>
+<% if @collection.projects %>
+  <div class="tile box">
+    <p class="subtitle">Projects</p>
+    <ul>
+      <% @collection.projects.each do |project| %>
+        <li><%= project.url %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

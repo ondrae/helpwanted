@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
     return if orgs.blank? or repos.blank?
 
     orgs_for_search = orgs.map { |org| "org:" + org.name }
-    repos_for_search = repos.map { |repo| "repo:" + repo.owner_login + "/" + repo.name }
+    repos_for_search = repos.map { |repo| "repo:" + repo.full_name }
     query = "type:issue state:open label:\"help wanted\"" + orgs_for_search.join(" ") + " " + repos_for_search.join(" ")
     @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: false)
-    result = @github_api.search_issues(query, { sort: "updated" })
+    result = @github_api.search_issues(query, { sort: "updated", per_page: 10 })
     @issues = result.items.map do |github_issue|
       Issue.new(github_issue)
     end

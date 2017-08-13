@@ -17,7 +17,7 @@
     <ul>
       <li>Repo: <%= link_to issue.repo_name, issue.repo_url %></li>
       <li>
-        Owner:
+        Owner: <%= link_to issue.owner, "https://github.com/#{issue.owner}" %></li>
       </li>
     </ul>
   </footer>

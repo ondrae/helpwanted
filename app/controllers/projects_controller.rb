@@ -19,7 +19,6 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.create(project_params)
     if @project.errors.empty?
-      @project.github_update
       redirect_to short_collection_path @collection
     else
       render :new

@@ -2,7 +2,7 @@ class Issue
   include ActiveModel::Model
 
   attr_reader :title, :url, :labels, :updated_at,
-              :repo_name, :repo_url, :owner_login,
+              :repo_name, :repo_url, :owner,
               :project, :collection
 
   def initialize(github_issue)
@@ -12,6 +12,7 @@ class Issue
     @updated_at = github_issue.updated_at
     @repo_name = github_issue.html_url.split("/")[4]
     @repo_url = github_issue.html_url.split('/issues')[0]
+    @owner = github_issue.html_url.split("/")[3]
     @project = Project.find_by_url @repo_url
   end
 end

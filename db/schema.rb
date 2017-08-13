@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527005346) do
+ActiveRecord::Schema.define(version: 20170813165315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,20 +38,13 @@ ActiveRecord::Schema.define(version: 20170527005346) do
   add_index "organizations", ["collection_id"], name: "index_organizations_on_collection_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "url",               null: false
+    t.string   "url",           null: false
     t.integer  "collection_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "slug"
-    t.datetime "github_updated_at"
-    t.string   "owner_login"
-    t.string   "owner_avatar_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "projects", ["collection_id"], name: "index_projects_on_collection_id", using: :btree
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
   add_index "projects", ["url"], name: "index_projects_on_url", using: :btree
 
   create_table "users", force: :cascade do |t|
