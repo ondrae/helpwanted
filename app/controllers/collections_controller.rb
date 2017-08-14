@@ -23,10 +23,7 @@ class CollectionsController < ApplicationController
 
   def embed
     response.headers.delete "X-Frame-Options"
-    @issues = @collection.issues.help_wanted.page(params[:page])
-    @issues.each do |issue|
-      issue.increment! :viewed
-    end
+    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
     render layout: "embed"
   end
 

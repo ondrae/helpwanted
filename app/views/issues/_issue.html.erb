@@ -9,16 +9,14 @@
   </p>
   <br/>
 
-  <p>Issue Updated <%= time_ago_in_words issue.updated_at %> ago</p>
+  <p>Issue updated <%= time_ago_in_words issue.updated_at %> ago</p>
 
   <hr />
 
   <footer>
     <ul>
       <li>Repo: <%= link_to issue.repo_name, issue.repo_url %></li>
-      <li>
-        Owner: <%= link_to issue.owner, "https://github.com/#{issue.owner}" %></li>
-      </li>
+      <li>Owner: <%= link_to issue.owner, "https://github.com/#{issue.owner}" %></li>
     </ul>
   </footer>
 

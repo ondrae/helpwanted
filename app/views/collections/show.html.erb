@@ -1,8 +1,5 @@
 <%= content_for :title, @collection.name %>
 <%= content_for :sub_title, @collection.description %>
-<%= content_for :sub_title do %>
- Curated by <%= link_to @collection.user.github_name, "https://gihtub.com/#{@collection.user.github_name}" %>
-<% end %>
 
 <% if current_user == @collection.user %>
   <% content_for :action do %>
