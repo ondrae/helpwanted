@@ -2,7 +2,7 @@ class Issue
   include ActiveModel::Model
 
   attr_reader :title, :url, :labels, :updated_at,
-              :repo_name, :repo_url, :owner,
+              :repo_name, :repo_url, :owner, :owner_avatar,
               :project, :collection
 
   def initialize(github_issue)
