@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     get_help_wanted_issues(orgs: Organization.all, repos: Project.all)
   end
 
-  def get_help_wanted_issues(orgs: orgs, repos: repos)
+  def get_help_wanted_issues(orgs:, repos:)
     return if orgs.blank? or repos.blank?
 
     orgs_for_search = orgs.map { |org| "org:" + org.name }
