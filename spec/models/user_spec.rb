@@ -1,6 +1,4 @@
 require 'rails_helper'
-include ActiveJob::TestHelper
-
 
 RSpec.describe User, type: :model do
   let(:user) { create :user }
@@ -19,14 +17,4 @@ RSpec.describe User, type: :model do
       expect(Collection.all.count).to eq(0)
     end
   end
-
-  describe "#github_update" do
-    let(:collection) { double(Collection) }
-    it "updates the user's collection's projects" do
-      allow(user).to receive(:collections).and_return([collection])
-      expect(collection).to receive(:github_update)
-      user.github_update
-    end
-  end
-
 end

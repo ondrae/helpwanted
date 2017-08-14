@@ -53,15 +53,6 @@ GEM
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
-    delayed_job (4.1.2)
-      activesupport (>= 3.0, < 5.1)
-    delayed_job_active_record (4.1.1)
-      activerecord (>= 3.0, < 5.1)
-      delayed_job (>= 3.0, < 5)
-    delayed_job_web (1.2.10)
-      activerecord (> 3.0.0)
-      delayed_job (> 2.0.3)
-      sinatra (>= 1.4.4)
     devise (4.1.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -114,9 +105,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.2)
-    kaminari (0.16.3)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -168,8 +156,6 @@ GEM
       slop (~> 3.4)
     puma (3.6.0)
     rack (1.6.4)
-    rack-protection (1.5.3)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.6)
@@ -205,6 +191,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    rb-readline (0.5.5)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     rspec (3.4.0)
@@ -240,10 +227,6 @@ GEM
       addressable (>= 2.3.5, < 2.5)
       faraday (~> 0.8, < 0.10)
     shellany (0.0.1)
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (3.6.2)
@@ -281,8 +264,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   capybara
-  delayed_job_active_record
-  delayed_job_web
   devise
   dotenv-rails
   factory_girl
@@ -293,7 +274,6 @@ DEPENDENCIES
   guard-rspec
   httparty
   jquery-rails
-  kaminari
   octokit
   omniauth-github
   pg (~> 0.15)
@@ -301,6 +281,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.6)
   rails_12factor
+  rb-readline
   rspec-rails
   sass-rails (~> 5.0)
   spring
@@ -310,5 +291,8 @@ DEPENDENCIES
   web-console (~> 2.0)
   yajl-ruby
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.12.5
+   1.14.6

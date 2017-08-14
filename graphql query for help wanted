@@ -1,0 +1,18 @@
+query {
+  search(first: 1, query: "label:\"help wanted\"", type: ISSUE) {
+    edges {
+      node {
+        ... on Issue {
+          title
+          labels(first: 5) {
+            edges {
+              node {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

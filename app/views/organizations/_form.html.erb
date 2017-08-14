@@ -1,10 +1,8 @@
-<%= form_for [@collection, @project] do |f| %>
-  <% if @project.errors.any? %>
+<%= form_for [@collection, @organization] do |f| %>
+  <% if @organization.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
       <ul>
-      <% @project.errors.full_messages.each do |message| %>
+      <% @organization.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,10 +11,10 @@
 
   <div class="field">
     <%= f.label :url, class: "label" do %>
-    Add a GitHub repository
+      Add a GitHub organization
     <% end %>
     <p class="control is-expanded has-icons-left">
-      <%= f.text_field :url, class: 'input is-expanded is-medium', placeholder: "https://github.com/ondrae/helpwanted", type: "url", required: true %>
+      <%= f.text_field :url, class: 'input is-expanded is-medium', placeholder: "https://github.com/codeforamerica", type: "url", required: true %>
       <span class="icon is-medium is-left">
         <i class="fa fa-github"></i>
       </span>

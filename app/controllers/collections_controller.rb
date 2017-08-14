@@ -7,36 +7,37 @@ class CollectionsController < ApplicationController
   def index
     if params[:user_id]
       user = User.friendly.find(params[:user_id])
-      @collections = user.collections.page(params[:page])
+      @collections = user.collections
     else
-      @collections = Collection.all.page(params[:page])
+      @collections = Collection.all
     end
   end
 
   # GET /collections/1
   def show
-    @issues = @collection.issues.help_wanted.page(params[:page])
-    @issues.each do |issue|
-      issue.increment! :viewed
-    end
+    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
+  end
+
+  def add_issues
   end
 
   def embed
     response.headers.delete "X-Frame-Options"
-    @issues = @collection.issues.help_wanted.page(params[:page])
-    @issues.each do |issue|
-      issue.increment! :viewed
-    end
+    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
     render layout: "embed"
   end
 
   # GET /collections/new
   def new
     @collection = Collection.new
+    @project = Project.new
+    @organization = Organization.new
   end
 
   # GET /collections/1/edit
   def edit
+    @project = Project.new
+    @organization = Organization.new
   end
 
   # POST /collections

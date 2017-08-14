@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517225013) do
+ActiveRecord::Schema.define(version: 20170813165315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,61 +28,24 @@ ActiveRecord::Schema.define(version: 20170517225013) do
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree
   add_index "collections", ["user_id"], name: "index_collections_on_user_id", using: :btree
 
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
-  create_table "issues", force: :cascade do |t|
-    t.string   "title"
+  create_table "organizations", force: :cascade do |t|
     t.string   "url"
-    t.integer  "project_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.datetime "github_updated_at"
-    t.boolean  "featured",          default: false
-    t.integer  "viewed",            default: 0
-    t.integer  "clicked",           default: 0
+    t.integer  "collection_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
-
-  create_table "labels", force: :cascade do |t|
-    t.string   "name"
-    t.string   "color"
-    t.integer  "issue_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "labels", ["issue_id"], name: "index_labels_on_issue_id", using: :btree
+  add_index "organizations", ["collection_id"], name: "index_organizations_on_collection_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "url",               null: false
+    t.string   "url",           null: false
     t.integer  "collection_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "slug"
-    t.datetime "github_updated_at"
-    t.string   "owner_login"
-    t.string   "owner_avatar_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "projects", ["collection_id"], name: "index_projects_on_collection_id", using: :btree
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
+  add_index "projects", ["url"], name: "index_projects_on_url", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -107,7 +70,6 @@ ActiveRecord::Schema.define(version: 20170517225013) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "collections", "users"
-  add_foreign_key "issues", "projects"
-  add_foreign_key "labels", "issues"
+  add_foreign_key "organizations", "collections"
   add_foreign_key "projects", "collections"
 end

@@ -26,10 +26,7 @@ gem 'omniauth-github'
 
 # wrapper form github api
 gem "octokit"
-
-# jobs
-gem 'delayed_job_active_record'
-gem 'delayed_job_web'
+# gem 'graphql-client'
 
 #fontawesome
 gem 'font-awesome-sass'
@@ -38,9 +35,6 @@ gem 'friendly_id'
 
 # web server
 gem 'puma'
-
-# pagination
-gem 'kaminari'
 
 # requests
 gem 'httparty'
@@ -61,6 +55,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'rb-readline'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

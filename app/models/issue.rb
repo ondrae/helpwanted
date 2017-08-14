@@ -1,15 +1,18 @@
-class Issue < ActiveRecord::Base
-  belongs_to :project
-  has_many :labels, dependent: :destroy
-  validates :title, :url, presence: true
+class Issue
+  include ActiveModel::Model
 
-  default_scope { order(featured: :desc).order('github_updated_at DESC') }
-  scope :help_wanted, -> { joins(:labels).where("labels.name ILIKE '%help wanted%'") }
+  attr_reader :title, :url, :labels, :updated_at,
+              :repo_name, :repo_url, :owner, :owner_avatar,
+              :project, :collection
 
-
-  def number
-    /github\.com\/[a-zA-Z\-_0-9]+\/[a-zA-Z\-_0-9]+\/?\/issues\/(?<number>\d+)/ =~ url
-    number
+  def initialize(github_issue)
+    @title = github_issue.title
+    @url = github_issue.html_url
+    @labels = github_issue.labels
+    @updated_at = github_issue.updated_at
+    @repo_name = github_issue.html_url.split("/")[4]
+    @repo_url = github_issue.html_url.split('/issues')[0]
+    @owner = github_issue.html_url.split("/")[3]
+    @project = Project.find_by_url @repo_url
   end
-
 end
