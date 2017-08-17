@@ -31,7 +31,7 @@
           <%= link_to "#{image_tag(current_user.image, class: "small-github-avatar-header")}".html_safe, user_path(current_user), class: "nav-item is-tab" %>
           <%= link_to '<i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>'.html_safe, destroy_user_session_path, method: :delete, class: "nav-item is-tab" %>
         <% else %>
-          <%= link_to '<i class="fa fa-github fa-lg" aria-hidden="true"></i>'.html_safe, user_github_omniauth_authorize_path, class: "nav-item is-tab" %>
+          <%= link_to "Sign In", user_github_omniauth_authorize_path, class: "nav-item is-tab" %>
         <% end %>
       </div>
 
