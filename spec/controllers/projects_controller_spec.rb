@@ -5,18 +5,11 @@ RSpec.describe ProjectsController, type: :controller do
 
   let(:user)      { create :user }
   let(:collection){ create :collection, user: user }
-  # let(:project)   { create :project, collection: collection, updated_at: Time.now }
   before do
     sign_in user
   end
 
-
   describe "GET #new" do
-    let(:user){create :user}
-    let(:collection){create :collection, user: user}
-    before do
-      sign_in user
-    end
     it "assigns a new project as @project" do
       get :new, collection_id: collection.id
       expect(assigns(:project)).to be_a_new(Project)
@@ -53,7 +46,7 @@ RSpec.describe ProjectsController, type: :controller do
       }.to change(Project, :count).by(-1)
     end
 
-    it "redirects to the projects list" do
+    it "redirects to the collection" do
       delete :destroy, { id: project.id }
       expect(response).to redirect_to short_collection_path collection
     end

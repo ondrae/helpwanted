@@ -40,10 +40,15 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe "GET #edit" do
-    let(:collection) { create :collection }
-    it "cant edit when not logged in" do
-      get :edit, {id: collection.to_param}
+    it "can only edit your own collections" do
+      my_collection = create :collection, user: user
+      other_collection = create :collection
+
+      get :edit, {id: other_collection.to_param}
       expect(response.status).to eq 403
+
+      get :edit, {id: my_collection.to_param}
+      expect(response.status).to eq 200
     end
   end
 
