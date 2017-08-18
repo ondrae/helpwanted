@@ -1,15 +1,24 @@
 <div class="box">
-  <header>
+
     <p class="title"><%= link_to collection.name, short_collection_path(collection) %></p>
     <p class="subtitle"><%= collection.description %></p>
-  </header>
 
-  <ul>
-    <li>
+    <p>
       By: <%= link_to user_path(collection.user.github_name) do %>
           <%= image_tag collection.user.image, class: "small-github-avatar" %> <%= collection.user.github_name %>
       <% end %>
-    </li>
-  </ul>
+    </p>
+
+  <% if collection.organizations or collection.projects %>
+    <p>Organizations & Projects included:</p>
+    <ul>
+      <% collection.organizations.each do |org| %>
+        <li>* <%= org.url %></li>
+      <% end %>
+      <% collection.projects.each do |project| %>
+        <li>* <%= project.url %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
 </div>

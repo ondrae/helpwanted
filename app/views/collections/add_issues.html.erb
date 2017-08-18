@@ -1,37 +1,25 @@
 <%= content_for :title, "Add issues" %>
 <%= content_for :sub_title, "Choose GitHub organizations and projects to pull the issues from." %>
 
-<% if current_user == @collection.user %>
-  <% content_for :action do %>
-    <div class="level">
-      <%= link_to new_collection_organization_path(@collection), class: "button is-primary level-item" do %>
-        Add a GitHub Organization &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to new_collection_project_path(@collection), class: "button is-primary level-item" do %>
-        Add a GitHub Project &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
-
-<% if @collection.organizations %>
-  <div class="tile box">
-    <p class="subtitle">Organizations</p>
-    <ul>
-      <% @collection.organizations.each do |org| %>
-        <li><%= org.url %></li>
-      <% end %>
-    </ul>
+<% content_for :action do %>
+  <div class="level">
+    <%= link_to new_collection_organization_path(@collection), class: "button is-primary level-item" do %>
+      Add a GitHub Organization &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+    <% end %>
+    <%= link_to new_collection_project_path(@collection), class: "button is-primary level-item" do %>
+      Add a GitHub Project &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+    <% end %>
   </div>
 <% end %>
 
-<% if @collection.projects %>
-  <div class="tile box">
-    <p class="subtitle">Projects</p>
-    <ul>
-      <% @collection.projects.each do |project| %>
-        <li><%= project.url %></li>
-      <% end %>
-    </ul>
-  </div>
+<% if @collection.organizations or @collection.projects %>
+  <p>Organizations & Projects included:</p>
+  <ul>
+    <% @collection.organizations.each do |org| %>
+      <li>* <%= org.url %></li>
+    <% end %>
+    <% @collection.projects.each do |project| %>
+      <li>* <%= project.url %></li>
+    <% end %>
+  </ul>
 <% end %>
