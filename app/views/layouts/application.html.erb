@@ -5,43 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= javascript_include_tag 'application' %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
 
     <%= render "layouts/ganalytics" %>
-    <%= render "layouts/clicked_issues" %>
-
 </head>
 
 <body>
-
-  <nav class="nav">
-
+  <nav class="navbar">
     <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">#helpwanted</a>
 
-      <div class="nav-left">
-        <a class="nav-item is-brand is-large" href="/">helpwanted.team</a>
+        <div id="burger" class="navbar-burger" data-target="menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
 
-      <div class="nav-center">
-        <%= link_to "Collections", collections_path, class: "nav-item is-tab" %>
-        <% if user_signed_in? %>
-          <%= link_to "#{image_tag(current_user.image, class: "small-github-avatar-header")}".html_safe, user_path(current_user), class: "nav-item is-tab" %>
-          <%= link_to '<i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>'.html_safe, destroy_user_session_path, method: :delete, class: "nav-item is-tab" %>
-        <% else %>
-          <%= link_to "Sign In", user_github_omniauth_authorize_path, class: "nav-item is-tab" %>
-        <% end %>
+      <div id="menu" class="navbar-menu">
+        <div class="navbar-end">
+          <%= link_to "Collections", collections_path, class: "nav-item" %>
+          <% if user_signed_in? %>
+            <%= link_to user_path(current_user), class: "nav-item" do %>
+              <%= image_tag(current_user.image, class: "small-github-avatar-header").html_safe %>
+              <%= current_user.github_name %>
+              <% end %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-item" %>
+          <% else %>
+            <%= link_to "Sign In", user_github_omniauth_authorize_path, class: "nav-item" %>
+          <% end %>
+        </div>
       </div>
-
     </div>
-
   </nav>
 
   <section class="section hero is-primary">
     <div class="container">
-      <h1 class="title is-1"><%= content_for :title or @title %></h1>
+      <h2 class="title is-2 is-spaced"><%= content_for :title or @title %></h2>
       <h4 class="subtitle is-4"><%= content_for :sub_title or @subtitle %></h4>
       <%= content_for :action %>
     </div>

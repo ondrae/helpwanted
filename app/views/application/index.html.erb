@@ -1,6 +1,6 @@
-<% content_for :title, "#helpwanted" %>
-<% content_for :sub_title do %>
-  GitHub issues that need your help. 👏
+<% content_for :title, "GitHub issues that need your help. 👏" %>
+<% content_for :action do %>
+  <%= link_to "Create a new collection", new_collection_path, class: "button is-primary" %>
 <% end %>
 
 <% if @issues %>

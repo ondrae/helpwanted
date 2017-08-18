@@ -16,12 +16,9 @@
 
 jQuery(document).ready(function ($) {
 
-  $('.github-modal').click(function() {
-    $('#github-modal').toggleClass('is-active');
-  });
-
-  $('.modal-close').click(function() {
-    $('#github-modal').toggleClass('is-active');
+  $('#burger').click(function() {
+    $('#burger').toggleClass('is-active');
+    $('#menu').toggleClass('is-active');
   });
 
 });
