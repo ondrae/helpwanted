@@ -1,11 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :set_title
-
-  def set_title
-    # can be overwritten in the views
-    @title = params[:controller].capitalize.pluralize
-  end
 
   def index
     get_help_wanted_issues(orgs: Organization.all, repos: Project.all)
