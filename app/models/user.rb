@@ -20,9 +20,4 @@ class User < ActiveRecord::Base
      user.image = auth.info.image
     end
   end
-
-  def github_update
-    puts "Updating #{self.github_name}'s Collections"
-    collections.each(&:github_update)
-  end
 end

@@ -23,15 +23,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def after_sign_in_path_for(resource)
-      session[:previous_url] || root_path
-    end
-
-    def after_sign_out_path_for(resource)
-      request.referrer
-    end
-
-    def must_be_logged_in
-      redirect_to user_github_omniauth_authorize_path unless current_user
-    end
+  def must_be_logged_in
+    redirect_to user_github_omniauth_authorize_path unless current_user
+  end
 end

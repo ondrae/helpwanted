@@ -1,6 +1,0 @@
-<form id="search-form" action="<%= request.env['PATH_INFO'] %>" accept-charset="UTF-8" method="get">
-  <div class="control has-addons">
-    <input type="text" name="search" id="search" class="input is-large" <% if params[:search] %> value="<%= params[:search] %>" <% end %>/>
-    <button type="submit" id="submit" class="button is-large is-primary"><i class="fa fa-search"></i></button>
-  </div>
-</form>
