@@ -1,23 +1,29 @@
 <%= content_for :title, @collection.name %>
 <%= content_for :sub_title, @collection.description %>
 
-<% if current_user == @collection.user %>
-  <% content_for :action do %>
-    <div class="level">
-      <%= link_to add_issues_collection_path(@collection), class: "button is-primary level-item" do %>
-        Add Issues &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+<% content_for :action do %>
+  <div class="level">
+    <div class="level-left">
+      <% if @collection.user == current_user %>
+        <%= link_to collection_projects_path(@collection), class: "button is-primary level-item" do %>
+          Add Projects &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to edit_collection_path(@collection), class: "button is-primary level-item" do %>
+          Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to @collection, class: "button is-primary level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
+          Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to embed_collection_path(@collection), class: "button is-primary level-item" do %>
+          Embed &nbsp; <i class="fa fa-external-link" aria-hidden="true"></i>
+        <% end %>
+      <% else %>
+      <%= link_to collection_projects_path(@collection), class: "button is-primary level-item" do %>
+        See Projects &nbsp; <i class="fa fa-github" aria-hidden="true"></i>
       <% end %>
-      <%= link_to edit_collection_path(@collection), class: "button is-primary level-item" do %>
-        Edit Collection &nbsp; <i class="fa fa-pencil" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to @collection, class: "button is-primary level-item", method: :delete, data: { confirm: 'Are you sure?' } do %>
-        Remove Collection &nbsp; <i class="fa fa-trash" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to embed_collection_path(@collection), class: "button is-primary level-item" do %>
-        Embed &nbsp; <i class="fa fa-external-link" aria-hidden="true"></i>
-      <% end %>
-    </div>
-  <% end %>
+    <% end %>
+</div>
+  </div>
 <% end %>
 
 <%= render 'embed' %>

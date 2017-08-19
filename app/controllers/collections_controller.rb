@@ -18,9 +18,6 @@ class CollectionsController < ApplicationController
     get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
   end
 
-  def add_issues
-  end
-
   def embed
     response.headers.delete "X-Frame-Options"
     get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)

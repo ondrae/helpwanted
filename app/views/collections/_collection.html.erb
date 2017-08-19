@@ -9,16 +9,4 @@
       <% end %>
     </p>
 
-  <% if collection.organizations or collection.projects %>
-    <p>Organizations & Projects included:</p>
-    <ul>
-      <% collection.organizations.each do |org| %>
-        <li>* <%= org.url %></li>
-      <% end %>
-      <% collection.projects.each do |project| %>
-        <li>* <%= project.url %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
 </div>

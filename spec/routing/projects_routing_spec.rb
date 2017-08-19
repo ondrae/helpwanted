@@ -10,6 +10,10 @@ RSpec.describe ProjectsController, type: :routing do
       expect(:post => "collections/TEST/projects").to route_to("projects#create", collection_id: "TEST")
     end
 
+    it "routes to #index" do
+      expect(:get => "collections/TEST/projects").to route_to("projects#index", collection_id: "TEST")
+    end
+
     it "routes to #destroy" do
       expect(:delete => "/projects/1").to route_to("projects#destroy", :id => "1")
     end

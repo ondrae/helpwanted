@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = @collection.projects
   end
 
   # GET /projects/new

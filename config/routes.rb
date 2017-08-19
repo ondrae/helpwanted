@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :projects, shallow: true
     get "issues" => "issues#index"
     member do
-      get "add_issues"
       get "embed"
     end
   end

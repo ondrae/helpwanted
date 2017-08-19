@@ -35,10 +35,6 @@ RSpec.describe CollectionsController, type: :routing do
       expect(:delete => "/collections/1").to route_to("collections#destroy", :id => "1")
     end
 
-    it "routes to #add_issues" do
-      expect(get: "/collections/test-collection/add_issues").to route_to("collections#add_issues", :id => "test-collection")
-    end
-
     it "routes to #embed" do
       expect(get: "/collections/test-collection/embed").to route_to("collections#embed", :id => "test-collection")
     end
