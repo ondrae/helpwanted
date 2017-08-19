@@ -3,10 +3,4 @@
   <%= link_to "Create a new collection", new_collection_path, class: "button is-primary" %>
 <% end %>
 
-<% if @issues %>
-  <% @issues.in_groups_of(3, false).each do |issues| %>
-    <div class="tile is-12">
-      <%= render issues %>
-    </div>
-  <% end %>
-<% end %>
+<%= render "collections/embed", locals: {issues: @issues} %>
