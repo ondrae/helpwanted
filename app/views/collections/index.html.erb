@@ -3,4 +3,8 @@
   <%= link_to "Create a new collection", new_collection_path, class: "button is-primary" %>
 <% end %>
 
-<%= render @collections %>
+<% @collections.in_groups_of(2, false).each do |collection| %>
+  <div class="tile is-12">
+    <%= render collection %>
+  </div>
+<% end %>
