@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
 
   # GET /collections/1
   def show
-    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects)
+    get_help_wanted_issues(orgs: @collection.organizations, repos: @collection.projects, featured: @collection.featured_label)
   end
 
   def embed
@@ -70,7 +70,7 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :slug)
+      params.require(:collection).permit(:name, :description, :featured_label, :slug)
     end
 
     def owner_only

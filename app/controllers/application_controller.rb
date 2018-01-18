@@ -5,15 +5,23 @@ class ApplicationController < ActionController::Base
     get_help_wanted_issues(orgs: Organization.all, repos: Project.all)
   end
 
-  def get_help_wanted_issues(orgs:, repos:)
+  def get_help_wanted_issues(orgs:, repos:, featured: nil)
     return if orgs.blank? and repos.blank?
 
+    @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: false)
     orgs_for_search = orgs.map { |org| "org:" + org.name }.uniq
     repos_for_search = repos.map { |repo| "repo:" + repo.full_name }.uniq
-    query = "type:issue state:open label:\"help wanted\"" + orgs_for_search.join(" ") + " " + repos_for_search.join(" ")
-    @github_api = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"], auto_paginate: false)
-    result = @github_api.search_issues(query, { sort: "updated", per_page: 10 })
-    @issues = result.items.map { |github_issue| Issue.new github_issue }
+    help_wanted_query = "type:issue state:open label:\"help wanted\"" + orgs_for_search.join(" ") + " " + repos_for_search.join(" ")
+    help_wanted_result = @github_api.search_issues(help_wanted_query, { sort: "updated", per_page: 10 })
+    @issues = help_wanted_result.items.map { |github_issue| Issue.new github_issue }
+
+    if featured.present?
+      featured_query = "type:issue state:open label:\"help wanted\" label:\"#{featured}\"" + orgs_for_search.join(" ") + " " + repos_for_search.join(" ")
+      featured_result = @github_api.search_issues(featured_query, { sort: "updated", per_page: 10 })
+      featured_issues = featured_result.items.map { |github_issue| Issue.new github_issue }
+      @issues = featured_issues + @issues
+      @issues = @issues.uniq { |issue| issue.url }
+    end
   end
 
   def rate_limit
