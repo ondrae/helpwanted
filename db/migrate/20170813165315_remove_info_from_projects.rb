@@ -1,4 +1,4 @@
-class RemoveInfoFromProjects < ActiveRecord::Migration
+class RemoveInfoFromProjects < ActiveRecord::Migration[5.2]
   def change
     remove_column :projects, :name
     remove_column :projects, :description
