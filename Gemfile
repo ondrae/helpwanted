@@ -6,6 +6,9 @@ gem 'rails', '5.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
+# Use Airtable
+gem 'airtable'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
@@ -28,7 +31,7 @@ gem 'omniauth-github'
 gem "octokit"
 # gem 'graphql-client'
 
-#fontawesome
+# fontawesome
 gem 'font-awesome-sass'
 
 gem 'friendly_id'
