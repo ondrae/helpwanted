@@ -5,9 +5,9 @@ default: &default
 
 development:
   <<: *default
-  database: gitcollections_development
-  username: andrewhyder
-  password: <%= ENV['GITCOLLECTIONS_DATABASE_PASSWORD'] %>
+  database: postgres
+  username: postgres
+  password: pwd
   host: localhost
   port: 5432
 
